@@ -1,6 +1,6 @@
 # gourmandish
 
-https://gourmandish-client.vercel.app/
+https://gourmandish.vercel.app/
 
 Requirements:
 
