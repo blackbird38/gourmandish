@@ -1,0 +1,16 @@
+{
+  "name": "gourmandish-server",
+  "version": "1.0.0",
+  "description": "`npm run dev`",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon"
+  },
+  "author": "blackbird",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}

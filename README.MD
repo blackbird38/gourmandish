@@ -14,17 +14,21 @@ NODE: v14.15.1 - https://nodejs.org/en/download/
 
 ---
 
-installation:
+#installation:
 
 client: `npm install`
 
-start the server:
+server: `npm install`
+
+#start the servers:
 
 client (dev): `ng serve` + Navigate to `http://localhost:4200/`
 
 `ng build --prod`
 
 `ng test`
+
+server (dev): `npm run dev` + check if it works `http://localhost:3000/ping`
 
 ---
 
