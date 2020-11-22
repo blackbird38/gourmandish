@@ -14,11 +14,11 @@ NODE: v14.15.1 - https://nodejs.org/en/download/
 
 Install MongoDB: https://docs.mongodb.com/manual/installation/
 
-Install Compass: https://www.mongodb.com/products/compass  and create the database foodynessdb
+Install Compass: https://www.mongodb.com/products/compass and create the database foodynessdb
 
 MongoDB shell version: v4.4.2
 
-```mongo --version```
+`mongo --version`
 
 ---
 
@@ -37,6 +37,8 @@ client (dev): `ng serve` + Navigate to `http://localhost:4200/`
 `ng test`
 
 server (dev): `npm run dev` + check if it works `http://localhost:3000/ping`
+
+server: `npm run test`
 
 ---
 

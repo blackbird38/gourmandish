@@ -3,7 +3,7 @@ const app = require('./app');
 const port = process.env.PORT || 3000;
 
 app.get(`/ping`, (req, res) =>
-  res.status(200).send("Gourmandish backend working!")
+    res.status(200).send("Gourmandish backend working!")
 );
 
-app.listen(port, () => console.log(`Listening on port ${port}!`));
+app.listen(port, () => console.log(`Listening on port ${port}! Check http://localhost:3000/ping`));
