@@ -10,6 +10,43 @@ Install Compass: https://www.mongodb.com/products/compass  and create the databa
 
 add in env vars (win): path `"C:\Program Files\MongoDB\Server\4.4\bin"`
 
+---
+
+mongo shell (cmd: `mongo`):
+
+```
+
+> use gourmandishdb
+> db.createUser({
+    user: "user",
+    pwd: "user",
+    roles: [
+          { role: "readWrite", db: "gourmandishdb" }
+    ]
+  })
+
+```  
+
+should give:
+
+```
+
+  Successfully added user: {
+        "user" : "user",
+        "roles" : [
+                {
+                        "role" : "readWrite",
+                        "db" : "foodynessdb"
+                }
+        ]
+}
+
+---
+
+https://mongoosejs.com/
+
+`npm install mongoose --save`
+
 
 
 What are services?

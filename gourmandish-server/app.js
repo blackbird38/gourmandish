@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -22,5 +23,7 @@ if (process.env.NODE_ENV !== "test") {
     process.exit(1);
   });
 }
+
+app.use(bodyParser.json());
 
 module.exports = app;
