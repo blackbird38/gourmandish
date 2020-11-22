@@ -12,6 +12,14 @@ NODE: v14.15.1 - https://nodejs.org/en/download/
 
 `node -v`
 
+Install MongoDB: https://docs.mongodb.com/manual/installation/
+
+Install Compass: https://www.mongodb.com/products/compass  and create the database foodynessdb
+
+MongoDB shell version: v4.4.2
+
+```mongo --version```
+
 ---
 
 #installation:
