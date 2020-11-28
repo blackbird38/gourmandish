@@ -20,6 +20,19 @@ MongoDB shell version: v4.4.2
 
 `mongo --version`
 
+mongo shell (cmd: `mongo`):
+
+--- create the Mongo user that will be used for the connection to the MongoDB:---
+
+````> use gourmandishdb
+> db.createUser({
+    user: "root",
+    pwd: "root",
+    roles: [
+          { role: "readWrite", db: "gourmandishdb" }
+    ]
+  })```
+
 ---
 
 #installation:
@@ -87,3 +100,4 @@ Every DineUp (TO UPDATE later)
 ---
 
 Translation: en, fr, ro
+````
