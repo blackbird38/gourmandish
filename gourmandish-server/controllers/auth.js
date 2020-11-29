@@ -69,14 +69,14 @@ const signin = async (req, res, next) => {
       return bcrypt.compare(credentials.password, user.password); //returns a new promise
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       // chaining another call; result = the result of the bcrypt comparison; true/false
       const token = jwt.sign(
         { email: foundUser.email, userId: foundUser._id },
-        "secret_that_must_be_a_long_string",
+        process.env.JWT_SECRET_KEY,
         { expiresIn: "1h" }
       ); //creating a new token
-      console.log("token", token);
+      // console.log("token", token);
       res.status(200).json({
         token: token,
         expiresIn: 3600,
@@ -85,7 +85,7 @@ const signin = async (req, res, next) => {
     })
     .catch((error) => {
       // other errors
-      console.log(error);
+      // console.log(error);
       return res.status(401).json({
         message: "Authentification failed!",
       });

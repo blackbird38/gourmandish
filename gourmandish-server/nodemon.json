@@ -1,0 +1,5 @@
+{
+  "env": {
+    "JWT_SECRET_KEY": "secret_that_must_be_a_long_string"
+  }
+}
