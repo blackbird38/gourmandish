@@ -38,20 +38,31 @@ export class AuthService {
       {
         username,
       }
+      // { withCredentials: true } // makes sure the request is made and respects any cookies that are being received by the server
     );
   }
 
   signup(credentials: SignupCredentials): Observable<SignupResponse> {
     console.log(credentials);
     return this.httpClient
-      .post<SignupResponse>(`${this.apiUrl}/signup`, {
-        credentials,
-      })
+      .post<SignupResponse>(
+        `${this.apiUrl}/signup`,
+        { credentials: credentials }
+        //  { withCredentials: true }
+      )
       .pipe(
         // if there  is an error at the signup, it won't reach here
         tap(() => {
           this.signedIn$.next(true);
         })
       );
+  }
+
+  checkAuth() {
+    return this.httpClient.get(`${this.apiUrl}/signedin`).pipe(
+      tap((response) => {
+        console.log(response);
+      })
+    );
   }
 }

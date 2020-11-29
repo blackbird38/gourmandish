@@ -4,19 +4,41 @@
     <a routerLink="/" class="item">Gourmandish</a>
     <div class="right menu">
       <ng-container *ngIf="signedIn$ | async">
-        <a class="ui item" routerLink="/feed" routerLinkActive="active">Feed</a>
-        <a class="ui item" routerLink="/cookbook" routerLinkActive="active"
+        <a
+          class="ui item"
+          routerLink="/feed"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
+          >Feed</a
+        >
+        <a
+          class="ui item"
+          routerLink="/cookbook"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
           >My Cookbook</a
         >
-        <a class="ui item" routerLink="/signout" routerLinkActive="active"
+        <a
+          class="ui item"
+          routerLink="/signout"
+          routerLinkActive="active"
+          routerLinkActiveOptions="{ exact: true }"
           >Sign Out</a
         >
       </ng-container>
       <ng-container *ngIf="!(signedIn | async)">
-        <a class="ui item" routerLink="/signin" routerLinkActive="active"
+        <a
+          class="ui item"
+          routerLink="/signin"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
           >Sign In</a
         >
-        <a class="ui item" routerLink="/signup" routerLinkActive="active"
+        <a
+          class="ui item"
+          routerLink="/signup"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
           >Sign Up</a
         >
       </ng-container>
