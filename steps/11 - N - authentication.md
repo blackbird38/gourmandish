@@ -74,3 +74,19 @@ null = when everything is alright
 { "minlength": { "requiredLength": 3, "actualLength": 2 } } = when too short
 
 { "usernameNotAvailable": true } = when username not available
+
+---
+
+this.authForm.value in signup.componnet is an object with all the elements of the form:
+
+````{
+   avatar: ""
+   birthdate: ""
+​   email: ""
+​   firstName: ""
+   lastName: ""
+​   password: "sssss"
+​   passwordConfirmation: "sssss"
+​   username: "sssss"
+}```
+````

@@ -9,4 +9,5 @@ module.exports = (app) => {
   app.get("/api/users/nearby", userController.getAllNearby);
 
   app.post("/api/auth/username", authController.isUsernameAvailable);
+  app.post("/api/auth/signup", authController.signup);
 };

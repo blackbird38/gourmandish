@@ -15,4 +15,26 @@ const isUsernameAvailable = async (req, res, next) => {
     });
 };
 
-module.exports = { isUsernameAvailable };
+const signup = async (req, res, next) => {
+  console.log("[POST] api/auth/signup", {
+    username: req.body.credentials.username,
+  });
+  const { credentials } = req.body;
+  return await authDAL
+    .signup(credentials)
+    .then((savedUser) => {
+      if (savedUser) {
+        res.status(200).send({ username: savedUser.username });
+      }
+    })
+    .catch((error) => {
+      if (error.code === 11000) {
+        res.status(422).send({
+          user:
+            "Account not created. Either the username or the email already exist.",
+        });
+      }
+    });
+};
+
+module.exports = { isUsernameAvailable, signup };

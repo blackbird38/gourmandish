@@ -1,5 +1,5 @@
 <h3>Create an account</h3>
-<form class="ui form" [formGroup]="authForm">
+<form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
   <app-input
     inputType="text"
     label="Username"
@@ -54,6 +54,10 @@
     class="ui red basic label"
   >
     <p *ngIf="authForm.errors.passwordsNotMatching">Password don't match.</p>
+    <p *ngIf="authForm.errors.accountNotCreated">
+      Your account was not created. Email or username already exist.
+    </p>
+    <p *ngIf="authForm.errors.unknownError">Unknown error.</p>
   </div>
   <div>
     <button class="ui submit button primary">Submit</button>
