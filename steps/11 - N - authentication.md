@@ -10,4 +10,26 @@ jwt.io:
 
 `npm install bulma`
 
---- using reactive forms ---
+---
+
+ng g m Auth --routing
+
+ng g m Shared
+
+ng g c auth/Signin
+
+ng g c auth/Signup
+
+ng g c shared/Input
+
+in imports: ReactiveFormsModule in auth.module.ts
+
+---
+
+npm install semantic-ui-css
+
+add in styles.css:
+
+@import "semantic-ui-css/semantic.css"
+
+---

@@ -8,21 +8,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { HeaderComponent } from './components/header/header.component'; 
-import { MatIconModule } from '@angular/material/icon'; 
-import { MatSidenavModule } from '@angular/material/sidenav'; 
+import { HeaderComponent } from './components/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { SignupComponent } from './components/auth/signup/signup.component'; 
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    HeaderComponent,
-    SignupComponent
-  ],
+  declarations: [AppComponent, HomeComponent, HeaderComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -31,10 +24,10 @@ import { SignupComponent } from './components/auth/signup/signup.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    AppRoutingModule
-    
+    AppRoutingModule,
+    AuthModule, // eager loading - loaded immediately
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
