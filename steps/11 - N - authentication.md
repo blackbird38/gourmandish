@@ -33,3 +33,5 @@ add in styles.css:
 @import "semantic-ui-css/semantic.css"
 
 ---
+
+ng g class auth/validators/MatchPassword

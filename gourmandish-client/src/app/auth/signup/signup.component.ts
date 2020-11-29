@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatchPassword } from '../validators/match-password';
 
 @Component({
   selector: 'app-signup',
@@ -7,31 +8,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  authForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.minLength(20),
-      Validators.pattern(/^[a-z0-9]+$/),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.minLength(20),
-    ]),
-    passwordConfirmation: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.minLength(20),
-    ]),
-    email: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    birthdate: new FormControl(''),
-    avatar: new FormControl(''),
-  });
+  authForm = new FormGroup(
+    {
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.minLength(20),
+        Validators.pattern(/^[a-z0-9]+$/),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.minLength(20),
+      ]),
+      passwordConfirmation: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.minLength(20),
+      ]),
+      email: new FormControl(''),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      birthdate: new FormControl(''),
+      avatar: new FormControl(''),
+    },
+    { validators: [this.matchPassword.validate] }
+  );
 
-  constructor() {}
+  constructor(private matchPassword: MatchPassword) {}
 
   ngOnInit(): void {}
 }
