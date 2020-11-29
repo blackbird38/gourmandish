@@ -21,7 +21,7 @@ export class UniqueUsername implements AsyncValidator {
       catchError((error) => {
         // gets here if http response is 422
         return error.error.username
-          ? of({ availableUsername: false })
+          ? of({ usernameNotAvailable: true })
           : of({ noConnection: 'No connection.' });
       })
     );

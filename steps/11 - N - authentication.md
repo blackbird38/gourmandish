@@ -59,4 +59,18 @@ next();
 
 ng g service auth/Auth
 
----
+---debugging - the errors object:---------
+
+{{ authForm.get("username").errors | json }}
+
+null = when everything is alright
+
+{ "usernameNotAvailable": true } = when empty
+
+{ "pattern": { "requiredPattern": "/^[a-z0-9]+$/", "actualValue": "sss!" } } = when invalid format
+
+{ "maxlength": { "requiredLength": 20, "actualLength": 33 } } = when too long
+
+{ "minlength": { "requiredLength": 3, "actualLength": 2 } } = when too short
+
+{ "usernameNotAvailable": true } = when username not available

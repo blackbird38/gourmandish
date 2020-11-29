@@ -1,45 +1,47 @@
 <h3>Create an account</h3>
 <form class="ui form" [formGroup]="authForm">
-  <div class="field">
-    <label>Username</label>
-    <input formControlName="username" />
-  </div>
-  {{ authForm.get("username").errors | json }}
-  <div class="field">
-    <label>Password</label>
-    <input formControlName="password" />
-  </div>
-  {{ authForm.get("password").errors | json }}
-  <div class="field">
-    <label>Password confirmation</label>
-    <input formControlName="passwordConfirmation" />
-  </div>
-  {{ authForm.get("passwordConfirmation").errors | json }}
-  <div class="field">
-    <label>Email</label>
-    <input formControlName="email" />
-  </div>
-  <div class="field">
-    <label>First Name</label>
-    <input formControlName="firstName" />
-  </div>
-  <div class="field">
-    <label>Last Name</label>
-    <input formControlName="lastName" />
-  </div>
-  <div class="field">
-    <label>Birthdate</label>
-    <input formControlName="birthdate" />
-  </div>
+  <app-input
+    inputType="text"
+    label="Username"
+    [control]="authForm.get('username')"
+  ></app-input>
+  <app-input
+    inputType="password"
+    label="Password"
+    [control]="authForm.get('password')"
+  ></app-input>
+  <app-input
+    inputType="password"
+    label="Password confirmation"
+    [control]="authForm.get('passwordConfirmation')"
+  ></app-input>
+  <app-input
+    inputType="email"
+    label="Email"
+    [control]="authForm.get('email')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    label="First Name"
+    [control]="authForm.get('firstName')"
+  ></app-input>
+  <app-input
+    inputType="text"
+    label="Last Name"
+    [control]="authForm.get('lastName')"
+  ></app-input>
+  <app-input
+    inputType="date"
+    label="Birthdate"
+    [control]="authForm.get('birthdate')"
+    value="2018-07-22"
+    min="1900-01-01"
+    max="2020-12-31"
+  ></app-input>
+
   <div class="field">
     <label>Avatar</label>
-    <input
-      formControlName="avatar"
-      type="date"
-      value="2018-07-22"
-      min="1900-01-01"
-      max="2020-12-31"
-    />
+    <input formControlName="avatar" type="file" />
     <input />
   </div>
   <button class="ui submit button primary">Submit</button>
