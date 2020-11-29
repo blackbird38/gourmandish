@@ -1,3 +1,26 @@
 <!-- <app-header></app-header> -->
-
-<router-outlet></router-outlet>
+<div class="ui container">
+  <div class="ui secondary pointing menu">
+    <a routerLink="/" class="item">Gourmandish</a>
+    <div class="right menu">
+      <ng-container *ngIf="signedIn">
+        <a class="ui item" routerLink="/feed" routerLinkActive="active">Feed</a>
+        <a class="ui item" routerLink="/cookbook" routerLinkActive="active"
+          >My Cookbook</a
+        >
+        <a class="ui item" routerLink="/signout" routerLinkActive="active"
+          >Sign Out</a
+        >
+      </ng-container>
+      <ng-container *ngIf="!signedIn">
+        <a class="ui item" routerLink="/signin" routerLinkActive="active"
+          >Sign In</a
+        >
+        <a class="ui item" routerLink="/signup" routerLinkActive="active"
+          >Sign Up</a
+        >
+      </ng-container>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
