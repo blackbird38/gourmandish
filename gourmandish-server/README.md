@@ -79,3 +79,5 @@ win: `"test": "SET NODE_ENV=test && nodemon --exec "mocha -R min"",`
 with:
 
 ubuntu: `"test": "NODE_ENV=test && nodemon --exec 'mocha -R min'",`
+
+to run the tests in the container, just get to the container's shell and run `npm run test`

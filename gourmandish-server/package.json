@@ -4,7 +4,8 @@
   "description": "`npm run dev`",
   "main": "index.js",
   "scripts": {
-    "test": "SET NODE_ENV=test && nodemon --exec \"mocha -R min\"",
+    "test-win": "SET NODE_ENV=test && nodemon --exec \"mocha -R min\"",
+    "test": "NODE_ENV=test && nodemon --exec 'mocha -R min'",
     "dev": "nodemon"
   },
   "author": "blackbird",
