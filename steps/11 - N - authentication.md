@@ -35,3 +35,28 @@ add in styles.css:
 ---
 
 ng g class auth/validators/MatchPassword
+
+ng g class auth/validators/UniqueUsername
+
+---- fixed cors issue (NS_ERROR_DOM_BAD_URI) ----
+
+app.js
+
+app.use((req, res, next) => {
+res.setHeader('Access-Control-Allow-Origin', '\*');
+res.setHeader(
+'Access-Control-Allow-Headers',
+'Origin, X-Requested-Width, Content-Type, Accept, Authorization'
+);
+res.setHeader(
+'Access-Control-Allow-Methods',
+'GET, POST, PATCH, DELETE, PUT, OPTIONS'
+);
+next();
+});
+
+---
+
+ng g service auth/Auth
+
+---
