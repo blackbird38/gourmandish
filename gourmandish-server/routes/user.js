@@ -10,4 +10,5 @@ module.exports = (app) => {
 
   app.post("/api/auth/username", authController.isUsernameAvailable);
   app.post("/api/auth/signup", authController.signup);
+  app.post("/api/auth/signin", authController.signin);
 };

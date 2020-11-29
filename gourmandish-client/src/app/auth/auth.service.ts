@@ -23,6 +23,11 @@ interface SignupResponse {
   username: string;
 }
 
+interface SigninCredentials {
+  username: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -47,6 +52,22 @@ export class AuthService {
     return this.httpClient
       .post<SignupResponse>(
         `${this.apiUrl}/signup`,
+        { credentials: credentials }
+        //  { withCredentials: true }
+      )
+      .pipe(
+        // if there  is an error at the signup, it won't reach here
+        tap(() => {
+          this.signedIn$.next(true);
+        })
+      );
+  }
+
+  signin(credentials: SigninCredentials): Observable<any> {
+    console.log(credentials);
+    return this.httpClient
+      .post<any>(
+        `${this.apiUrl}/signin`,
         { credentials: credentials }
         //  { withCredentials: true }
       )

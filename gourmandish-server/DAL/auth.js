@@ -12,7 +12,13 @@ const signup = async (credentials) => {
   return createdUser;
 };
 
+const signin = async (username) => {
+  const foundUser = User.findOne({ username });
+  return foundUser;
+};
+
 module.exports = {
   isUsernameAvailable,
   signup,
+  signin,
 };
