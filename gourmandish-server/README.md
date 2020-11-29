@@ -78,4 +78,4 @@ win: `"test": "SET NODE_ENV=test && nodemon --exec "mocha -R min"",`
 
 with:
 
-ubuntu: `"test": NODE_ENV=test && nodemon --exec 'mocha -R min',`
+ubuntu: `"test": "NODE_ENV=test && nodemon --exec 'mocha -R min'",`
