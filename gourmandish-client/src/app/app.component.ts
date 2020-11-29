@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -7,13 +8,11 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  signedIn = false;
+  signedIn$: BehaviorSubject<boolean>;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.authService.signedIn$.subscribe((signedIn) => {
-      this.signedIn = signedIn;
-    });
+  constructor(private authService: AuthService) {
+    this.signedIn$ = this.authService.signedIn$;
   }
+
+  ngOnInit() {}
 }

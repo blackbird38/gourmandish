@@ -3,7 +3,7 @@
   <div class="ui secondary pointing menu">
     <a routerLink="/" class="item">Gourmandish</a>
     <div class="right menu">
-      <ng-container *ngIf="signedIn">
+      <ng-container *ngIf="signedIn$ | async">
         <a class="ui item" routerLink="/feed" routerLinkActive="active">Feed</a>
         <a class="ui item" routerLink="/cookbook" routerLinkActive="active"
           >My Cookbook</a
@@ -12,7 +12,7 @@
           >Sign Out</a
         >
       </ng-container>
-      <ng-container *ngIf="!signedIn">
+      <ng-container *ngIf="!(signedIn | async)">
         <a class="ui item" routerLink="/signin" routerLinkActive="active"
           >Sign In</a
         >
