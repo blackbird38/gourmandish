@@ -7,7 +7,7 @@ export class MatchPassword implements Validator {
     const { password, passwordConfirmation } = formGroup.value;
     return password === passwordConfirmation
       ? null
-      : { passwordNotMatching: true };
+      : { passwordsNotMatching: true };
   }
 }
 

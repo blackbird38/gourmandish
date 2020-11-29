@@ -39,12 +39,23 @@
     max="2020-12-31"
   ></app-input>
 
-  <div class="field">
-    <label>Avatar</label>
-    <input formControlName="avatar" type="file" />
-    <input />
-  </div>
-  <button class="ui submit button primary">Submit</button>
-</form>
+  <app-input
+    inputType="file"
+    label="Avatar"
+    [control]="authForm.get('avatar')"
+  ></app-input>
 
-{{ authForm.errors | json }}
+  <div
+    *ngIf="
+      authForm.get('password').touched &&
+      authForm.get('passwordConfirmation').touched &&
+      authForm.errors
+    "
+    class="ui red basic label"
+  >
+    <p *ngIf="authForm.errors.passwordsNotMatching">Password don't match.</p>
+  </div>
+  <div>
+    <button class="ui submit button primary">Submit</button>
+  </div>
+</form>
