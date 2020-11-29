@@ -6,7 +6,7 @@ https://www.mongodb.com/try/download/community?tck=docs_server
 
 install MongoDB as service - run service as network service + install Compass
 
-Install Compass: https://www.mongodb.com/products/compass  and create the database foodynessdb
+Install Compass: https://www.mongodb.com/products/compass and create the database foodynessdb
 
 add in env vars (win): path `"C:\Program Files\MongoDB\Server\4.4\bin"`
 
@@ -14,25 +14,25 @@ add in env vars (win): path `"C:\Program Files\MongoDB\Server\4.4\bin"`
 
 mongo shell (cmd: `mongo`):
 
-```
+--- create the Mongo user that will be used for the connection to the MongoDB:---
 
-> use gourmandishdb
+````> use gourmandishdb
 > db.createUser({
-    user: "user",
-    pwd: "user",
+    user: "root",
+    pwd: "root",
     roles: [
           { role: "readWrite", db: "gourmandishdb" }
     ]
-  })
+  })```
 
-```  
+```
 
 should give:
 
 ```
 
   Successfully added user: {
-        "user" : "user",
+        "user" : "root",
         "roles" : [
                 {
                         "role" : "readWrite",
@@ -62,3 +62,5 @@ So, what is the difference between a network service and a local service?
 Running MongoDB as a network service means that your service will have permission to access the network with the same credentials as the computer you are using. Running MongoDB locally will run the service without network connectivity.
 
 https://mohamedradwan.com/2013/09/29/local-system-vs-network-service-vs-local-service-and-tfs-service-accounts/
+```
+````
