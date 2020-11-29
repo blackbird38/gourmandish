@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const authDAL = require("../DAL/auth");
 
@@ -20,21 +21,26 @@ const signup = async (req, res, next) => {
     username: req.body.credentials.username,
   });
   const { credentials } = req.body;
-  return await authDAL
-    .signup(credentials)
-    .then((savedUser) => {
-      if (savedUser) {
-        res.status(200).send({ username: savedUser.username });
-      }
-    })
-    .catch((error) => {
-      if (error.code === 11000) {
-        res.status(422).send({
-          user:
-            "Account not created. Either the username or the email already exist.",
-        });
-      }
-    });
+
+  bcrypt.hash(credentials.password, 10).then(async (encryptedPassword) => {
+    credentials.password = encryptedPassword;
+    console.log(credentials);
+    return await authDAL
+      .signup(credentials)
+      .then((savedUser) => {
+        if (savedUser) {
+          res.status(200).send({ username: savedUser.username });
+        }
+      })
+      .catch((error) => {
+        if (error.code === 11000) {
+          res.status(422).send({
+            user:
+              "Account not created. Either the username or the email already exist.",
+          });
+        }
+      });
+  });
 };
 
 module.exports = { isUsernameAvailable, signup };

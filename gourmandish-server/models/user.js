@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+//const uniqueValidator = require("mongoose-unique-validator"); // a plugin that acts as a hook that checks the data before it's saved into the db
 const Schema = mongoose.Schema;
 /*
 const PointSchema = new Schema({
@@ -19,7 +20,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     // required: true,
-    unique: true,
+    unique: true, // unique does not act as a validator when aving data into db, unlike required
   },
   email: {
     type: String,
@@ -39,8 +40,11 @@ const UserSchema = new Schema({
     type: String,
     // required: false
   },
+
+  //TODO: createdAt
 });
 
 const User = mongoose.model("User", UserSchema);
+// UserSchema.plugin(uniqueValidator); // now an error will be threw if we try to save a user with an email that already exists
 
 module.exports = User;
