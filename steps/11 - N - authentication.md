@@ -121,3 +121,5 @@ ng g c auth/AuthHttpInterceptor
   "urlWithParams": "http://localhost:3000/api/auth/signin"
 }```
 ````
+
+npm install jwt-decode --save

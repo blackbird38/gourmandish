@@ -111,9 +111,8 @@ const signIn = async (req, res, next) => {
   const token = generateToken(foundUser.email, foundUser._id);
 
   res.status(200).json({
-    tokenData: {
+    authData: {
       token: token,
-      expiresIn: 3600,
       userId: foundUser._id,
     },
     message: "Authentication successful.",

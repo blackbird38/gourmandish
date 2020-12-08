@@ -31,10 +31,10 @@ export class SigninComponent implements OnInit {
     if (this.authForm.invalid) {
       return;
     }
-    console.log(this.authForm.value);
+    //  console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate(['home']);
       },
       error: (error) => {
