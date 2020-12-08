@@ -15,6 +15,8 @@
       entered is {{ control.errors.maxlength.actualLength }}.
     </p>
     <p *ngIf="control.errors.pattern">Invalid format.</p>
-    <p *ngIf="control.errors.usernameNotAvailable">Username is taken.</p>
+    <p *ngIf="control.errors.usernameNotAvailable">
+      This username is already taken.
+    </p>
   </div>
 </div>

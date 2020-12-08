@@ -90,3 +90,34 @@ this.authForm.value in signup.componnet is an object with all the elements of th
 ​   username: "sssss"
 }```
 ````
+
+ng g c auth/AuthHttpInterceptor
+
+// req: contains the info of the request: the url, the info we're sending:
+
+````{
+  "url": "http://localhost:3000/api/auth/signin",
+  "body": {
+    "credentials": {
+      "username": "blackbird",
+      "password": "blackbird"
+    }
+  },
+  "reportProgress": false,
+  "withCredentials": false,
+  "responseType": "json",
+  "method": "POST",
+  "headers": {
+    "normalizedNames": {},
+    "lazyUpdate": null,
+    "headers": {}
+  },
+  "params": {
+    "updates": null,
+    "cloneFrom": null,
+    "encoder": {},
+    "map": null
+  },
+  "urlWithParams": "http://localhost:3000/api/auth/signin"
+}```
+````

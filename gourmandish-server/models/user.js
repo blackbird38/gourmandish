@@ -8,41 +8,42 @@ const PointSchema = new Schema({
 });
 */
 
-const UserSchema = new Schema({
-  firstName: {
-    type: String,
-    // required: true
+const UserSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      // required: true
+    },
+    lastName: {
+      type: String,
+      // required: true
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true, // unique does not act as a validator when aving data into db, unlike required
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      // required: true
+    },
+    // location: PointSchema,
+    roles: {
+      type: Array,
+      //  required: true
+    },
+    avatar: {
+      type: String,
+      // required: false
+    },
   },
-  lastName: {
-    type: String,
-    // required: true
-  },
-  username: {
-    type: String,
-    // required: true,
-    unique: true, // unique does not act as a validator when aving data into db, unlike required
-  },
-  email: {
-    type: String,
-    //  required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    // required: true
-  },
-  // location: PointSchema,
-  roles: {
-    type: Array,
-    //  required: true
-  },
-  avatar: {
-    type: String,
-    // required: false
-  },
-
-  //TODO: createdAt
-});
+  { timestamps: true }
+);
 
 const User = mongoose.model("User", UserSchema);
 // UserSchema.plugin(uniqueValidator); // now an error will be threw if we try to save a user with an email that already exists

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,11 +10,11 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
   authForm = new FormGroup({
-    username: new FormControl('', [
+    usernameOrEmail: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
-      Validators.pattern(/^[a-z0-9]+$/),
+      //Validators.pattern(/^[a-z0-9]+$/), // TODO: || email
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -22,7 +23,7 @@ export class SigninComponent implements OnInit {
     ]),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -30,19 +31,25 @@ export class SigninComponent implements OnInit {
     if (this.authForm.invalid) {
       return;
     }
+    console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
       next: (response) => {
-        // navigate to feed
         console.log(response);
+        this.router.navigate(['home']);
       },
       error: (error) => {
+        //   console.log(error.error);
+        this.authForm.setErrors({ notSignedIn: error.error.message }); // 422 or 401
+        /*
         if (error.status === 422) {
           // there is a status (eg 422)
-          this.authForm.setErrors({ accountNotCreated: error.error.user });
+          this.authForm.setErrors({ notSignedIn: error.error.message });
         } else {
           this.authForm.setErrors({ unknownError: 'Unknown error.' });
-        }
+        }*/
       },
     });
   }
 }
+
+// TODO: add notifications

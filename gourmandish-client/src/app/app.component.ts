@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -7,14 +6,16 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  signedIn$: BehaviorSubject<boolean>;
+export class AppComponent implements OnInit, OnDestroy {
+  signedIn: boolean = false;
 
-  constructor(private authService: AuthService) {
-    this.signedIn$ = this.authService.signedIn$;
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    //this.authService.checkAuth().subscribe(() => {});
+    this.authService.signedIn$.subscribe((signedIn) => {
+      this.signedIn = signedIn;
+    });
   }
+
+  ngOnDestroy() {}
 }

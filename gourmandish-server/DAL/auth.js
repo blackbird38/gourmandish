@@ -5,20 +5,30 @@ const isUsernameAvailable = async (username) => {
   return foundUsername === null ? true : false;
 };
 
-const signup = async (credentials) => {
+const saveUser = async (credentials) => {
   const newUser = new User(credentials);
   const createdUser = await newUser.save();
   //console.log(createdUser);
-  return createdUser;
+  return createdUser._doc;
 };
 
-const signin = async (username) => {
-  const foundUser = User.findOne({ username });
+const findByUsernameOrEmail = async (usernameOrEmail) => {
+  var foundUser = await User.findOne({
+    $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+  });
+  return foundUser;
+};
+
+const find = async (username, email) => {
+  const foundUser = await User.findOne({
+    $or: [{ username: username }, { email: email }],
+  });
   return foundUser;
 };
 
 module.exports = {
   isUsernameAvailable,
-  signup,
-  signin,
+  saveUser,
+  findByUsernameOrEmail,
+  find,
 };

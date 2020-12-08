@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-interface UsernameAvailableResponse {
-  available: boolean;
+export interface UsernameAvailableResponse {
+  isUsernameAvailable: boolean;
 }
 
 interface SignupCredentials {
@@ -24,8 +24,13 @@ interface SignupResponse {
 }
 
 interface SigninCredentials {
-  username: string;
+  usernameOrEmail: string;
   password: string;
+}
+
+interface SigninResponse {
+  tokenData: { token: string; expiresIn: number; userId: string };
+  message: string;
 }
 
 @Injectable({
@@ -33,57 +38,41 @@ interface SigninCredentials {
 })
 export class AuthService {
   apiUrl: string = 'http://localhost:3000/api/auth';
-  signedIn$ = new BehaviorSubject(false);
+  signedIn$ = new BehaviorSubject(false); // will push the signedIn info to the interested components, the latest value, even to the ones subscribed after it was emitted
+  private token: string;
 
   constructor(private httpClient: HttpClient) {}
 
   isUsernameAvailable(username: string): Observable<UsernameAvailableResponse> {
     return this.httpClient.post<UsernameAvailableResponse>(
       `${this.apiUrl}/username`,
-      {
-        username,
-      }
-      // { withCredentials: true } // makes sure the request is made and respects any cookies that are being received by the server
+      { username }
     );
   }
 
   signup(credentials: SignupCredentials): Observable<SignupResponse> {
-    console.log(credentials);
+    //console.log(credentials);
     return this.httpClient
-      .post<SignupResponse>(
-        `${this.apiUrl}/signup`,
-        { credentials: credentials }
-        //  { withCredentials: true }
-      )
+      .post<SignupResponse>(`${this.apiUrl}/signup`, { credentials })
       .pipe(
         // if there  is an error at the signup, it won't reach here
         tap(() => {
-          this.signedIn$.next(true);
+          // this.signedIn$.next(true);
         })
       );
   }
 
-  signin(credentials: SigninCredentials): Observable<any> {
-    console.log(credentials);
+  signin(credentials: SigninCredentials): Observable<SigninResponse> {
+    //console.log(credentials);
     return this.httpClient
-      .post<any>(
-        `${this.apiUrl}/signin`,
-        { credentials: credentials }
-        //  { withCredentials: true }
-      )
+      .post<SigninResponse>(`${this.apiUrl}/signin`, { credentials })
       .pipe(
-        // if there  is an error at the signup, it won't reach here
-        tap(() => {
-          this.signedIn$.next(true);
+        // if there  is an error at the signup, it won't reach here and signedIn will stay false
+        tap((result) => {
+          console.log(result);
+          this.token = result.tokenData.token;
+          this.signedIn$.next(true); // letting all know the user is authenticated
         })
       );
-  }
-
-  checkAuth() {
-    return this.httpClient.get(`${this.apiUrl}/signedin`).pipe(
-      tap((response) => {
-        console.log(response);
-      })
-    );
   }
 }

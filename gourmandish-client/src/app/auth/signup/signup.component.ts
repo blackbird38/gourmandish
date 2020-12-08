@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatchPassword } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
@@ -32,7 +33,7 @@ export class SignupComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(20),
       ]),
-      email: new FormControl(''),
+      email: new FormControl('', [Validators.required]),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       birthdate: new FormControl(''),
@@ -44,26 +45,32 @@ export class SignupComponent implements OnInit {
   constructor(
     private matchPassword: MatchPassword,
     private uniqueUsername: UniqueUsername,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.authForm.invalid) {
+      console.log(this.authForm);
       return;
     }
     this.authService.signup(this.authForm.value).subscribe({
       next: (response) => {
-        // navigate to login
+        //200
+        console.log(response);
+        this.router.navigate(['signin']);
       },
       error: (error) => {
-        if (error.status === 422) {
+        console.log(error.error.message);
+        this.authForm.setErrors({ accountNotCreated: error.error.message });
+        /* if (error.status === 422) { 
           // there is a status (eg 422)
           this.authForm.setErrors({ accountNotCreated: error.error.user });
         } else {
           this.authForm.setErrors({ unknownError: 'Unknown error.' });
-        }
+        }*/
       },
     });
   }
