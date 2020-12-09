@@ -79,7 +79,7 @@ null = when everything is alright
 
 this.authForm.value in signup.componnet is an object with all the elements of the form:
 
-````{
+`````{
    avatar: ""
    birthdate: ""
 ​   email: ""
@@ -89,9 +89,13 @@ this.authForm.value in signup.componnet is an object with all the elements of th
 ​   passwordConfirmation: "sssss"
 ​   username: "sssss"
 }```
-````
+```
 
-ng g c auth/AuthHttpInterceptor
+npm install jwt-decode --save
+
+----
+
+ng g class auth/AuthHttpInterceptor
 
 // req: contains the info of the request: the url, the info we're sending:
 
@@ -99,7 +103,7 @@ ng g c auth/AuthHttpInterceptor
   "url": "http://localhost:3000/api/auth/signin",
   "body": {
     "credentials": {
-      "username": "blackbird",
+      "usernameOrEmail": "blackbird",
       "password": "blackbird"
     }
   },
@@ -120,6 +124,4 @@ ng g c auth/AuthHttpInterceptor
   },
   "urlWithParams": "http://localhost:3000/api/auth/signin"
 }```
-````
-
-npm install jwt-decode --save
+`````

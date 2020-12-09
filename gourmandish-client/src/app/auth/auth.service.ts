@@ -43,6 +43,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {
     if (this.isValidTokenOnLocalStorage()) {
+      this.token = this.getLocalStorageToken();
       this.signedIn$.next(true);
     }
   }
@@ -87,7 +88,7 @@ export class AuthService {
   }
 
   isValidTokenOnLocalStorage() {
-    const token = localStorage.getItem('token');
+    const token = this.getLocalStorageToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);
       const d = new Date(0);
@@ -95,5 +96,13 @@ export class AuthService {
       console.log('SignIn Token will expire on: ', d);
       return decodedToken.exp > new Date().getTime() / 1000 ? true : false; // return true if valid token
     }
+  }
+
+  getLocalStorageToken() {
+    return localStorage.getItem('token');
+  }
+
+  getToken() {
+    return this.token;
   }
 }

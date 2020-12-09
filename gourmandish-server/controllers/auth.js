@@ -77,7 +77,7 @@ const signIn = async (req, res, next) => {
 
   const { credentials } = req.body;
 
-  console.log(req.body);
+  // console.log(req.headers);
 
   if (!isSignInDataValid(credentials.usernameOrEmail, credentials.password)) {
     res.status(401).send({
