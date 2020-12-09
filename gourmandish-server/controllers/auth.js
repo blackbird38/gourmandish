@@ -1,20 +1,16 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const authDAL = require("../DAL/auth");
+const authService = require("../services/auth");
 
 const isUsernameAvailable = async (req, res, next) => {
   console.log("[POST] api/auth/username", { username: req.body.username });
-  const { username } = req.body;
-  return await authDAL
-    .isUsernameAvailable(username)
-    .then((isUsernameAvailable) => {
-      if (isUsernameAvailable) {
-        res.status(200).send({ isUsernameAvailable });
-      } else {
-        res.status(422).send({ message: "The username is not available." });
-      }
-    });
+  try {
+    const { username } = req.body;
+    return await authService.isUsernameAvailable(username);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
 };
 
 const signUp = async (req, res, next) => {
