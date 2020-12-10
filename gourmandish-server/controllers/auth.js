@@ -1,13 +1,11 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
 const authService = require("../services/auth");
 
 const isUsernameAvailable = async (req, res, next) => {
   console.log("[POST] api/auth/username", { username: req.body.username });
   try {
     const { username } = req.body;
-    return await authService.isUsernameAvailable(username);
+    const result = await authService.isUsernameAvailable(username);
+    res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ message: e.message });
   }
@@ -18,120 +16,29 @@ const signUp = async (req, res, next) => {
     credentials: req.body.credentials,
   });
 
-  const { credentials } = req.body;
-
-  if (
-    !isSignUpDataValid(
-      credentials.username,
-      credentials.email,
-      credentials.password
-    )
-  ) {
-    {
-      res.status(401).send({
-        message: "Invalid data. Make sure each field has a valid value.",
-      });
-    }
+  try {
+    const { credentials } = req.body;
+    const result = await authService.signUp(credentials);
+    res.status(result.code).send(result.payload);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e.message });
   }
-
-  const foundUser = await authDAL
-    .find(credentials.username, credentials.email)
-    .catch((error) => {
-      console.log(error);
-      res.status(422).send({
-        message: "Something went wrong.",
-      });
-    });
-
-  if (foundUser != null) {
-    let message;
-    if (credentials.email === foundUser.email) {
-      message = "Email already in use.";
-    } else {
-      message = "Username already in use.";
-    }
-    res.status(401).send({ message });
-  }
-
-  bcrypt.hash(credentials.password, 10).then(async (encryptedPassword) => {
-    const newUser = { ...credentials };
-    newUser.password = encryptedPassword;
-    newUser.roles = ["user"];
-    return await authDAL.saveUser(newUser).then((savedUser) => {
-      if (savedUser) {
-        res.status(200).send({
-          user: { ...savedUser }, //TODO: remove password from here
-          message: "Successful signup.",
-        });
-      }
-    });
-  });
 };
 
 const signIn = async (req, res, next) => {
   console.log("[POST] api/auth/signin");
 
-  const { credentials } = req.body;
+  try {
+    const { credentials } = req.body;
+    // console.log(req.headers);
 
-  // console.log(req.headers);
-
-  if (!isSignInDataValid(credentials.usernameOrEmail, credentials.password)) {
-    res.status(401).send({
-      message: "Invalid data. Make sure each field has a valid value.",
-    });
+    const result = await authService.signIn(credentials);
+    res.status(result.code).send(result.payload);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: e.message });
   }
-
-  const foundUser = await authDAL
-    .findByUsernameOrEmail(credentials.usernameOrEmail)
-    .catch((error) => {
-      console.log(error);
-      res.status(422).send({
-        message: "Something went wrong.",
-      });
-    });
-
-  console.log(foundUser);
-
-  if (foundUser === null) {
-    return res.status(401).json({
-      message: "Authentification failed! User not found.",
-    });
-  }
-
-  if (!(await isPasswordValid(credentials.password, foundUser.password))) {
-    return res.status(401).json({
-      message: "Authentification failed! Wrong password.",
-    });
-  }
-
-  const token = generateToken(foundUser.email, foundUser._id);
-
-  res.status(200).json({
-    authData: {
-      token: token,
-      userId: foundUser._id,
-    },
-    message: "Authentication successful.",
-  });
-};
-
-const isSignUpDataValid = (username, email, password) => {
-  return username && email && password;
-};
-
-const isSignInDataValid = (usernameOrEmail, password) => {
-  return usernameOrEmail && password;
-};
-
-const isPasswordValid = async (loginPassword, dbPassword) => {
-  return await bcrypt.compare(loginPassword, dbPassword);
-};
-
-const generateToken = (email, userId) => {
-  const token = jwt.sign({ email, userId }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1h",
-  });
-  return token;
 };
 
 module.exports = { isUsernameAvailable, signUp, signIn };
