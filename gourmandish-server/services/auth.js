@@ -94,7 +94,7 @@ const signIn = async (credentials) => {
   const foundUser = await authDAL.findByUsernameOrEmail(
     credentials.usernameOrEmail
   );
-  // console.log(foundUser);
+
   if (foundUser === null) {
     throw new Error(
       JSON.stringify({

@@ -8,7 +8,6 @@ const isUsernameAvailable = async (username) => {
 const saveUser = async (credentials) => {
   const newUser = new User(credentials);
   const createdUser = await newUser.save();
-  //console.log(createdUser);
   return createdUser._doc;
 };
 
