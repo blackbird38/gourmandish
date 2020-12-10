@@ -65,7 +65,9 @@
     <p *ngIf="authForm.errors.accountNotCreated">
       {{ authForm.errors.accountNotCreated }}
     </p>
-    <p *ngIf="authForm.errors.unknownError">Unknown error.</p>
+    <p *ngIf="authForm.errors.unknownError">
+      {{ authForm.errors.unknownError }}
+    </p>
   </div>
   <div>
     <button class="ui submit button primary">Submit</button>

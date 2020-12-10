@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -33,7 +32,8 @@ export class AuthService {
   signup(credentials: SignupCredentials): Observable<SignupResponse> {
     return this.authWebservice.signup(credentials).pipe(
       // if there  is an error at the signup, it won't reach here
-      tap(() => {
+      tap((result: SignupResponse): void => {
+        // console.log(result);
         // this.signedIn$.next(true);
       })
     );
@@ -43,10 +43,10 @@ export class AuthService {
     //console.log(credentials);
     return this.authWebservice.signin(credentials).pipe(
       // if there  is an error at the signup, it won't reach here and signedIn will stay false
-      tap((result) => {
-        console.log(result);
+      tap((result: SigninResponse): void => {
+        //console.log(result);
         this.token = result.authData.token;
-        localStorage.setItem('token', JSON.stringify(result.authData.token));
+        this.setLocalStorageToken(result.authData.token);
         this.signedIn$.next(true); // letting all know the user is authenticated
       })
     );
@@ -61,10 +61,8 @@ export class AuthService {
     const token = this.getLocalStorageToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);
-      const d = new Date(0);
-      d.setUTCSeconds(decodedToken.exp);
-      console.log('SignIn Token will expire on: ', d);
-      return decodedToken.exp > new Date().getTime() / 1000 ? true : false; // return true if valid token
+      this.printExpiringTokenDate(decodedToken.exp);
+      return this.isTokenValid(decodedToken.exp);
     }
   }
 
@@ -72,7 +70,21 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  setLocalStorageToken(token: string) {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
+
   getToken(): string {
     return this.token;
+  }
+
+  private printExpiringTokenDate(expTime: number): void {
+    const d = new Date(0);
+    d.setUTCSeconds(expTime);
+    console.log('SignIn Token will expire on: ', d);
+  }
+
+  private isTokenValid(expTime: number): boolean {
+    return expTime > new Date().getTime() / 1000 ? true : false;
   }
 }

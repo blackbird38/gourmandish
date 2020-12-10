@@ -63,14 +63,16 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['signin']);
       },
       error: (error) => {
-        console.log(error.error.message);
-        this.authForm.setErrors({ accountNotCreated: error.error.message });
-        /* if (error.status === 422) { 
-          // there is a status (eg 422)
-          this.authForm.setErrors({ accountNotCreated: error.error.user });
+        //   console.log(error.error);
+        //  console.log(this.authForm.errors);
+        if (error.error.message) {
+          this.authForm.setErrors({ accountNotCreated: error.error.message }); // 422, 401, 500
         } else {
-          this.authForm.setErrors({ unknownError: 'Unknown error.' });
-        }*/
+          this.authForm.setErrors({
+            unknownError:
+              'Unknown error. Check your internet connection maybe.',
+          });
+        }
       },
     });
   }

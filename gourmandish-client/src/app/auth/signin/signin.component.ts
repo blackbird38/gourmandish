@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { SigninResponse } from '../auth.webservice';
 
 @Component({
   selector: 'app-signin',
@@ -33,22 +35,21 @@ export class SigninComponent implements OnInit {
     }
     //  console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
-      next: (response) => {
+      next: (response: SigninResponse): void => {
         // console.log(response);
         this.router.navigate(['home']);
       },
       error: (error) => {
-        // console.log(error.error);
-
-        this.authForm.setErrors({ notSignedIn: error.error.message }); // 422 or 401
-        // console.log(this.authForm.errors);
-        /*
-        if (error.status === 422) {
-          // there is a status (eg 422)
-          this.authForm.setErrors({ notSignedIn: error.error.message });
+        //   console.log(error.error);
+        //   console.log(this.authForm.errors);
+        if (error.error.message) {
+          this.authForm.setErrors({ notSignedIn: error.error.message }); // 422, 401, 500
         } else {
-          this.authForm.setErrors({ unknownError: 'Unknown error.' });
-        }*/
+          this.authForm.setErrors({
+            unknownError:
+              'Unknown error. Check your internet connection maybe.',
+          });
+        }
       },
     });
   }

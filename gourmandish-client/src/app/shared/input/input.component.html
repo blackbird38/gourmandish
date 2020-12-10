@@ -18,5 +18,8 @@
     <p *ngIf="control.errors.usernameNotAvailable">
       This username is already taken.
     </p>
+    <p *ngIf="control.errors.unknownError">
+      {{ control.errors.unknownError }}
+    </p>
   </div>
 </div>

@@ -20,11 +20,14 @@ export class UniqueUsername implements AsyncValidator {
         }
       }),
       catchError((error) => {
-        // gets here if http response is 422
+        // gets here if http response is err
         // console.log(error);
         return error.error.message
           ? of({ usernameNotAvailable: true })
-          : of({ noConnection: 'No connection.' });
+          : of({
+              unknownError:
+                'Unknown error. Check your internet connection maybe.',
+            });
       })
     );
   };

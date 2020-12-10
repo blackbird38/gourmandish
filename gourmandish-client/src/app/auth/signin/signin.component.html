@@ -12,11 +12,18 @@
   ></app-input>
 
   <div
-    *ngIf="authForm.get('password').touched && authForm.errors"
+    *ngIf="
+      authForm.get('password').touched &&
+      authForm.get('usernameOrEmail').touched &&
+      authForm.errors
+    "
     class="ui red basic label"
   >
-    <p *ngIf="authForm.errors">
+    <p *ngIf="authForm.errors.notSignedIn">
       {{ authForm.errors.notSignedIn }}
+    </p>
+    <p *ngIf="authForm.errors.unknownError">
+      {{ authForm.errors.unknownError }}
     </p>
   </div>
   <div>
