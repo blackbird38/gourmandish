@@ -6,9 +6,14 @@ const authDAL = require("../DAL/auth");
 const isUsernameAvailable = async (username) => {
   const usernameAvailability = await authDAL.isUsernameAvailable(username);
   if (!usernameAvailability) {
-    throw new Error("The username is not available.");
+    return {
+      code: 401,
+      payload: {
+        message: "The username is not available.",
+      },
+    };
   }
-  return { isUsernameAvailable: usernameAvailability };
+  return { code: 200, payload: { isUsernameAvailable: usernameAvailability } };
 };
 
 const signUp = async (credentials) => {

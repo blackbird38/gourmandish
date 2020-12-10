@@ -5,7 +5,7 @@ const isUsernameAvailable = async (req, res, next) => {
   try {
     const { username } = req.body;
     const result = await authService.isUsernameAvailable(username);
-    res.status(200).send(result);
+    res.status(result.code).send(result.payload);
   } catch (e) {
     res.status(500).send({ message: e.message });
   }
