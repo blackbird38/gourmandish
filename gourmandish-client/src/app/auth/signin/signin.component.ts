@@ -38,8 +38,10 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error: (error) => {
-        //   console.log(error.error);
+        // console.log(error.error);
+
         this.authForm.setErrors({ notSignedIn: error.error.message }); // 422 or 401
+        // console.log(this.authForm.errors);
         /*
         if (error.status === 422) {
           // there is a status (eg 422)

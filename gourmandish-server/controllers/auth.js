@@ -1,28 +1,27 @@
 const authService = require("../services/auth");
 
 const isUsernameAvailable = async (req, res, next) => {
-  console.log("[POST] api/auth/username", { username: req.body.username });
+  console.log("[POST] api/auth/username");
   try {
     const { username } = req.body;
     const result = await authService.isUsernameAvailable(username);
-    res.status(result.code).send(result.payload);
+    res.status(200).send(result);
   } catch (e) {
-    res.status(500).send({ message: e.message });
+    const error = parseError(e);
+    res.status(error.code).send({ message: error.message });
   }
 };
 
 const signUp = async (req, res, next) => {
-  console.log("[POST] api/auth/signup", {
-    credentials: req.body.credentials,
-  });
+  console.log("[POST] api/auth/signup");
 
   try {
     const { credentials } = req.body;
     const result = await authService.signUp(credentials);
-    res.status(result.code).send(result.payload);
+    res.status(200).send(result);
   } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e.message });
+    const error = parseError(e);
+    res.status(error.code).send({ message: error.message });
   }
 };
 
@@ -32,13 +31,22 @@ const signIn = async (req, res, next) => {
   try {
     const { credentials } = req.body;
     // console.log(req.headers);
-
     const result = await authService.signIn(credentials);
-    res.status(result.code).send(result.payload);
+    res.status(200).send(result);
   } catch (e) {
-    console.log(e);
-    res.status(500).send({ message: e.message });
+    const error = parseError(e);
+    res.status(error.code).send({ message: error.message });
   }
+};
+
+const parseError = (e) => {
+  const error = JSON.parse(e.message);
+  const code = error.code || 500;
+  const message = error.message || e.message;
+  return {
+    code: code,
+    message: message,
+  };
 };
 
 module.exports = { isUsernameAvailable, signUp, signIn };

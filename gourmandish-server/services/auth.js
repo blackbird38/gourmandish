@@ -5,15 +5,17 @@ const authDAL = require("../DAL/auth");
 
 const isUsernameAvailable = async (username) => {
   const usernameAvailability = await authDAL.isUsernameAvailable(username);
+
   if (!usernameAvailability) {
-    return {
-      code: 401,
-      payload: {
-        message: "The username is not available.",
-      },
-    };
+    throw new Error(
+      JSON.stringify({
+        code: 401,
+        message: "This username is not available.",
+      })
+    );
   }
-  return { code: 200, payload: { isUsernameAvailable: usernameAvailability } };
+
+  return { isUsernameAvailable: usernameAvailability };
 };
 
 const signUp = async (credentials) => {
@@ -24,21 +26,32 @@ const signUp = async (credentials) => {
       credentials.password
     )
   ) {
-    return {
-      code: 401,
-      payload: {
-        message: "Invalid credentials: username, email and password.",
-      },
-    };
+    throw new Error(
+      JSON.stringify({
+        code: 401,
+        message: "Something wrong with the username, email or password.",
+      })
+    );
   }
 
   const foundUser = await authDAL.find(credentials.username, credentials.email);
 
   if (foundUser != null) {
+    if (credentials.username === foundUser.username) {
+      throw new Error(
+        JSON.stringify({
+          code: 401,
+          message: "Username already in use.",
+        })
+      );
+    }
     if (credentials.email === foundUser.email) {
-      return { code: 401, payload: { message: "Email already in use." } };
-    } else {
-      return { code: 401, payload: { message: "Username already in use." } };
+      throw new Error(
+        JSON.stringify({
+          code: 401,
+          message: "Email already in use.",
+        })
+      );
     }
   }
 
@@ -49,63 +62,65 @@ const signUp = async (credentials) => {
       newUser.password = encryptedPassword;
       newUser.roles = ["user"];
       return await authDAL.saveUser(newUser).then((savedUser) => {
-        if (savedUser) {
-          return {
-            code: 200,
-            payload: {
-              user: { ...savedUser }, //TODO: remove password from here
-              message: "Successful signup.",
-            },
-          };
+        if (!savedUser) {
+          throw new Error(
+            JSON.stringify({
+              code: 422,
+              message: "Account not created. Try again",
+            })
+          );
         }
-        return { code: 422, payload: { message: "Something went wrong." } };
+
+        return {
+          user: { ...savedUser }, //TODO: remove password from here
+          message: "Successful signup.",
+        };
       });
     });
 };
 
 const signIn = async (credentials) => {
   if (!isSignInDataValid(credentials.usernameOrEmail, credentials.password)) {
-    return {
-      code: 401,
-      payload: {
-        message: "Invalid data. Make sure each field has a valid value.",
-      },
-    };
+    throw new Error(
+      JSON.stringify({
+        code: 401,
+        payload: {
+          message: "Invalid data. Make sure each field has a valid value.",
+        },
+      })
+    );
   }
 
   const foundUser = await authDAL.findByUsernameOrEmail(
     credentials.usernameOrEmail
   );
-
+  // console.log(foundUser);
   if (foundUser === null) {
-    return {
-      code: 401,
-      payload: {
+    throw new Error(
+      JSON.stringify({
+        code: 401,
         message: "Authentication failed! User not found.",
-      },
-    };
+      })
+    );
   }
 
   if (!(await isPasswordValid(credentials.password, foundUser.password))) {
-    return {
-      code: 401,
-      payload: {
+    throw new Error(
+      JSON.stringify({
+        code: 401,
         message: "Authentication failed! Wrong password.",
-      },
-    };
+      })
+    );
   }
 
   const token = generateToken(foundUser.email, foundUser._id);
 
   return {
-    code: 200,
-    payload: {
-      authData: {
-        token: token,
-        userId: foundUser._id,
-      },
-      message: "Authentication successful.",
+    authData: {
+      token: token,
+      userId: foundUser._id,
     },
+    message: "Authentication successful.",
   };
 };
 
