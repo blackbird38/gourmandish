@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { AuthService } from '../auth.service';
+import { SignupResponse } from '../auth.webservice';
 import { MatchPassword } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
 
@@ -46,7 +48,8 @@ export class SignupComponent implements OnInit {
     private matchPassword: MatchPassword,
     private uniqueUsername: UniqueUsername,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private readonly notifier: NotifierService
   ) {}
 
   ngOnInit(): void {}
@@ -57,9 +60,14 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.authService.signup(this.authForm.value).subscribe({
-      next: (response) => {
+      next: (response: SignupResponse) => {
         //200
         // console.log(response);
+        this.notifier.show({
+          message: `You have successfully created your account, please login.`,
+          type: 'info',
+        });
+        // this.notifier.notify('success', 'You are awesome! I mean it!');
         this.router.navigate(['signin']);
       },
       error: (error) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 import { AuthService } from '../auth.service';
 import { SigninResponse } from '../auth.webservice';
 
@@ -25,7 +25,11 @@ export class SigninComponent implements OnInit {
     ]),
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private readonly notifier: NotifierService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -36,7 +40,11 @@ export class SigninComponent implements OnInit {
     //  console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
       next: (response: SigninResponse): void => {
-        // console.log(response);
+        console.log(response);
+        this.notifier.show({
+          message: `You have successfully signed in. Enjoy! :)`,
+          type: 'info',
+        });
         this.router.navigate(['home']);
       },
       error: (error) => {

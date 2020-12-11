@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AsyncValidator, FormControl } from '@angular/forms';
-import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { UsernameAvailableResponse } from '../auth.webservice';
 

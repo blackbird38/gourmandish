@@ -2,6 +2,7 @@
 
 /* @import "bulma/css/bulma.css"; */
 @import "semantic-ui-css/semantic.css";
+@import "~angular-notifier/styles";
 
 html,
 body {
