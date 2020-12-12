@@ -1,78 +1,91 @@
-<h3>Create an account</h3>
-<form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
-  <app-input
-    inputType="text"
-    label="Username"
-    [control]="authForm.get('username')"
-  ></app-input>
-  {{ authForm.get("username").errors | json }}
-  <app-input
-    inputType="password"
-    label="Password"
-    [control]="authForm.get('password')"
-  ></app-input>
-  {{ authForm.get("password").errors | json }}
-  <app-input
-    inputType="password"
-    label="Password confirmation"
-    [control]="authForm.get('passwordConfirmation')"
-  ></app-input>
-  {{ authForm.get("passwordConfirmation").errors | json }}
-  <app-input
-    inputType="email"
-    label="Email"
-    [control]="authForm.get('email')"
-  ></app-input>
-  {{ authForm.get("email").errors | json }}
-  <app-input
-    inputType="text"
-    label="First Name"
-    [control]="authForm.get('firstName')"
-  ></app-input>
-  {{ authForm.get("firstName").errors | json }}
-  <app-input
-    inputType="text"
-    label="Last Name"
-    [control]="authForm.get('lastName')"
-  ></app-input>
-  {{ authForm.get("lastName").errors | json }}
-  <app-input
-    inputType="date"
-    label="Birthdate"
-    [control]="authForm.get('birthdate')"
-    value="2018-07-22"
-    min="1900-01-01"
-    max="2020-12-31"
-  ></app-input>
-  {{ authForm.get("birthdate").errors | json }}
+<div class="ui raised very padded text container segment">
+  <h3 class="ui dividing header">Create an account</h3>
+  <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
+    <app-input
+      class="field"
+      inputType="text"
+      label="Username"
+      [control]="authForm.get('username')"
+    ></app-input>
+    <div class="two fields">
+      <app-input
+        class="field"
+        inputType="password"
+        label="Password"
+        [control]="authForm.get('password')"
+      ></app-input>
+      <app-input
+        class="field"
+        inputType="password"
+        label="Password confirmation"
+        [control]="authForm.get('passwordConfirmation')"
+      ></app-input>
+    </div>
+    <app-input
+      class="field"
+      inputType="email"
+      label="Email"
+      [control]="authForm.get('email')"
+    ></app-input>
+    <div class="two fields">
+      <app-input
+        class="field"
+        inputType="text"
+        label="First Name"
+        [control]="authForm.get('firstName')"
+      ></app-input>
+      <app-input
+        class="field"
+        inputType="text"
+        label="Last Name"
+        [control]="authForm.get('lastName')"
+      ></app-input>
+    </div>
+    <app-input
+      class="field"
+      inputType="date"
+      label="Birthdate"
+      [control]="authForm.get('birthdate')"
+      value="2018-07-22"
+      min="1900-01-01"
+      max="2020-12-31"
+    ></app-input>
 
-  <app-input
-    inputType="file"
-    label="Avatar"
-    [control]="authForm.get('avatar')"
-  ></app-input>
-  {{ authForm.get("avatar").errors | json }}
+    <div
+      *ngIf="
+        authForm.get('password').touched &&
+        authForm.get('passwordConfirmation').touched &&
+        authForm.errors
+      "
+      class="ui red basic label"
+    >
+      <p *ngIf="authForm.errors.passwordsNotMatching">Password don't match.</p>
+      <p *ngIf="authForm.errors.accountNotCreated">
+        {{ authForm.errors.accountNotCreated }}
+      </p>
+      <p *ngIf="authForm.errors.unknownError">
+        {{ authForm.errors.unknownError }}
+      </p>
+    </div>
+    <div>
+      <button class="ui submit button primary">Submit</button>
+    </div>
+    <div class="ui basic segment right aligned">
+      Already having an account?
+      <a [routerLink]="['/signin']"> Sign in </a> instead.
+    </div>
+  </form>
+</div>
 
-  <div
-    *ngIf="
-      authForm.get('password').touched &&
-      authForm.get('passwordConfirmation').touched &&
-      authForm.errors
-    "
-    class="ui red basic label"
-  >
-    <p *ngIf="authForm.errors.passwordsNotMatching">Password don't match.</p>
-    <p *ngIf="authForm.errors.accountNotCreated">
-      {{ authForm.errors.accountNotCreated }}
-    </p>
-    <p *ngIf="authForm.errors.unknownError">
-      {{ authForm.errors.unknownError }}
-    </p>
-  </div>
-  <div>
-    <button class="ui submit button primary">Submit</button>
-  </div>
-  <div>Already having an account? Sign In instead.</div>
-</form>
-
-{{ authForm.errors | json }}
+<p>username: {{ authForm.get("username").errors | json }}</p>
+<p>password: {{ authForm.get("password").errors | json }}</p>
+<p>
+  passwordConfirmation: {{ authForm.get("passwordConfirmation").errors | json }}
+</p>
+<p>email: {{ authForm.get("email").errors | json }}</p>
+<p>firstName: {{ authForm.get("firstName").errors | json }}</p>
+<p>lastName: {{ authForm.get("lastName").errors | json }}</p>
+<p>birthdate: {{ authForm.get("birthdate").errors | json }}</p>
+<p>
+  -------------- authForm errors: {{ authForm.errors | json }} -------------
+</p>

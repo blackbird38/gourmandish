@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       birthdate: new FormControl(''),
-      avatar: new FormControl(''),
+      gender: new FormControl(''),
     },
     { validators: [this.matchPassword.validate] }
   );
