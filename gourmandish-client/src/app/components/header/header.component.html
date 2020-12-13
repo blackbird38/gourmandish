@@ -5,6 +5,13 @@
       <ng-container *ngIf="signedIn$ | async">
         <a
           class="ui item"
+          routerLink="/create-recipe"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
+          >Add recipe</a
+        >
+        <a
+          class="ui item"
           routerLink="/feed"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"

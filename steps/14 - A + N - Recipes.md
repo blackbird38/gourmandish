@@ -1,3 +1,5 @@
+ng g m Recipes --routing
+
 ng g c recipes/recipe-form
 
 https://www.zeptobook.com/best-chrome-extensions-for-debugging-angular-apps/
