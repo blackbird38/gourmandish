@@ -1,1 +1,35 @@
-<p>recipe-form works!</p>
+<div class="ui raised very padded text container segment">
+  <h3 class="ui dividing header">Add a new recipe</h3>
+  <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="recipeForm">
+    <app-input
+      class="field"
+      inputType="text"
+      label="Title"
+      [control]="recipeForm.get('title')"
+    ></app-input>
+    <app-textarea
+      class="field"
+      label="Description"
+      [control]="recipeForm.get('description')"
+    ></app-textarea>
+
+    <app-image-upload-with-preview
+      class="field"
+      label="Upload a photo of your dish"
+      [control]="recipeForm.get('image')"
+      (selectImage)="selectImage($event)"
+    ></app-image-upload-with-preview>
+
+    <div
+      *ngIf="
+        recipeForm.get('title').touched &&
+        recipeForm.get('description').touched &&
+        recipeForm.errors
+      "
+      class="ui red basic label"
+    ></div>
+    <div>
+      <button class="ui submit button primary">Submit</button>
+    </div>
+  </form>
+</div>

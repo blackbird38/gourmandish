@@ -2,6 +2,8 @@ ng g m Recipes --routing
 
 ng g c recipes/recipe-form
 
+ng g c shared/image-upload-with-preview
+
 https://www.zeptobook.com/best-chrome-extensions-for-debugging-angular-apps/
 
 https://augury.rangle.io/ ( but it's not working for Ivy :( ) :
