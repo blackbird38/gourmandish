@@ -84,9 +84,7 @@ const signIn = async (credentials) => {
     throw new Error(
       JSON.stringify({
         code: 401,
-        payload: {
-          message: "Invalid data. Make sure each field has a valid value.",
-        },
+        message: "Invalid data. Make sure each field has a valid value.",
       })
     );
   }
