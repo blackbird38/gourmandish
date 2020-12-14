@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { mimeType } from 'src/app/validators/mime-type.validator';
 
 @Component({
   selector: 'app-recipe-form',
@@ -7,28 +13,31 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./recipe-form.component.css'],
 })
 export class RecipeFormComponent implements OnInit {
-  recipeForm = new FormGroup({
-    title: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-    ]),
-    image: new FormControl('', [Validators.required]),
-  });
+  recipeForm: FormGroup;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.recipeForm = this.formBuilder.group({
+      title: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+        //asyncValidators: [mimeType],
+      }),
+    });
+  }
 
   public selectImage(file: any): void {
-    console.log(this.recipeForm.value);
-
+    console.log('parent 1', file);
     // TODO: find out why this err here: "ERROR DOMException: An attempt was made to use an object that is not, or is no longer, usable", although all is working
-
     this.recipeForm.patchValue({ image: file });
     this.recipeForm.get('image').updateValueAndValidity();
   }
@@ -37,6 +46,6 @@ export class RecipeFormComponent implements OnInit {
     if (this.recipeForm.invalid) {
       return;
     }
-    console.log(this.recipeForm.value);
+    console.log('parent 2', this.recipeForm.value);
   }
 }
