@@ -1,5 +1,3 @@
-import { Optional } from '@angular/core';
-import { Self } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ControlContainer,
@@ -8,6 +6,9 @@ import {
   FormGroupDirective,
   NgControl,
 } from '@angular/forms';
+
+import { Optional } from '@angular/core';
+import { Self } from '@angular/core';
 
 @Component({
   selector: 'app-image-upload-with-preview',
@@ -23,7 +24,7 @@ export class ImageUploadWithPreviewComponent implements OnInit {
   @Input() label: string;
   @Input() control: FormControl;
   @Output()
-  selectImageEventEmmitter: EventEmitter<any> = new EventEmitter<any>();
+  selectImageEventEmmitter: EventEmitter<File> = new EventEmitter<File>();
 
   constructor(private parentForm: FormGroupDirective) {}
 

@@ -1,5 +1,5 @@
 <label>{{ label }}</label>
-<input [formControl]="control" type="file" (change)="onImageSelected($event)" />
+<input type="file" (change)="onImageSelected($event)" />
 
 <div *ngIf="imagePreview !== '' && imagePreview && control.valid">
   <img class="ui fluid image" [src]="imagePreview" />
