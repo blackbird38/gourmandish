@@ -1,5 +1,7 @@
 `ng g m Recipes --routing`
 
+add a recipe:
+
 `ng g c recipes/recipe-form`
 
 `ng g c shared/image-upload-with-preview`
@@ -20,3 +22,11 @@ https://blog.bitsrc.io/my-top-favorite-tools-for-angular-developers-c2ed96397f6b
 
 backend:
 `npm install --save multer` - for file upload
+
+added a jwtCheckAuth middleware to protect the route POST /api/recipes and to get the id of the user that created the recipe from the token
+
+---
+
+display all recipes:
+
+ng g c recipes/recipeList
