@@ -26,17 +26,17 @@ export const mimeType = (
         for (let i = 0; i < arr.length; i++) {
           header += arr[i].toString(16);
         }
-        console.log(arr, header);
+        //  console.log(arr, header);
         switch (
-          header //patterns that stans for specific file types (png, jpg)
+          header //patterns that stand for specific file types (png, jpg)
         ) {
-          case '89504e47':
+          case '89504e47': // png
             isValid = true;
             break;
-          case 'ffd8ffe0':
-          case 'ffd8ffe1':
-          case 'ffd8ffe3':
-          case 'ffd8ffe8':
+          case 'ffd8ffe0': // jfif, jpe, jpg,
+          case 'ffd8ffe1': // jpg with exif
+          case 'ffd8ffe3': // samsung d500 jpeg
+          case 'ffd8ffe8': // jpg spiff
             isValid = true;
             break;
           default:
@@ -50,10 +50,10 @@ export const mimeType = (
           console.log('image invalid');
           observer.next({ invalidMimeType: true });
         }
-        observer.complete();
+        observer.complete(); // letting subscribers know we're done
       });
-      console.log(file);
-      fileReader.readAsArrayBuffer(file); //for Uint8Array
+      //  console.log(file);
+      fileReader.readAsArrayBuffer(file); //allows accessing the myme type / for Uint8Array
     }
   );
   return fileReaderObservable;

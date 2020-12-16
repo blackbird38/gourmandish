@@ -1,14 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ControlContainer,
-  ControlValueAccessor,
   FormControl,
   FormGroupDirective,
-  NgControl,
 } from '@angular/forms';
-
-import { Optional } from '@angular/core';
-import { Self } from '@angular/core';
 
 @Component({
   selector: 'app-image-upload-with-preview',
@@ -35,11 +30,9 @@ export class ImageUploadWithPreviewComponent implements OnInit {
     // console.log(this.parentForm.form.controls.image.value);
     // this.parentForm.form.patchValue({ image: file }, { emitEvent: false });
 
-    // console.log(this.parentForm.form.get('image').value);
-    //  this.parentForm.form.patchValue({ image: file });
-    //this.selectImageEventEmmitter.emit(file);
-    //  this.control.setValue(file);
-    // this.control.updateValueAndValidity();
+    this.control.setValue(file);
+    this.control.updateValueAndValidity();
+    //console.log(this.parentForm.form.get('image').value);
     const reader: FileReader = new FileReader();
     reader.onload = (): void => {
       this.imagePreview = reader.result as string; // async code

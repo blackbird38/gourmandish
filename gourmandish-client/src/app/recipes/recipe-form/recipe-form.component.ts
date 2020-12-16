@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { mimeType } from 'src/app/validators/mime-type.validator';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-recipe-form',
@@ -15,7 +16,10 @@ import { mimeType } from 'src/app/validators/mime-type.validator';
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private recipeService: RecipeService
+  ) {}
 
   ngOnInit(): void {
     this.recipeForm = this.formBuilder.group({
@@ -30,14 +34,12 @@ export class RecipeFormComponent implements OnInit {
       ]),
       image: new FormControl(null, {
         validators: [Validators.required],
-        //asyncValidators: [mimeType],
+        asyncValidators: [mimeType],
       }),
     });
   }
 
   public selectImage(file: any): void {
-    console.log('parent 1', file);
-    // TODO: find out why this err here: "ERROR DOMException: An attempt was made to use an object that is not, or is no longer, usable", although all is working
     this.recipeForm.patchValue({ image: file });
     this.recipeForm.get('image').updateValueAndValidity();
   }
@@ -46,6 +48,19 @@ export class RecipeFormComponent implements OnInit {
     if (this.recipeForm.invalid) {
       return;
     }
-    console.log('parent 2', this.recipeForm.value);
+    console.log(this.recipeForm.get('image').value);
+    /* const recipeData: any = {
+      title: this.recipeForm.get('title').value,
+      content: this.recipeForm.get('description').value,
+      image: this.recipeForm.get('image').value,
+    };*/
+    const recipeData: FormData = new FormData();
+    recipeData.append('title', this.recipeForm.get('title').value);
+    recipeData.append('content', this.recipeForm.get('description').value);
+    recipeData.append('image', this.recipeForm.get('image').value);
+
+    this.recipeService.create(recipeData).subscribe((res) => console.log(res));
+
+    //this.recipeForm.reset();
   }
 }

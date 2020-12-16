@@ -1,8 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const path = require("path");
 const configDb = require("./config/database");
+const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const recipeRoutes = require("./routes/recipe");
 
 const app = express();
 
@@ -33,10 +36,14 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use("/uploads/images", express.static(path.join("uploads/images"))); // any request targeting this folder, should be allowed to continue and fetch the files from there
+
+// CORS issue:
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  //console.log(req);
+  res.setHeader("Access-Control-Allow-Origin", "*"); // allow req from all domains
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
@@ -48,6 +55,10 @@ app.use((req, res, next) => {
   next();
 });
 
-userRoutes(app);
+app.use("/api/auth", authRoutes);
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/user", userRoutes);
+//userRoutes(app);
+//recipeRoutes(app);
 
 module.exports = app;

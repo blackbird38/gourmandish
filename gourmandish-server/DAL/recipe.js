@@ -11,4 +11,4 @@ const create = async (recipe) => {
   return createdRecipe._doc;
 };
 
-module.exports = { getAll, create, update, remove };
+module.exports = { getAll, create /*, update, remove*/ };

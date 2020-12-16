@@ -10,4 +10,4 @@ const getAll = async () => {
 
 const create = async () => {};
 
-module.exports = { getAll, create, update, remove };
+module.exports = { getAll, create /*, update, remove*/ };
