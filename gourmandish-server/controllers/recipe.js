@@ -13,21 +13,28 @@ const getAll = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   console.log("[POST] api/recipes");
-  const url = req.protocol + "://" + req.get("host");
-  console.log("req.file", req.file); //  req.file - multer/ file
+  console.log("req.file", req.file);
   try {
-    //const { recipe } = req.body;
+    const url = req.protocol + "://" + req.get("host");
+    const uploadedFileWithMulter = req.file;
+    const imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
+    const { title, description } = req.body;
     console.log(req.body);
-
-    res.status(200).send({ coucou: "coucou" });
-    return;
-    const result = await recipeService.create(recipe);
+    const creatorId = req.jwtLoggedInUser.userId;
+    const result = await recipeService.create(
+      title,
+      description,
+      imagePath,
+      creatorId
+    );
     res.status(200).send(result);
   } catch (e) {
+    console.log(e);
     const error = parseError(e);
     res.status(error.code).send({ message: error.message });
   }
 };
+
 /*
 const update = async (req, res, next) => {
   console.log("[PUT] api/recipes/:id");

@@ -5,9 +5,20 @@ const getAll = async () => {
   return foundRecipes;
 };
 
-const create = async (recipe) => {
-  const newRecipe = new Recipe(recipe);
-  const createdRecipe = await newRecipe.save();
+const create = async (title, description, imagePath, creatorId) => {
+  const recipe = new Recipe({
+    title: title,
+    description: description,
+    imagePath: imagePath,
+    creator: creatorId,
+  });
+  const createdRecipe = await recipe
+    .save()
+    .then((r) =>
+      r
+        .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 })
+        .execPopulate()
+    );
   return createdRecipe._doc;
 };
 

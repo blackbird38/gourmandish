@@ -70,7 +70,6 @@ const signUp = async (credentials) => {
             })
           );
         }
-
         return {
           user: { ...savedUser }, //TODO: remove password from here
           message: "Successful signup.",
