@@ -1,10 +1,11 @@
 const recipeDAL = require("../DAL/recipe");
 
 const getAll = async () => {
-  const foundRecipes = await recipeDAL.find();
+  const foundRecipes = await recipeDAL.getAll();
+
   return {
-    recipeData: { recipes: foundRecipes, count: count(foundRecipes) },
-    message: "Here are your recipes.",
+    recipeData: { recipes: foundRecipes, count: foundRecipes.length },
+    message: "Recipes successfully fetched!",
   };
 };
 

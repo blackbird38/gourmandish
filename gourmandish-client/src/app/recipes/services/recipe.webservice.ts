@@ -11,9 +11,11 @@ export class RecipeWebService {
   constructor(private httpClient: HttpClient) {}
 
   create(recipeData: FormData): Observable<any> {
-    console.log('recipeData');
-    recipeData.forEach((rd) => console.log(rd.toString()));
-
+    //recipeData.forEach((rd) => console.log(rd.toString()));
     return this.httpClient.post<any>(`${this.apiUrl}`, recipeData);
+  }
+
+  getAll(): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}`);
   }
 }

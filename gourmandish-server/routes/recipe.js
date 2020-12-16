@@ -6,8 +6,8 @@ const recipeController = require("../controllers/recipe");
 
 const router = express.Router();
 
-router.post("", jwtCheckAuth, imageUploadWithMulter, recipeController.create);
+router.get("", recipeController.getAll);
 
-router.get("", recipeController.create);
+router.post("", jwtCheckAuth, imageUploadWithMulter, recipeController.create);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const getAll = async (req, res, next) => {
     const result = await recipeService.getAll();
     res.status(200).send(result);
   } catch (e) {
+    res.status(e).send({ message: e.message });
     const error = parseError(e);
     res.status(error.code).send({ message: error.message });
   }

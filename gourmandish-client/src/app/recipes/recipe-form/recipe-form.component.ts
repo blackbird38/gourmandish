@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { mimeType } from 'src/app/validators/mime-type.validator';
 import { RecipeService } from '../services/recipe.service';
 
@@ -18,7 +19,8 @@ export class RecipeFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class RecipeFormComponent implements OnInit {
 
     this.recipeService.create(recipeData).subscribe((res) => console.log(res));
 
-    //this.recipeForm.reset();
+    // this.recipeForm.reset();
+    this.router.navigate(['recipe-list']);
   }
 }

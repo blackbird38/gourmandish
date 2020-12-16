@@ -1,1 +1,28 @@
-<p>recipe-item works!</p>
+<div class="ui card">
+  <div class="image">
+    <img class="recipe-photo" [src]="recipe.imagePath" />
+  </div>
+  <div class="content">
+    <div class="header">{{ recipe.title }}</div>
+    <div class="meta">
+      <a>Preparation</a>
+    </div>
+    <div class="description">
+      {{ recipe.description | slice: 0:180 }}
+      <button class="mini ui button">More</button>
+    </div>
+  </div>
+  <div class="extra content">
+    <span class="left floated"> Ingredients </span>
+  </div>
+  <div class="extra content">
+    <span class="right floated">
+      <i class="clock outline icon"></i>
+      Time
+    </span>
+    <span>
+      <i class="utensils icon"></i>
+      Dificulty
+    </span>
+  </div>
+</div>

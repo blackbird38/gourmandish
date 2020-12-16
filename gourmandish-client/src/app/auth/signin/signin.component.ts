@@ -45,7 +45,7 @@ export class SigninComponent implements OnInit {
           message: `You have successfully signed in. Enjoy! :)`,
           type: 'info',
         });
-        this.router.navigate(['home']);
+        this.router.navigate(['recipe-list']);
       },
       error: (error) => {
         //   console.log(error.error);
