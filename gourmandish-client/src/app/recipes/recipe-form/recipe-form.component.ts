@@ -49,11 +49,7 @@ export class RecipeFormComponent implements OnInit {
       return;
     }
     console.log(this.recipeForm.get('image').value);
-    /* const recipeData: any = {
-      title: this.recipeForm.get('title').value,
-      content: this.recipeForm.get('description').value,
-      image: this.recipeForm.get('image').value,
-    };*/
+
     const recipeData: FormData = new FormData();
     recipeData.append('title', this.recipeForm.get('title').value);
     recipeData.append('content', this.recipeForm.get('description').value);
