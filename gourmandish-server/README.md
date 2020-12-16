@@ -12,17 +12,20 @@ mongo shell (cmd: `mongo`):
 
 ### --- create the Mongo user that will be used for the connection to the MongoDB:---
 
-`> use gourmandishdb
+```
+ use gourmandishdb
+```
 
-> db.createUser({
-
+```
+ db.createUser({
     user: "root",
     pwd: "root",
     roles: [
           { role: "readWrite", db: "gourmandishdb" }
     ]
 
-})`
+})
+```
 
 //The 'test_helper' file is important to mocha, it will run it first if it exists.
 
@@ -38,12 +41,19 @@ then `connect to mongo container` and get into the mongo shell:
 
 pass: `root`
 
-`use gourmandishdb`
+```
+> use gourmandishdb
+```
 
-`> db.createUser({ user: "root", pwd: "root", roles: [ { role: "readWrite", db: "gourmandishdb" } ] })`
+```
+db.createUser({ user: "root", pwd: "root", roles: [ { role: "readWrite", db: "gourmandishdb" } ] })
+```
 
-`> use gourmandishdb
+```
+> use gourmandishdb
+```
 
+```
 > switched to db gourmandishdb
 > db.users.insert({
 
@@ -52,9 +62,7 @@ pass: `root`
      "\_\_v": 0
      })
 
-`
-
-`> WriteResult({ "nInserted" : 1 })
+> WriteResult({ "nInserted" : 1 })
 
 > show dbs
 > admin 0.000GB
@@ -70,6 +78,8 @@ pass: `root`
 
 ```
 
+Tests:
+
 replace in package.json:
 
 win: `"test": "SET NODE_ENV=test && nodemon --exec "mocha -R min"",`
@@ -79,4 +89,3 @@ with:
 ubuntu: `"test": "NODE_ENV=test && nodemon --exec 'mocha -R min'",`
 
 to run the tests in the container, just get to the container's shell and run `npm run test`
-```

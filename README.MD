@@ -4,15 +4,15 @@ https://gourmandish.vercel.app/
 
 ## Requirements:
 
-### ANGULAR CLI: 11.0.2 - https://cli.angular.io
+#### ANGULAR CLI: 11.0.2 - https://cli.angular.io
 
 `ng version`
 
-### NODE: v14.15.1 - https://nodejs.org/en/download/
+#### NODE: v14.15.1 - https://nodejs.org/en/download/
 
 `node -v`
 
-### Install MongoDB: https://docs.mongodb.com/manual/installation/
+#### Install MongoDB: https://docs.mongodb.com/manual/installation/
 
 Install Compass: https://www.mongodb.com/products/compass and create the database `gourmandishdb`
 
@@ -22,36 +22,38 @@ MongoDB shell version: v4.4.2
 
 mongo shell (cmd: `mongo`):
 
-### --- create the Mongo user that will be used for the connection to the MongoDB:---
+#### --- create the Mongo user that will be used for the connection to the MongoDB:---
 
-> `use gourmandishdb`
-> `db.createUser({
+```
+> use gourmandishdb
+```
 
-    user: "root",
-    pwd: "root",
-    roles: [
-          { role: "readWrite", db: "gourmandishdb" }
-    ]
+```
+> db.createUser({
+   user: "root",
+   pwd: "root",
+   roles: [
+         { role: "readWrite", db: "gourmandishdb" }
+   ]
 
-})`
+})
+```
 
----
+## installation:
 
-# installation:
+#### client: `npm install`
 
-### client: `npm install`
+#### server: `npm install`
 
-### server: `npm install`
+## start the servers:
 
-# start the servers:
-
-### client (dev): `ng serve` + Navigate to `http://localhost:4200/`
+#### client (dev): `ng serve` + Navigate to `http://localhost:4200/`
 
 `ng build --prod`
 
 `ng test`
 
-### server (dev): `npm run dev` + check if it works `http://localhost:3000/ping`
+#### server (dev): `npm run dev` + check if it works `http://localhost:3000/ping`
 
 server: `npm run test`
 
@@ -78,7 +80,9 @@ Every Cookbook (TO UPDATE later)
 Every ShoppingList (~ a shopping cart) TO UPDATE later)
 
 ------ features ----
+
 Every Menu (TO UPDATE later)
+
 Every DineUp (TO UPDATE later)
 
 Translation: en, fr, ro
