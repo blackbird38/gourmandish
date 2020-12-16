@@ -5,9 +5,10 @@ import { SharedModule } from '../shared/shared.module';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 
 @NgModule({
-  declarations: [RecipeFormComponent, RecipeListComponent],
+  declarations: [RecipeFormComponent, RecipeListComponent, RecipeItemComponent],
   imports: [
     CommonModule,
     RecipesRoutingModule,

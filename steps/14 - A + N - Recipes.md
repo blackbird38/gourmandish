@@ -30,3 +30,5 @@ added a jwtCheckAuth middleware to protect the route POST /api/recipes and to ge
 display all recipes:
 
 ng g c recipes/recipeList
+
+ng g c recipes/recipeItem
