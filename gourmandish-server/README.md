@@ -4,6 +4,8 @@
 
 for the tests: `npm run test`
 
+create a folder uploads/images at the same level with index.js
+
 ---
 
 mongo shell (cmd: `mongo`):
