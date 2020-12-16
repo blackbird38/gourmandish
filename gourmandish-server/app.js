@@ -58,7 +58,5 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/user", userRoutes);
-//userRoutes(app);
-//recipeRoutes(app);
 
 module.exports = app;
