@@ -1,4 +1,7 @@
 .recipe-photo {
-  max-width: 20rem;
+  max-width: 23rem;
   max-height: 20rem;
+}
+.card {
+  width: 24rem;
 }

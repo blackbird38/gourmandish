@@ -1,6 +1,8 @@
-<p>You have {{ (recipes$ | async)?.length }} recipes</p>
-<div class="ui link cards">
-  <div *ngFor="let recipe of recipes$ | async">
-    <app-recipe-item [recipe]="recipe"></app-recipe-item>
+<div class="ui container segment">
+  <p>You have {{ (recipes$ | async)?.length }} recipes</p>
+  <div class="ui link cards recipe-list">
+    <div *ngFor="let recipe of recipes$ | async">
+      <app-recipe-item [recipe]="recipe"></app-recipe-item>
+    </div>
   </div>
 </div>
