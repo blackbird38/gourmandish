@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   signedIn$: BehaviorSubject<boolean>;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.signedIn$ = this.authService.signedIn$;
   }
 
@@ -17,5 +18,6 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
+    this.router.navigate(['signin']);
   }
 }

@@ -10,13 +10,7 @@
           routerLinkActive="active"
           >Add recipe</a
         >
-        <a
-          class="ui item"
-          routerLink="/feed"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Feed</a
-        >
+
         <a
           class="ui item"
           routerLink="/recipe-list"
@@ -27,6 +21,13 @@
         <a class="ui item" (click)="signOut()">Sign Out</a>
       </ng-container>
       <ng-container *ngIf="!(signedIn$ | async)">
+        <a
+          class="ui item"
+          routerLink="/recipe-list"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
+          >All recipes</a
+        >
         <a
           class="ui item"
           routerLink="/signin"

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RecipeService } from '../services/recipe.service';
@@ -12,17 +13,21 @@ export class RecipeListComponent implements OnInit {
   recipes$: BehaviorSubject<any>;
   constructor(
     private recipeService: RecipeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.recipes$ = this.recipeService.recipes$;
   }
 
   ngOnInit(): void {
-    // this.recipeService.getAll().subscribe((recipes: any) => {
-    this.recipeService
-      .getByUserId(this.authService.getCurrentUserId())
-      .subscribe((recipes: any) => {
-        //   console.log(this.recipes);
-      });
+    const userId = this.route.snapshot.paramMap.get('userId')
+      ? this.route.snapshot.paramMap.get('userId')
+      : this.authService.getCurrentUserId();
+    if (userId) {
+      this.recipeService.getByUserId(userId).subscribe((recipes: any) => {});
+      return;
+    }
+    this.recipeService.getAll().subscribe((recipes: any) => {});
   }
 }

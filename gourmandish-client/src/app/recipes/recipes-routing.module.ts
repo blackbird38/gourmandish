@@ -5,7 +5,11 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 
 const routes: Routes = [
   { path: 'create-recipe', component: RecipeFormComponent },
-  { path: 'recipe-list', component: RecipeListComponent },
+  {
+    path: 'recipe-list',
+    component: RecipeListComponent,
+    children: [{ path: ':userId', component: RecipeListComponent }],
+  },
   { path: 'edit-recipe/:id', component: RecipeFormComponent },
 ];
 
