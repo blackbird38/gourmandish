@@ -5,6 +5,11 @@ const getAll = async () => {
   return foundRecipes;
 };
 
+const getByUserId = async (userId) => {
+  var foundRecipes = await Recipe.find({ creator: userId });
+  return foundRecipes;
+};
+
 const create = async (title, description, imagePath, creatorId) => {
   const recipe = new Recipe({
     title: title,
@@ -22,4 +27,4 @@ const create = async (title, description, imagePath, creatorId) => {
   return createdRecipe._doc;
 };
 
-module.exports = { getAll, create /*, update, remove*/ };
+module.exports = { getAll, getByUserId, create /*, update, remove*/ };

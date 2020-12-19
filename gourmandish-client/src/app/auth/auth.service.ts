@@ -16,11 +16,13 @@ import {
 })
 export class AuthService {
   signedIn$ = new BehaviorSubject(false); // will push the signedIn info to the interested components, the latest value, even to the ones subscribed after it was emitted
+  private currentUserId: string = '';
   private token: string;
 
   constructor(private authWebservice: AuthWebservice) {
     if (this.isValidTokenOnLocalStorage()) {
       this.token = this.getLocalStorageToken();
+      this.currentUserId = this.getUserIdFromToken(this.token);
       this.signedIn$.next(true);
     }
   }
@@ -46,6 +48,7 @@ export class AuthService {
       tap((result: SigninResponse): void => {
         //console.log(result);
         this.token = result.authData.token;
+        this.currentUserId = this.getUserIdFromToken(this.token);
         this.setLocalStorageToken(result.authData.token);
         this.signedIn$.next(true); // letting all know the user is authenticated
       })
@@ -54,6 +57,7 @@ export class AuthService {
 
   signOut(): void {
     this.signedIn$.next(false);
+    this.currentUserId = '';
     localStorage.removeItem('token');
   }
 
@@ -61,6 +65,7 @@ export class AuthService {
     const token = this.getLocalStorageToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);
+      console.log(decodedToken);
       this.printExpiringTokenDate(decodedToken.exp);
       return this.isTokenValid(decodedToken.exp);
     }
@@ -86,5 +91,14 @@ export class AuthService {
 
   private isTokenValid(expTime: number): boolean {
     return expTime > new Date().getTime() / 1000 ? true : false;
+  }
+
+  private getUserIdFromToken(token: string): string {
+    const decodedToken: any = jwtDecode(token);
+    return decodedToken.userId;
+  }
+
+  getCurrentUserId() {
+    return this.currentUserId;
   }
 }

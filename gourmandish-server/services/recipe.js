@@ -9,6 +9,15 @@ const getAll = async () => {
   };
 };
 
+const getByUserId = async (userId) => {
+  const foundRecipes = await recipeDAL.getByUserId(userId);
+
+  return {
+    recipeData: { recipes: foundRecipes, count: foundRecipes.length },
+    message: "Recipes successfully fetched!",
+  };
+};
+
 const create = async (title, description, imagePath, creatorId) => {
   const savedRecipe = await recipeDAL.create(
     title,
@@ -39,4 +48,4 @@ const create = async (title, description, imagePath, creatorId) => {
   };
 };
 
-module.exports = { getAll, create /*, update, remove*/ };
+module.exports = { getAll, getByUserId, create /*, update, remove*/ };

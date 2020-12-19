@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Recipe } from 'src/app/models/Recipe.model';
+import { AuthService } from 'src/app/auth/auth.service';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -10,13 +10,19 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeListComponent implements OnInit {
   recipes$: BehaviorSubject<any>;
-  constructor(private recipeService: RecipeService) {
+  constructor(
+    private recipeService: RecipeService,
+    private authService: AuthService
+  ) {
     this.recipes$ = this.recipeService.recipes$;
   }
 
   ngOnInit(): void {
-    this.recipeService.getAll().subscribe((recipes: any) => {
-      //   console.log(this.recipes);
-    });
+    // this.recipeService.getAll().subscribe((recipes: any) => {
+    this.recipeService
+      .getByUserId(this.authService.getCurrentUserId())
+      .subscribe((recipes: any) => {
+        //   console.log(this.recipes);
+      });
   }
 }

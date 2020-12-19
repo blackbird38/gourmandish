@@ -18,4 +18,9 @@ export class RecipeWebService {
   getAll(): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}`);
   }
+
+  getByUserId(userId: string): Observable<any> {
+    console.log(`${this.apiUrl}/${userId}`);
+    return this.httpClient.get<any>(`${this.apiUrl}/user/${userId}`);
+  }
 }

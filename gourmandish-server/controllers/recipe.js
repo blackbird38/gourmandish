@@ -12,6 +12,17 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getByUserId = async (req, res, next) => {
+  console.log("[GET] api/recipes/user/:userId", { userId: req.params.userId });
+  try {
+    const { userId } = req.params;
+    const result = await recipeService.getByUserId(userId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
 const create = async (req, res, next) => {
   console.log("[POST] api/recipes");
   // console.log("req.file", req.file);
@@ -71,4 +82,4 @@ const parseError = (e) => {
   };
 };
 
-module.exports = { getAll, create /*, update, remove*/ };
+module.exports = { getAll, create, getByUserId /*, update, remove*/ };

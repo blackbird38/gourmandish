@@ -7,7 +7,8 @@ const recipeController = require("../controllers/recipe");
 const router = express.Router();
 
 router.get("", recipeController.getAll);
-
 router.post("", jwtCheckAuth, imageUploadWithMulter, recipeController.create);
+
+router.get("/user/:userId", recipeController.getByUserId);
 
 module.exports = router;

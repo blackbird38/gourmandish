@@ -39,4 +39,15 @@ export class RecipeService {
       })
     );
   }
+
+  getByUserId(userId: string): Observable<any> {
+    return this.recipeWebservice.getByUserId(userId).pipe(
+      tap((result: any) => {
+        // console.log(result);
+        this.recipes = result.recipeData.recipes;
+        console.log(this.recipes);
+        this.recipes$.next(this.recipes);
+      })
+    );
+  }
 }
