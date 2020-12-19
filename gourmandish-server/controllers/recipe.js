@@ -14,13 +14,13 @@ const getAll = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   console.log("[POST] api/recipes");
-  console.log("req.file", req.file);
+  // console.log("req.file", req.file);
   try {
     const url = req.protocol + "://" + req.get("host");
     const uploadedFileWithMulter = req.file;
     const imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
     const { title, description } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const creatorId = req.jwtLoggedInUser.userId;
     const result = await recipeService.create(
       title,

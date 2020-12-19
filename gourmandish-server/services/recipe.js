@@ -26,7 +26,7 @@ const create = async (title, description, imagePath, creatorId) => {
     );
   }
 
-  console.log(savedRecipe);
+  //console.log(savedRecipe);
 
   return {
     recipe: {

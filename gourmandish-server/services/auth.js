@@ -135,7 +135,7 @@ const isPasswordValid = async (loginPassword, dbPassword) => {
 
 const generateToken = (email, userId) => {
   const token = jwt.sign({ email, userId }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1h",
+    expiresIn: "1d",
   });
   return token;
 };
