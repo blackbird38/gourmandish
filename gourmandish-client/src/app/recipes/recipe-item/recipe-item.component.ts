@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-item',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RecipeItemComponent implements OnInit {
   @Input() recipe: any;
 
-  constructor() {}
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit(): void {}
 }

@@ -18,6 +18,7 @@ export class ImageUploadWithPreviewComponent implements OnInit {
   value: any = '';
   @Input() label: string;
   @Input() control: FormControl;
+  @Input() imagePath: string;
   @Output()
   selectImageEventEmmitter: EventEmitter<File> = new EventEmitter<File>();
 

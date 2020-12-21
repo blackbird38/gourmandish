@@ -27,8 +27,19 @@ added a jwtCheckAuth middleware to protect the route POST /api/recipes and to ge
 
 ---
 
-display all recipes:
+display all recipes and display by userId:
 
-ng g c recipes/recipeList
+`ng g c recipes/recipeList`
 
-ng g c recipes/recipeItem
+`ng g c recipes/recipeItem`
+
+display recipe details
+`ng g c recipes/recipeDetails`
+
+edit recipe
+
+the component recipe-form can be used either for creating a recipe or for updating an existing one:
+creating a resolver to read if there is an id in the route. if there is an id, proceed to fetch the data  
+from the backend and update it
+
+`ng g s recipes/services/recipeFormResolver`

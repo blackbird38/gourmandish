@@ -1,5 +1,5 @@
 <div class="ui raised very padded text container segment">
-  <h3 class="ui dividing header">Add a new recipe</h3>
+  <h3 class="ui dividing header">{{ header }}</h3>
   <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="recipeForm">
     <app-input
       class="field"
@@ -16,6 +16,7 @@
     <app-image-upload-with-preview
       class="field"
       label="Upload a photo of your dish"
+      [imagePath]="recipe.imagePath"
       [control]="recipeForm.get('image')"
       (selectImageEventEmmitter)="selectImage($event)"
     ></app-image-upload-with-preview>
@@ -29,7 +30,7 @@
       class="ui red basic label"
     ></div>
     <div>
-      <button class="ui submit button primary">Submit</button>
+      <button class="ui submit button primary">{{ button }}</button>
     </div>
   </form>
 </div>

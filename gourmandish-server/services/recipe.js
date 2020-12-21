@@ -18,6 +18,11 @@ const getByUserId = async (userId) => {
   };
 };
 
+const getById = async (recipeId) => {
+  const foundRecipe = await recipeDAL.getById(recipeId);
+  return foundRecipe;
+};
+
 const create = async (title, description, imagePath, creatorId) => {
   const savedRecipe = await recipeDAL.create(
     title,
@@ -36,16 +41,11 @@ const create = async (title, description, imagePath, creatorId) => {
   }
 
   //console.log(savedRecipe);
-
+  const { __v, ...recipe } = savedRecipe;
   return {
-    recipe: {
-      title: savedRecipe.title,
-      description: savedRecipe.description,
-      imagePath: savedRecipe.imagePath,
-      creator: savedRecipe.creator,
-    },
+    recipe: recipe,
     message: "Your recipe was successfully published.",
   };
 };
 
-module.exports = { getAll, getByUserId, create /*, update, remove*/ };
+module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };

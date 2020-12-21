@@ -23,4 +23,9 @@ export class RecipeWebService {
     console.log(`${this.apiUrl}/${userId}`);
     return this.httpClient.get<any>(`${this.apiUrl}/user/${userId}`);
   }
+
+  async getById(recipeId: string): Promise<any> {
+    console.log(`${this.apiUrl}/${recipeId}`);
+    return this.httpClient.get<any>(`${this.apiUrl}/${recipeId}`).toPromise();
+  }
 }

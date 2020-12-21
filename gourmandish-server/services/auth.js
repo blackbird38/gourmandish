@@ -130,7 +130,7 @@ const isSignInDataValid = (usernameOrEmail, password) => {
 };
 
 const isPasswordValid = async (loginPassword, dbPassword) => {
-  return await bcrypt.compare(loginPassword, dbPassword);
+  return await bcrypt.compare(loginPassword, dbPassword); // comparing 2 hashed passwords. the password will not be decripted at all for the comparison
 };
 
 const generateToken = (email, userId) => {

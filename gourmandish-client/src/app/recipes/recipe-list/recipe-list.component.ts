@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RecipeService } from '../services/recipe.service';
@@ -14,12 +14,12 @@ export class RecipeListComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private authService: AuthService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
     this.recipes$ = this.recipeService.recipes$;
   }
 
+  //TODO: resolver or something else
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('userId')
       ? this.route.snapshot.paramMap.get('userId')

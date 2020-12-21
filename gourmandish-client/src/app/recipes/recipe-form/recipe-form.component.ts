@@ -5,7 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Recipe } from 'src/app/models/Recipe.model';
 import { mimeType } from 'src/app/validators/mime-type.validator';
 import { RecipeService } from '../services/recipe.service';
 
@@ -16,21 +17,28 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
+  recipe: Recipe;
+  header: string;
+  button: string;
+  // isLoading: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.loadData();
+
     this.recipeForm = this.formBuilder.group({
-      title: new FormControl('', [
+      title: new FormControl('' || this.recipe.title, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
       ]),
-      description: new FormControl('', [
+      description: new FormControl('' || this.recipe.description, [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -61,5 +69,16 @@ export class RecipeFormComponent implements OnInit {
 
     // this.recipeForm.reset();
     this.router.navigate(['recipe-list']);
+  }
+
+  private loadData() {
+    this.route.snapshot.data.resolverData.subscribe((resolverData) => {
+      if (!!resolverData) {
+        this.header = resolverData.header;
+        this.button = resolverData.button;
+        this.recipe = { ...resolverData.recipe };
+        //   this.isLoading = false;
+      }
+    });
   }
 }

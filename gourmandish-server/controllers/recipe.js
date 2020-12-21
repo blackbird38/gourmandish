@@ -12,6 +12,17 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getById = async (req, res, next) => {
+  console.log("[GET] api/recipes/:recipeId", { recipeId: req.params.recipeId });
+  try {
+    const { recipeId } = req.params;
+    const result = await recipeService.getById(recipeId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
 const getByUserId = async (req, res, next) => {
   console.log("[GET] api/recipes/user/:userId", { userId: req.params.userId });
   try {
@@ -82,4 +93,4 @@ const parseError = (e) => {
   };
 };
 
-module.exports = { getAll, create, getByUserId /*, update, remove*/ };
+module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };

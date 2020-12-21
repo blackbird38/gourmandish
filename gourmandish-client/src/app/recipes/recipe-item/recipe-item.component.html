@@ -9,7 +9,12 @@
     </div>
     <div class="description">
       {{ recipe.description | slice: 0:180 }}
-      <button class="mini ui button">More</button>
+      <button
+        class="mini ui button"
+        [routerLink]="['/edit-recipe', recipe._id]"
+      >
+        More
+      </button>
     </div>
   </div>
   <div class="extra content">

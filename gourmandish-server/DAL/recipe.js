@@ -1,13 +1,27 @@
 const Recipe = require("../models/recipe");
 
 const getAll = async () => {
-  var foundRecipes = await Recipe.find();
+  var foundRecipes = await Recipe.find({}, { __v: 0 })
+    .sort({ createdAt: -1 })
+    .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
   return foundRecipes;
 };
 
 const getByUserId = async (userId) => {
-  var foundRecipes = await Recipe.find({ creator: userId });
+  var foundRecipes = await Recipe.find({ creator: userId }, { __v: 0 })
+    .sort({
+      createdAt: -1,
+    })
+    .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
   return foundRecipes;
+};
+
+const getById = async (recipeId) => {
+  var foundRecipe = await Recipe.findOne(
+    { _id: recipeId },
+    { __v: 0 }
+  ).populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
+  return foundRecipe;
 };
 
 const create = async (title, description, imagePath, creatorId) => {
@@ -27,4 +41,4 @@ const create = async (title, description, imagePath, creatorId) => {
   return createdRecipe._doc;
 };
 
-module.exports = { getAll, getByUserId, create /*, update, remove*/ };
+module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };

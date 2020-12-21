@@ -2,5 +2,9 @@
 <input type="file" (change)="onImageSelected($event)" />
 
 <div *ngIf="imagePreview !== '' && imagePreview && control.valid">
-  <img class="ui fluid image" [src]="imagePreview" />
+  <img class="ui fluid small rounded image" [src]="imagePreview" />
+</div>
+
+<div *ngIf="!imagePreview && imagePath !== '' && imagePath">
+  <img class="ui fluid small rounded image" [src]="imagePath" />
 </div>
