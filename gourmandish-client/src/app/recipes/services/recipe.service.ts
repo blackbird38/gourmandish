@@ -71,4 +71,14 @@ export class RecipeService {
     this.recipes$.next([...this.recipes]);
     //console.log(updatedRecipe);
   }
+
+  async remove(recipeId: string): Promise<any> {
+    const isRemoved: any = await this.recipeWebservice.remove(recipeId);
+    if (!isRemoved) {
+      return;
+    }
+    const updatedRecipes = [...this.recipes];
+    this.recipes = [...updatedRecipes.filter((r) => r._id != recipeId)];
+    this.recipes$.next([...this.recipes]);
+  }
 }

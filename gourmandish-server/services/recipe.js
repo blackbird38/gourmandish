@@ -1,4 +1,5 @@
 const recipeDAL = require("../DAL/recipe");
+const fs = require("fs");
 
 const getAll = async () => {
   const foundRecipes = await recipeDAL.getAll();
@@ -61,4 +62,26 @@ const update = async (recipeId, title, description, imagePath, creatorId) => {
   }
 };
 
-module.exports = { getAll, getByUserId, getById, create, update /* remove*/ };
+const remove = async (recipeId) => {
+  const deletedRecipe = await recipeDAL.remove(recipeId);
+  if (deletedRecipe._id) {
+    const filePath = getDiskFilePath(deletedRecipe.imagePath);
+    deleteFile(filePath);
+    return true;
+  }
+  return false;
+};
+
+const getDiskFilePath = (oldFilename) => {
+  const filePath = "./uploads/images/" + oldFilename.split("images/")[1];
+  return filePath;
+};
+
+const deleteFile = (filePath) => {
+  fs.unlink(filePath, function (err) {
+    if (err) throw err;
+    console.log("File deleted!");
+  });
+};
+
+module.exports = { getAll, getByUserId, getById, create, update, remove };

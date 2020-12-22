@@ -29,8 +29,16 @@
       "
       class="ui red basic label"
     ></div>
+
     <div>
       <button class="ui submit button primary">{{ button }}</button>
+      <button
+        class="ui submit button warning"
+        *ngIf="recipe._id"
+        (click)="onDelete(recipe._id)"
+      >
+        Delete
+      </button>
     </div>
   </form>
 </div>

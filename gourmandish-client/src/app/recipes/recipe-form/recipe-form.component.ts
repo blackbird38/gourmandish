@@ -100,8 +100,14 @@ export class RecipeFormComponent implements OnInit {
       }
     });
   }
+
+  private onDelete(recipeId: string) {
+    this.recipeService.remove(recipeId);
+  }
 }
 
 /**
  * recipeData.forEach((rd) => console.log(rd.toString()));
  */
+
+// TODO: fix bug update invalid image

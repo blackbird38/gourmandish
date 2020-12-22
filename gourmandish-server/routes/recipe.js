@@ -15,6 +15,7 @@ router.put(
   imageUploadWithMulter,
   recipeController.update
 );
+router.delete("/:recipeId", recipeController.remove);
 
 router.get("/user/:userId", recipeController.getByUserId);
 

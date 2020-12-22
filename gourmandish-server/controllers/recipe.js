@@ -105,21 +105,18 @@ const deleteFile = (filePath) => {
   });
 };
 
-//TODO: move file deleting in a service
-
-/*
+//TODO: move file deleting in the service
 
 const remove = async (req, res, next) => {
-  console.log("[DELETE] api/recipes/:id");
+  console.log("[DELETE] api/recipes/:id", { recipeId: req.params.recipeId });
   try {
-    const { id } = req.body;
-    const result = await recipeService.remove(id);
+    const { recipeId } = req.params;
+    const result = await recipeService.remove(recipeId);
     res.status(200).send(result);
   } catch (e) {
-    const error = parseError(e);
-    res.status(error.code).send({ message: error.message });
+    res.status(500).send({ message: e.message });
   }
-};*/
+};
 
 const parseError = (e) => {
   const error = JSON.parse(e.message);
@@ -131,4 +128,4 @@ const parseError = (e) => {
   };
 };
 
-module.exports = { getAll, getByUserId, getById, create, update /*remove*/ };
+module.exports = { getAll, getByUserId, getById, create, update, remove };

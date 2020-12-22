@@ -57,4 +57,9 @@ const update = async (recipeId, title, description, imagePath, creatorId) => {
   return result.n > 0 ? true : false;
 };
 
-module.exports = { getAll, getByUserId, getById, create, update /*remove*/ };
+const remove = async (recipeId) => {
+  const deletedRecipe = await Recipe.findByIdAndRemove({ _id: recipeId });
+  return deletedRecipe;
+};
+
+module.exports = { getAll, getByUserId, getById, create, update, remove };
