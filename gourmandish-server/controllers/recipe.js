@@ -58,18 +58,33 @@ const create = async (req, res, next) => {
   }
 };
 
-/*
 const update = async (req, res, next) => {
-  console.log("[PUT] api/recipes/:id");
+  console.log("[PUT] api/recipes/:recipeId", { recipeId: req.params.recipeId });
   try {
-    const { recipe } = req.body;
-    const result = await recipeService.update(recipe);
+    let imagePath = req.body.imagePath;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      const uploadedFileWithMulter = req.file;
+      imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
+    }
+    const { recipeId } = req.params;
+    const { title, description } = req.body;
+    const creatorId = req.jwtLoggedInUser.userId;
+    const result = await recipeService.update(
+      recipeId,
+      title,
+      description,
+      imagePath,
+      creatorId
+    );
+
     res.status(200).send(result);
   } catch (e) {
-    const error = parseError(e);
-    res.status(error.code).send({ message: error.message });
+    res.status(500).send({ message: e.message });
   }
 };
+
+/*
 
 const remove = async (req, res, next) => {
   console.log("[DELETE] api/recipes/:id");
@@ -93,4 +108,4 @@ const parseError = (e) => {
   };
 };
 
-module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };
+module.exports = { getAll, getByUserId, getById, create, update /*remove*/ };

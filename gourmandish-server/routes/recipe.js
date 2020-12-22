@@ -9,6 +9,12 @@ const router = express.Router();
 router.get("", recipeController.getAll);
 router.get("/:recipeId", recipeController.getById);
 router.post("", jwtCheckAuth, imageUploadWithMulter, recipeController.create);
+router.put(
+  "/:recipeId",
+  jwtCheckAuth,
+  imageUploadWithMulter,
+  recipeController.update
+);
 
 router.get("/user/:userId", recipeController.getByUserId);
 

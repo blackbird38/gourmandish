@@ -48,4 +48,17 @@ const create = async (title, description, imagePath, creatorId) => {
   };
 };
 
-module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };
+const update = async (recipeId, title, description, imagePath, creatorId) => {
+  const isUpdated = await recipeDAL.update(
+    recipeId,
+    title,
+    description,
+    imagePath,
+    creatorId
+  );
+  if (isUpdated) {
+    return getById(recipeId);
+  }
+};
+
+module.exports = { getAll, getByUserId, getById, create, update /* remove*/ };

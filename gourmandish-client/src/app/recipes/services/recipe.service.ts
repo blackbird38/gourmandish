@@ -16,7 +16,7 @@ export class RecipeService {
   create(recipeData: FormData): Observable<any> {
     return this.recipeWebservice.create(recipeData).pipe(
       tap((result: any) => {
-        console.log(result);
+        // console.log(result);
         const addedRecipe: Recipe = {
           _id: result.recipe._id,
           title: result.recipe.title,
@@ -27,7 +27,7 @@ export class RecipeService {
           creator: result.recipe.creator,
         };
         this.recipes = [addedRecipe, ...this.recipes];
-        console.log(this.recipes);
+        //(this.recipes);
         this.recipes$.next(this.recipes);
         //    console.log(result);
       })
@@ -49,7 +49,7 @@ export class RecipeService {
       tap((result: any) => {
         //console.log(result);
         this.recipes = result.recipeData.recipes;
-        console.log(this.recipes);
+        //   console.log(this.recipes);
         this.recipes$.next(this.recipes);
       })
     );
@@ -57,5 +57,18 @@ export class RecipeService {
 
   async getById(recipeId: string): Promise<any> {
     return await this.recipeWebservice.getById(recipeId);
+  }
+
+  async update(recipeId: string, recipeData: FormData): Promise<any> {
+    const updatedRecipe: Recipe = await this.recipeWebservice.update(
+      recipeId,
+      recipeData
+    );
+    const updatedRecipes = [...this.recipes];
+    const oldRecipeIndex = updatedRecipes.findIndex((r) => r._id === recipeId);
+    updatedRecipes[oldRecipeIndex] = updatedRecipe;
+    this.recipes = [...updatedRecipes];
+    this.recipes$.next([...this.recipes]);
+    console.log(updatedRecipe);
   }
 }

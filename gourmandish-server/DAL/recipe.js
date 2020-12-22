@@ -41,4 +41,20 @@ const create = async (title, description, imagePath, creatorId) => {
   return createdRecipe._doc;
 };
 
-module.exports = { getAll, getByUserId, getById, create /*, update, remove*/ };
+const update = async (recipeId, title, description, imagePath, creatorId) => {
+  const modifiedRecipe = new Recipe({
+    _id: recipeId,
+    title: title,
+    description: description,
+    imagePath: imagePath,
+    creator: creatorId,
+  });
+  console.log(modifiedRecipe);
+  const result = await Recipe.updateOne(
+    { _id: recipeId, creator: creatorId },
+    modifiedRecipe
+  );
+  return result.n > 0 ? true : false;
+};
+
+module.exports = { getAll, getByUserId, getById, create, update /*remove*/ };

@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
     //  console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
       next: (response: SigninResponse): void => {
-        console.log(response);
+        // console.log(response);
         this.notifier.show({
           message: `You have successfully signed in. Enjoy! :)`,
           type: 'info',

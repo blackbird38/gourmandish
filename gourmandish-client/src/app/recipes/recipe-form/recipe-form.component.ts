@@ -82,3 +82,10 @@ export class RecipeFormComponent implements OnInit {
     });
   }
 }
+
+/**
+ *
+ *  this.recipeService.update(this.recipe._id, recipeData);
+ *
+ * recipeData.forEach((rd) => console.log(rd.toString()));
+ */
