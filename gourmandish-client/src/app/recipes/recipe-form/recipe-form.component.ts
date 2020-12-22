@@ -103,8 +103,5 @@ export class RecipeFormComponent implements OnInit {
 }
 
 /**
- *
- *
- *
  * recipeData.forEach((rd) => console.log(rd.toString()));
  */

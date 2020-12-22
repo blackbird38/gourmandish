@@ -49,7 +49,7 @@ const update = async (recipeId, title, description, imagePath, creatorId) => {
     imagePath: imagePath,
     creator: creatorId,
   });
-  console.log(modifiedRecipe);
+  //console.log(modifiedRecipe);
   const result = await Recipe.updateOne(
     { _id: recipeId, creator: creatorId },
     modifiedRecipe

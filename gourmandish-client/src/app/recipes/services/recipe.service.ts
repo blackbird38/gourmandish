@@ -38,7 +38,7 @@ export class RecipeService {
     return this.recipeWebservice.getAll().pipe(
       tap((result: any) => {
         this.recipes = result.recipeData.recipes;
-        console.log(this.recipes);
+        // console.log(this.recipes);
         this.recipes$.next(this.recipes);
       })
     );

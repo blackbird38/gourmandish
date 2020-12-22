@@ -1,4 +1,5 @@
 const recipeService = require("../services/recipe");
+const fs = require("fs");
 
 const getAll = async (req, res, next) => {
   console.log("[GET] api/recipes");
@@ -62,16 +63,20 @@ const update = async (req, res, next) => {
   console.log("[PUT] api/recipes/:recipeId", { recipeId: req.params.recipeId });
   try {
     let imagePath = req.body.imagePath;
+    const { recipeId } = req.params;
+    const { title, description } = req.body;
+    const creatorId = req.jwtLoggedInUser.userId;
+
     if (req.file) {
       //console.log(req.file);
       const url = req.protocol + "://" + req.get("host");
       const uploadedFileWithMulter = req.file;
       imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
+
+      const filePath = await getOldFilePath(recipeId);
+      deleteFile(filePath);
     }
-    // TODO: delete file
-    const { recipeId } = req.params;
-    const { title, description } = req.body;
-    const creatorId = req.jwtLoggedInUser.userId;
+
     const result = await recipeService.update(
       recipeId,
       title,
@@ -85,6 +90,22 @@ const update = async (req, res, next) => {
     res.status(500).send({ message: e.message });
   }
 };
+
+const getOldFilePath = async (recipeId) => {
+  const oldRecipe = await recipeService.getById(recipeId);
+  const oldFilename = oldRecipe.imagePath;
+  const filePath = "./uploads/images/" + oldFilename.split("images/")[1];
+  return filePath;
+};
+
+const deleteFile = (filePath) => {
+  fs.unlink(filePath, function (err) {
+    if (err) throw err;
+    console.log("File deleted!");
+  });
+};
+
+//TODO: move file deleting in a service
 
 /*
 
