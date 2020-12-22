@@ -63,10 +63,12 @@ const update = async (req, res, next) => {
   try {
     let imagePath = req.body.imagePath;
     if (req.file) {
+      //console.log(req.file);
       const url = req.protocol + "://" + req.get("host");
       const uploadedFileWithMulter = req.file;
       imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
     }
+    // TODO: delete file
     const { recipeId } = req.params;
     const { title, description } = req.body;
     const creatorId = req.jwtLoggedInUser.userId;

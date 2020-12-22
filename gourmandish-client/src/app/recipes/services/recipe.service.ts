@@ -69,6 +69,6 @@ export class RecipeService {
     updatedRecipes[oldRecipeIndex] = updatedRecipe;
     this.recipes = [...updatedRecipes];
     this.recipes$.next([...this.recipes]);
-    console.log(updatedRecipe);
+    //console.log(updatedRecipe);
   }
 }

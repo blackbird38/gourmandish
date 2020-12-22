@@ -55,17 +55,36 @@ export class RecipeFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.recipeForm.invalid) {
-      return;
+    /* */
+    let recipeData: FormData = new FormData();
+    if (this.recipe.imagePath) {
+      // test validity
+      // update
+      recipeData.append('title', this.recipeForm.get('title').value);
+      recipeData.append(
+        'description',
+        this.recipeForm.get('description').value
+      );
+      const image = this.recipeForm.get('image').value
+        ? this.recipeForm.get('image').value
+        : this.recipe.imagePath;
+      recipeData.append('image', image);
+      this.recipeService.update(this.recipe._id, recipeData);
+    } else {
+      if (this.recipeForm.invalid) {
+        return;
+      }
+      const recipeData: FormData = new FormData();
+      recipeData.append('title', this.recipeForm.get('title').value);
+      recipeData.append(
+        'description',
+        this.recipeForm.get('description').value
+      );
+      recipeData.append('image', this.recipeForm.get('image').value);
+      this.recipeService
+        .create(recipeData)
+        .subscribe((res) => console.log(res));
     }
-    console.log(this.recipeForm.get('image').value);
-
-    const recipeData: FormData = new FormData();
-    recipeData.append('title', this.recipeForm.get('title').value);
-    recipeData.append('description', this.recipeForm.get('description').value);
-    recipeData.append('image', this.recipeForm.get('image').value);
-
-    this.recipeService.create(recipeData).subscribe((res) => console.log(res));
 
     // this.recipeForm.reset();
     this.router.navigate(['recipe-list']);
@@ -85,7 +104,7 @@ export class RecipeFormComponent implements OnInit {
 
 /**
  *
- *  this.recipeService.update(this.recipe._id, recipeData);
+ *
  *
  * recipeData.forEach((rd) => console.log(rd.toString()));
  */
