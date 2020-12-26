@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CurentUserData } from 'src/app/auth/models/current-user-data.model';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeListComponent implements OnInit {
   recipes$: BehaviorSubject<any>;
+  currentUserData: CurentUserData;
   constructor(
     private recipeService: RecipeService,
     private authService: AuthService,
@@ -21,9 +23,18 @@ export class RecipeListComponent implements OnInit {
 
   //TODO: resolver or something else
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('userId')
-      ? this.route.snapshot.paramMap.get('userId')
-      : this.authService.getCurrentUserId();
+    let userId: string;
+    this.authService.currentUserData$.subscribe((userData) => {
+      this.currentUserData = userData;
+      if (this.currentUserData) {
+        userId = this.currentUserData._id;
+      }
+    });
+
+    if (this.route.snapshot.paramMap.get('userId')) {
+      userId = this.route.snapshot.paramMap.get('userId');
+    }
+    console.log(userId);
     if (userId) {
       this.recipeService.getByUserId(userId).subscribe((recipes: any) => {});
       return;

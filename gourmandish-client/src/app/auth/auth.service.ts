@@ -111,8 +111,4 @@ export class AuthService {
       email,
     };
   }
-
-  getCurrentUserId() {
-    //   return this.currentUserId;
-  }
 }
