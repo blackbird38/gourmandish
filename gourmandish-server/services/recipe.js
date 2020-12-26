@@ -57,9 +57,15 @@ const update = async (
   updaterId,
   isNewFileUploaded
 ) => {
+  let oldFilePath = "";
+  const canUpdate = await userCanUpdate(updaterId, recipeId);
+
+  if (!canUpdate) {
+    throw new Error("You are not authorized to update this recipe.");
+  }
+
   if (isNewFileUploaded) {
-    const oldFilePath = await getOldFilePath(recipeId);
-    deleteFile(oldFilePath);
+    oldFilePath = await getOldFilePath(recipeId);
   }
 
   const isUpdated = await recipeDAL.update(
@@ -70,7 +76,8 @@ const update = async (
     updaterId
   );
   if (isUpdated) {
-    return getById(recipeId);
+    deleteFile(oldFilePath);
+    return await getById(recipeId);
   }
 };
 
@@ -102,4 +109,12 @@ const deleteFile = (filePath) => {
   });
 };
 
+const userCanUpdate = async (userId, recipeId) => {
+  const recipe = await getById(recipeId);
+  const creatorId = recipe.creator._id;
+  return creatorId == userId;
+};
+
 module.exports = { getAll, getByUserId, getById, create, update, remove };
+
+// TODO: if the files are deleted from the disk or imagePath not point to a file, display a generic image
