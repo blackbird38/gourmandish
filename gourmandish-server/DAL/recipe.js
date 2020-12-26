@@ -48,12 +48,11 @@ const update = async (recipeId, title, description, imagePath, updaterId) => {
     description: description,
     imagePath: imagePath,
   });
-  //console.log(modifiedRecipe);
+
   const result = await Recipe.updateOne(
     { _id: recipeId, creator: updaterId },
     modifiedRecipe
   );
-  console.log(result.n);
   return result.n > 0 ? true : false;
 };
 

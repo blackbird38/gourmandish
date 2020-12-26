@@ -94,7 +94,8 @@ const remove = async (req, res, next) => {
   console.log("[DELETE] api/recipes/:id", { recipeId: req.params.recipeId });
   try {
     const { recipeId } = req.params;
-    const result = await recipeService.remove(recipeId);
+    const requesterId = req.jwtLoggedInUser.userId;
+    const result = await recipeService.remove(recipeId, requesterId);
     res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ message: e.message });

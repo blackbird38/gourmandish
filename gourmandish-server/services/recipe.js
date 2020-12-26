@@ -81,7 +81,11 @@ const update = async (
   }
 };
 
-const remove = async (recipeId) => {
+const remove = async (recipeId, requesterId) => {
+  const canDelete = await userCanUpdate(requesterId, recipeId);
+  if (!canDelete) {
+    throw new Error("You are not authorized to delete this recipe.");
+  }
   const deletedRecipe = await recipeDAL.remove(recipeId);
   if (deletedRecipe._id) {
     const filePath = getDiskFilePath(deletedRecipe.imagePath);
@@ -108,6 +112,8 @@ const deleteFile = (filePath) => {
     console.log("File deleted!");
   });
 };
+
+// TODO: err if no file uploaded
 
 const userCanUpdate = async (userId, recipeId) => {
   const recipe = await getById(recipeId);
