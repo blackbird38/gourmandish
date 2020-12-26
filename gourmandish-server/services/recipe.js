@@ -49,13 +49,25 @@ const create = async (title, description, imagePath, creatorId) => {
   };
 };
 
-const update = async (recipeId, title, description, imagePath, creatorId) => {
+const update = async (
+  recipeId,
+  title,
+  description,
+  imagePath,
+  updaterId,
+  isNewFileUploaded
+) => {
+  if (isNewFileUploaded) {
+    const oldFilePath = await getOldFilePath(recipeId);
+    deleteFile(oldFilePath);
+  }
+
   const isUpdated = await recipeDAL.update(
     recipeId,
     title,
     description,
     imagePath,
-    creatorId
+    updaterId
   );
   if (isUpdated) {
     return getById(recipeId);
@@ -75,6 +87,12 @@ const remove = async (recipeId) => {
 const getDiskFilePath = (oldFilename) => {
   const filePath = "./uploads/images/" + oldFilename.split("images/")[1];
   return filePath;
+};
+
+const getOldFilePath = async (recipeId) => {
+  const oldRecipe = await getById(recipeId);
+  const oldFilename = oldRecipe.imagePath;
+  return getDiskFilePath(oldFilename);
 };
 
 const deleteFile = (filePath) => {

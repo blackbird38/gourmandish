@@ -41,19 +41,19 @@ const create = async (title, description, imagePath, creatorId) => {
   return createdRecipe._doc;
 };
 
-const update = async (recipeId, title, description, imagePath, creatorId) => {
+const update = async (recipeId, title, description, imagePath, updaterId) => {
   const modifiedRecipe = new Recipe({
     _id: recipeId,
     title: title,
     description: description,
     imagePath: imagePath,
-    creator: creatorId,
   });
   //console.log(modifiedRecipe);
   const result = await Recipe.updateOne(
-    { _id: recipeId, creator: creatorId },
+    { _id: recipeId, creator: updaterId },
     modifiedRecipe
   );
+  console.log(result.n);
   return result.n > 0 ? true : false;
 };
 

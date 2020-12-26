@@ -65,16 +65,14 @@ const update = async (req, res, next) => {
     let imagePath = req.body.imagePath;
     const { recipeId } = req.params;
     const { title, description } = req.body;
-    const creatorId = req.jwtLoggedInUser.userId;
+    const updaterId = req.jwtLoggedInUser.userId;
+    let isNewFileUploaded = false;
 
     if (req.file) {
-      //console.log(req.file);
       const url = req.protocol + "://" + req.get("host");
       const uploadedFileWithMulter = req.file;
       imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
-
-      const filePath = await getOldFilePath(recipeId);
-      deleteFile(filePath);
+      isNewFileUploaded = true;
     }
 
     const result = await recipeService.update(
@@ -82,7 +80,8 @@ const update = async (req, res, next) => {
       title,
       description,
       imagePath,
-      creatorId
+      updaterId,
+      isNewFileUploaded
     );
 
     res.status(200).send(result);
@@ -90,22 +89,6 @@ const update = async (req, res, next) => {
     res.status(500).send({ message: e.message });
   }
 };
-
-const getOldFilePath = async (recipeId) => {
-  const oldRecipe = await recipeService.getById(recipeId);
-  const oldFilename = oldRecipe.imagePath;
-  const filePath = "./uploads/images/" + oldFilename.split("images/")[1];
-  return filePath;
-};
-
-const deleteFile = (filePath) => {
-  fs.unlink(filePath, function (err) {
-    if (err) throw err;
-    console.log("File deleted!");
-  });
-};
-
-//TODO: move file deleting in the service
 
 const remove = async (req, res, next) => {
   console.log("[DELETE] api/recipes/:id", { recipeId: req.params.recipeId });
