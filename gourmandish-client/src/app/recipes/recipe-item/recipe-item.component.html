@@ -5,10 +5,10 @@
   <div class="content">
     <div class="header">{{ recipe.title }}</div>
     <div class="meta">
-      <a>Preparation</a>
+      by <a>{{ recipe.creator.username }}</a>
     </div>
     <div class="description">
-      {{ recipe.description | slice: 0:180 }}
+      {{ recipe.description }}
       <button
         class="mini ui button"
         [routerLink]="['/edit-recipe', recipe._id]"

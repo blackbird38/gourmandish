@@ -10,19 +10,22 @@ import {
   SignupResponse,
   UsernameAvailableResponse,
 } from './auth.webservice';
+import { CurentUserData } from './models/current-user-data.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   signedIn$ = new BehaviorSubject(false); // will push the signedIn info to the interested components, the latest value, even to the ones subscribed after it was emitted
-  private currentUserId: string = '';
+  currentUserData$ = new BehaviorSubject(null);
+  // private currentUserData: CurentUserData = null;
   private token: string;
 
   constructor(private authWebservice: AuthWebservice) {
     if (this.isValidTokenOnLocalStorage()) {
       this.token = this.getLocalStorageToken();
-      this.currentUserId = this.getUserIdFromToken(this.token);
+      const currentUserData = this.getUserDataFromToken(this.token);
+      this.currentUserData$.next(currentUserData);
       this.signedIn$.next(true);
     }
   }
@@ -46,9 +49,13 @@ export class AuthService {
     return this.authWebservice.signin(credentials).pipe(
       // if there  is an error at the signup, it won't reach here and signedIn will stay false
       tap((result: SigninResponse): void => {
-        //console.log(result);
+        // console.log(result);
         this.token = result.authData.token;
-        this.currentUserId = this.getUserIdFromToken(this.token);
+
+        const currentUserData = this.getUserDataFromToken(this.token);
+        console.log(currentUserData);
+        this.currentUserData$.next(currentUserData);
+
         this.setLocalStorageToken(result.authData.token);
         this.signedIn$.next(true); // letting all know the user is authenticated
       })
@@ -57,7 +64,7 @@ export class AuthService {
 
   signOut(): void {
     this.signedIn$.next(false);
-    this.currentUserId = '';
+    this.currentUserData$.next(null);
     localStorage.removeItem('token');
   }
 
@@ -65,7 +72,7 @@ export class AuthService {
     const token = this.getLocalStorageToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);
-      console.log(decodedToken);
+      console.log('decodedToken', decodedToken);
       this.printExpiringTokenDate(decodedToken.exp);
       return this.isTokenValid(decodedToken.exp);
     }
@@ -93,12 +100,19 @@ export class AuthService {
     return expTime > new Date().getTime() / 1000 ? true : false;
   }
 
-  private getUserIdFromToken(token: string): string {
+  private getUserDataFromToken(token: string): CurentUserData {
     const decodedToken: any = jwtDecode(token);
-    return decodedToken.userId;
+    const { userId, username, firstName, lastName, email } = decodedToken;
+    return {
+      _id: userId,
+      username,
+      firstName,
+      lastName,
+      email,
+    };
   }
 
   getCurrentUserId() {
-    return this.currentUserId;
+    //   return this.currentUserId;
   }
 }
