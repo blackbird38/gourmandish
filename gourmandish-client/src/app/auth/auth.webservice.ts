@@ -18,14 +18,12 @@ export class AuthWebservice {
   }
 
   signup(credentials: SignupCredentials): Observable<SignupResponse> {
-    //console.log(credentials);
     return this.httpClient.post<SignupResponse>(`${this.apiUrl}/signup`, {
       credentials,
     });
   }
 
   signin(credentials: SigninCredentials): Observable<SigninResponse> {
-    //console.log(credentials);
     return this.httpClient.post<SigninResponse>(`${this.apiUrl}/signin`, {
       credentials,
     });

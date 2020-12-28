@@ -30,14 +30,14 @@ export class RecipeWebService {
   }
 
   async update(recipeId: string, recipeData: FormData): Promise<any> {
-    console.log(`${this.apiUrl}/${recipeId}`);
+    // console.log(`${this.apiUrl}/${recipeId}`);
     return this.httpClient
       .put<any>(`${this.apiUrl}/${recipeId}`, recipeData)
       .toPromise();
   }
 
   async remove(recipeId: string): Promise<any> {
-    console.log(`${this.apiUrl}/${recipeId}`);
+    // console.log(`${this.apiUrl}/${recipeId}`);
     return this.httpClient
       .delete<any>(`${this.apiUrl}/${recipeId}`)
       .toPromise();

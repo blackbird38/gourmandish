@@ -39,24 +39,20 @@ export class AuthService {
     return this.authWebservice.signup(credentials).pipe(
       // if there  is an error at the signup, it won't reach here
       tap((result: SignupResponse): void => {
-        // console.log(result);
         // this.signedIn$.next(true);
       })
     );
   }
 
   signin(credentials: SigninCredentials): Observable<SigninResponse> {
-    //console.log(credentials);
     return this.authWebservice.signin(credentials).pipe(
       // if there  is an error at the signup, it won't reach here and signedIn will stay false
       tap((result: SigninResponse): void => {
-        // console.log(result);
         this.token = result.authData.token;
 
         this.setLocalStorageToken(this.token);
 
         const currentUserData = this.getUserDataFromToken(this.token);
-        console.log(currentUserData);
         this.currentUserData$.next(currentUserData);
 
         this.signedIn$.next(true); // letting all know the user is authenticated
@@ -148,7 +144,6 @@ export class AuthService {
     const decodedToken: any = jwtDecode(token);
     const { exp } = decodedToken;
     const seconds = exp - new Date().getTime() / 1000;
-    //console.log(seconds);
     return seconds;
   }
 

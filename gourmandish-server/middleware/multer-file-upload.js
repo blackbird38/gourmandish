@@ -15,7 +15,6 @@ const storageConfiguration = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    // console.log("file valid", isValid);
     callback(error, "uploads/images"); //err, path relative to index.js file, callback
   },
   //telling multer what the filename should be

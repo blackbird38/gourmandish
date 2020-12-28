@@ -16,7 +16,6 @@ export class RecipeService {
   create(recipeData: FormData): Observable<any> {
     return this.recipeWebservice.create(recipeData).pipe(
       tap((result: any) => {
-        // console.log(result);
         const addedRecipe: Recipe = {
           _id: result.recipe._id,
           title: result.recipe.title,
@@ -27,9 +26,7 @@ export class RecipeService {
           creator: result.recipe.creator,
         };
         this.recipes = [addedRecipe, ...this.recipes];
-        //(this.recipes);
         this.recipes$.next(this.recipes);
-        //    console.log(result);
       })
     );
   }
@@ -38,7 +35,6 @@ export class RecipeService {
     return this.recipeWebservice.getAll().pipe(
       tap((result: any) => {
         this.recipes = result.recipeData.recipes;
-        // console.log(this.recipes);
         this.recipes$.next(this.recipes);
       })
     );
@@ -47,9 +43,7 @@ export class RecipeService {
   getByUserId(userId: string): Observable<any> {
     return this.recipeWebservice.getByUserId(userId).pipe(
       tap((result: any) => {
-        //console.log(result);
         this.recipes = result.recipeData.recipes;
-        //   console.log(this.recipes);
         this.recipes$.next(this.recipes);
       })
     );
@@ -69,7 +63,6 @@ export class RecipeService {
     updatedRecipes[oldRecipeIndex] = updatedRecipe;
     this.recipes = [...updatedRecipes];
     this.recipes$.next([...this.recipes]);
-    //console.log(updatedRecipe);
   }
 
   async remove(recipeId: string): Promise<any> {
@@ -78,9 +71,7 @@ export class RecipeService {
     if (!isRemoved) {
       return;
     }
-    //  console.log('remove', this.recipes);
     this.recipes = updatedRecipes;
-    // console.log('remove', this.recipes);
     this.recipes$.next([...this.recipes]);
   }
 

@@ -56,18 +56,16 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
-      // console.log(this.authForm);
       return;
     }
     this.authService.signup(this.authForm.value).subscribe({
       next: (response: SignupResponse) => {
         //200
-        // console.log(response);
         this.notifier.show({
           message: `You have successfully created your account, please login.`,
           type: 'info',
         });
-        // this.notifier.notify('success', 'You are awesome! I mean it!');
+
         this.router.navigate(['signin']);
       },
       error: (error) => {

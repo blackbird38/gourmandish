@@ -41,7 +41,6 @@ const create = async (title, description, imagePath, creatorId) => {
     );
   }
 
-  //console.log(savedRecipe);
   const { __v, ...recipe } = savedRecipe;
   return {
     recipe: recipe,

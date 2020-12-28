@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CurentUserData } from 'src/app/auth/models/current-user-data.model';
-import { Recipe } from 'src/app/models/Recipe.model';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { RecipeService } from '../services/recipe.service';
 })
 export class RecipeListComponent implements OnInit {
   recipes$: BehaviorSubject<any>;
-  //recipes: Recipe[];
   currentUserData: CurentUserData;
   constructor(
     private recipeService: RecipeService,
@@ -23,11 +21,7 @@ export class RecipeListComponent implements OnInit {
     this.recipes$ = this.recipeService.recipes$;
   }
 
-  //TODO: resolver or something else
   ngOnInit(): void {
-    /* this.recipeService.recipes$.subscribe((recipes) => {
-      this.recipes = recipes;
-    });*/
     let userId: string;
     this.authService.currentUserData$.subscribe((userData) => {
       this.currentUserData = userData;
@@ -39,17 +33,11 @@ export class RecipeListComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('userId')) {
       userId = this.route.snapshot.paramMap.get('userId');
     }
-    console.log(userId);
+
     if (userId) {
-      this.recipeService.getByUserId(userId).subscribe((res: any) => {
-        //  this.recipes = res.recipeData.recipes;
-        //console.log(res);
-      });
+      this.recipeService.getByUserId(userId).subscribe((res: any) => {});
       return;
     }
-    this.recipeService.getAll().subscribe((res: any) => {
-      // this.recipes = res.recipeData.recipes;
-      //console.log(res);
-    });
+    this.recipeService.getAll().subscribe((res: any) => {});
   }
 }
