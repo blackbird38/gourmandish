@@ -19,6 +19,7 @@ import { CurentUserData } from './models/current-user-data.model';
 export class AuthService {
   signedIn$ = new BehaviorSubject(false); // will push the signedIn info to the interested components, the latest value, even to the ones subscribed after it was emitted
   currentUserData$ = new BehaviorSubject(null);
+
   // private currentUserData: CurentUserData = null;
   private token: string;
   private tokenTimer: any;

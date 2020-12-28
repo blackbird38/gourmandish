@@ -43,13 +43,13 @@ export class RecipeListComponent implements OnInit {
     if (userId) {
       this.recipeService.getByUserId(userId).subscribe((res: any) => {
         //  this.recipes = res.recipeData.recipes;
-        console.log(res);
+        //console.log(res);
       });
       return;
     }
     this.recipeService.getAll().subscribe((res: any) => {
       // this.recipes = res.recipeData.recipes;
-      console.log(res);
+      //console.log(res);
     });
   }
 }

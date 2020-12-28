@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Recipe } from 'src/app/models/Recipe.model';
 import { mimeType } from 'src/app/validators/mime-type.validator';
 import { RecipeService } from '../services/recipe.service';
@@ -16,6 +18,7 @@ import { RecipeService } from '../services/recipe.service';
   styleUrls: ['./recipe-form.component.css'],
 })
 export class RecipeFormComponent implements OnInit {
+  currentUserId: string = '';
   recipeForm: FormGroup;
   recipe: Recipe;
   header: string;
@@ -26,7 +29,9 @@ export class RecipeFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private readonly notifier: NotifierService
   ) {}
 
   ngOnInit(): void {
@@ -97,6 +102,22 @@ export class RecipeFormComponent implements OnInit {
         this.button = resolverData.button;
         this.recipe = { ...resolverData.recipe };
         //   this.isLoading = false;
+
+        // TODO: you may want to refacto this:
+        this.authService.currentUserData$.subscribe((userData) => {
+          const currentUserData = userData;
+          if (currentUserData) {
+            this.currentUserId = currentUserData._id;
+            if (this.recipe.creator._id !== this.currentUserId) {
+              // user is not allowed to edit this recipe because they did not create it
+              this.router.navigate(['recipe-list']);
+              this.notifier.show({
+                message: `Hehe, trying to do something illegal, you smarty? Not allowed to edit a recipe that is not yours. :).`,
+                type: 'error',
+              });
+            }
+          }
+        });
       }
     });
   }
