@@ -109,22 +109,23 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         this.userAuth = this.authService.currentUserData$.subscribe(
           (userData) => {
             const currentUserData = userData;
-            if (currentUserData) {
-              this.currentUserId = currentUserData._id;
 
-              console.log(Object.keys(this.recipe).length, this.currentUserId);
+            if (!currentUserData) {
+              return;
+            }
 
-              if (Object.keys(this.recipe).length == 0) {
-                return;
-              }
-              if (this.recipe.creator._id != this.currentUserId) {
-                // user is not allowed to edit this recipe because they did not create it
-                this.router.navigate(['recipe-list']);
-                this.notifier.show({
-                  message: `Hehe, trying to do something illegal, you smarty? Not allowed to edit a recipe that is not yours. :).`,
-                  type: 'error',
-                });
-              }
+            this.currentUserId = currentUserData._id;
+
+            if (Object.keys(this.recipe).length == 0) {
+              return;
+            }
+            if (this.recipe.creator._id != this.currentUserId) {
+              // user is not allowed to edit this recipe because they did not create it
+              this.router.navigate(['recipe-list']);
+              this.notifier.show({
+                message: `Hehe, trying to do something illegal, you smarty? Not allowed to edit a recipe that is not yours. :).`,
+                type: 'error',
+              });
             }
           }
         );
