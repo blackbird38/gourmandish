@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -20,13 +21,19 @@ export class AuthService {
   currentUserData$ = new BehaviorSubject(null);
   // private currentUserData: CurentUserData = null;
   private token: string;
+  private tokenTimer: any;
 
   constructor(private authWebservice: AuthWebservice) {
     if (this.isValidTokenOnLocalStorage()) {
       this.token = this.getLocalStorageToken();
+
       const currentUserData = this.getUserDataFromToken(this.token);
       this.currentUserData$.next(currentUserData);
+
       this.signedIn$.next(true);
+
+      const expiringDuration = this.getExpiringDurationFromToken(this.token);
+      this.setSignedInTimer(expiringDuration);
     }
   }
 
@@ -52,12 +59,16 @@ export class AuthService {
         // console.log(result);
         this.token = result.authData.token;
 
+        this.setLocalStorageToken(this.token);
+
         const currentUserData = this.getUserDataFromToken(this.token);
         console.log(currentUserData);
         this.currentUserData$.next(currentUserData);
 
-        this.setLocalStorageToken(result.authData.token);
         this.signedIn$.next(true); // letting all know the user is authenticated
+
+        const expiringDuration = this.getExpiringDurationFromToken(this.token);
+        this.setSignedInTimer(expiringDuration);
       })
     );
   }
@@ -65,10 +76,13 @@ export class AuthService {
   signOut(): void {
     this.signedIn$.next(false);
     this.currentUserData$.next(null);
+
     localStorage.removeItem('token');
+
+    clearTimeout(this.tokenTimer);
   }
 
-  isValidTokenOnLocalStorage(): boolean {
+  private isValidTokenOnLocalStorage(): boolean {
     const token = this.getLocalStorageToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);
@@ -78,11 +92,11 @@ export class AuthService {
     }
   }
 
-  getLocalStorageToken(): string {
+  private getLocalStorageToken(): string {
     return localStorage.getItem('token');
   }
 
-  setLocalStorageToken(token: string) {
+  private setLocalStorageToken(token: string) {
     localStorage.setItem('token', JSON.stringify(token));
   }
 
@@ -110,5 +124,19 @@ export class AuthService {
       lastName,
       email,
     };
+  }
+
+  private getExpiringDurationFromToken(token: string): number {
+    const decodedToken: any = jwtDecode(token);
+    const { exp } = decodedToken;
+    const seconds = exp - new Date().getTime() / 1000;
+    console.log(seconds);
+    return seconds;
+  }
+
+  private setSignedInTimer(expDuration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.signOut();
+    }, expDuration * 1000);
   }
 }

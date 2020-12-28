@@ -144,7 +144,7 @@ const generateToken = (userId, email, username, firstName, lastName) => {
     { email, userId, username, firstName, lastName },
     process.env.JWT_SECRET_KEY,
     {
-      expiresIn: "1d",
+      expiresIn: "1h",
     }
   );
   return token;
