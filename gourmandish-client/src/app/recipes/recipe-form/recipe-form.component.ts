@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Recipe } from 'src/app/models/Recipe.model';
 import { mimeType } from 'src/app/validators/mime-type.validator';
@@ -17,12 +18,13 @@ import { RecipeService } from '../services/recipe.service';
   templateUrl: './recipe-form.component.html',
   styleUrls: ['./recipe-form.component.css'],
 })
-export class RecipeFormComponent implements OnInit {
+export class RecipeFormComponent implements OnInit, OnDestroy {
   currentUserId: string = '';
   recipeForm: FormGroup;
   recipe: Recipe;
   header: string;
   button: string;
+  private userAuth: Subscription;
   // isLoading: boolean = true;
 
   constructor(
@@ -104,26 +106,37 @@ export class RecipeFormComponent implements OnInit {
         //   this.isLoading = false;
 
         // TODO: you may want to refacto this:
-        this.authService.currentUserData$.subscribe((userData) => {
-          const currentUserData = userData;
-          if (currentUserData) {
-            this.currentUserId = currentUserData._id;
-            if (this.recipe.creator._id !== this.currentUserId) {
-              // user is not allowed to edit this recipe because they did not create it
-              this.router.navigate(['recipe-list']);
-              this.notifier.show({
-                message: `Hehe, trying to do something illegal, you smarty? Not allowed to edit a recipe that is not yours. :).`,
-                type: 'error',
-              });
+        this.userAuth = this.authService.currentUserData$.subscribe(
+          (userData) => {
+            const currentUserData = userData;
+            if (currentUserData) {
+              this.currentUserId = currentUserData._id;
+
+              console.log(Object.keys(this.recipe).length, this.currentUserId);
+
+              if (Object.keys(this.recipe).length == 0) {
+                return;
+              }
+              if (this.recipe.creator._id != this.currentUserId) {
+                // user is not allowed to edit this recipe because they did not create it
+                this.router.navigate(['recipe-list']);
+                this.notifier.show({
+                  message: `Hehe, trying to do something illegal, you smarty? Not allowed to edit a recipe that is not yours. :).`,
+                  type: 'error',
+                });
+              }
             }
           }
-        });
+        );
       }
     });
   }
 
   private onDelete(recipeId: string) {
     this.recipeService.remove(recipeId);
+  }
+  ngOnDestroy() {
+    this.userAuth.unsubscribe();
   }
 }
 

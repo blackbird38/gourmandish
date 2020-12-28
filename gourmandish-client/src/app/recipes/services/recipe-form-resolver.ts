@@ -5,7 +5,6 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Recipe } from 'src/app/models/Recipe.model';
 import { RecipeFormResolverModel } from '../models/recipe-form-resolver.model';
 import { RecipeService } from './recipe.service';
 

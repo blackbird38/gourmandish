@@ -83,4 +83,9 @@ export class RecipeService {
     // console.log('remove', this.recipes);
     this.recipes$.next([...this.recipes]);
   }
+
+  cleanUp() {
+    this.recipes$.next([]);
+    this.recipes = [];
+  }
 }
