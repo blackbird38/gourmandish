@@ -79,7 +79,7 @@ export class AuthService {
       this.setSignedInTimer(expiringDuration);
 
       this.notifier.show({
-        message: `You have automatically signed in. Enjoy! :)`,
+        message: `Welcome back. Enjoy! :)`,
         type: 'info',
       });
     }

@@ -73,12 +73,14 @@ export class RecipeService {
   }
 
   async remove(recipeId: string): Promise<any> {
+    let updatedRecipes = this.recipes.filter((r) => r._id !== recipeId);
     const isRemoved: any = await this.recipeWebservice.remove(recipeId);
     if (!isRemoved) {
       return;
     }
-    const updatedRecipes = [...this.recipes];
-    this.recipes = [...updatedRecipes.filter((r) => r._id != recipeId)];
+    //  console.log('remove', this.recipes);
+    this.recipes = updatedRecipes;
+    // console.log('remove', this.recipes);
     this.recipes$.next([...this.recipes]);
   }
 }
