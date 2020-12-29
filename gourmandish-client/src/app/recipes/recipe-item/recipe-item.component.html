@@ -10,7 +10,7 @@
       <a>{{ recipe.creator.username }}</a> {{ recipe.createdAt | timeAgo }}
     </div>
     <div class="description">
-      {{ recipe.description }}
+      {{ recipe.description | slice: 0:200 }}
       <button
         class="mini ui button"
         [routerLink]="['/recipe-details', recipe._id]"

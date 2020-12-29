@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Recipe } from 'src/app/models/Recipe.model';
 import { RecipeService } from '../services/recipe.service';
 
@@ -11,9 +12,11 @@ import { RecipeService } from '../services/recipe.service';
 export class RecipeDetailsComponent implements OnInit {
   recipeId: string = '';
   recipe: Recipe = null;
+  currentUserId: string = '';
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -21,6 +24,14 @@ export class RecipeDetailsComponent implements OnInit {
       this.recipeId = this.route.snapshot.paramMap.get('id');
     }
     this.recipe = await this.recipeService.getById(this.recipeId);
-    console.log(this.recipe);
+
+    this.authService.currentUserData$.subscribe((userData) => {
+      const currentUserData = userData;
+
+      if (!currentUserData) {
+        return;
+      }
+      this.currentUserId = currentUserData._id;
+    });
   }
 }

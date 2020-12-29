@@ -20,6 +20,7 @@
         </div>
 
         <button
+          *ngIf="recipe.creator._id === currentUserId"
           class="mini ui button"
           [routerLink]="['/edit-recipe', recipeId]"
         >
