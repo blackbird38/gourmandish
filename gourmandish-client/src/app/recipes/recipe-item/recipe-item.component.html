@@ -5,13 +5,15 @@
   <div class="content">
     <div class="header">{{ recipe.title }}</div>
     <div class="meta">
-      by <a>{{ recipe.creator.username }}</a>
+      by
+      <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
+      <a>{{ recipe.creator.username }}</a> {{ recipe.createdAt | timeAgo }}
     </div>
     <div class="description">
       {{ recipe.description }}
       <button
         class="mini ui button"
-        [routerLink]="['/edit-recipe', recipe._id]"
+        [routerLink]="['/recipe-details', recipe._id]"
       >
         More
       </button>

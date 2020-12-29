@@ -13,4 +13,5 @@ export interface RecipeCreator {
   username: string;
   firstName: string;
   lastName: string;
+  avatar?: string;
 }

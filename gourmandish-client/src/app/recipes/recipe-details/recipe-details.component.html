@@ -1,1 +1,31 @@
-<p>recipe-details works!</p>
+<div class="ui container segment" *ngIf="recipe">
+  <div class="ui relaxed divided items">
+    <div class="item">
+      <div class="ui medium image">
+        <img [src]="recipe.imagePath" />
+      </div>
+      <div class="content">
+        <a class="header">{{ recipe.title }}</a>
+        <div class="meta">
+          <a>Time</a>
+          <a>Dificulty</a>
+        </div>
+        <div class="extra">
+          <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
+          by <a> {{ recipe.creator.username }}</a>
+          {{ recipe.createdAt | timeAgo }}
+        </div>
+        <div class="description">
+          {{ recipe.description }}
+        </div>
+
+        <button
+          class="mini ui button"
+          [routerLink]="['/edit-recipe', recipeId]"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

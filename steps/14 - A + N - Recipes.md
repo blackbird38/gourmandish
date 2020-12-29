@@ -43,3 +43,5 @@ creating a resolver to read if there is an id in the route. if there is an id, p
 from the backend and update it
 
 `ng g s recipes/services/recipeFormResolver`
+
+`ng g p pipes/TimeAgo`

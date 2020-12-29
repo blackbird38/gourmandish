@@ -3,7 +3,13 @@ const Recipe = require("../models/recipe");
 const getAll = async () => {
   var foundRecipes = await Recipe.find({}, { __v: 0 })
     .sort({ createdAt: -1 })
-    .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
+    .populate("creator", {
+      _id: 1,
+      username: 1,
+      firstName: 1,
+      lastName: 1,
+      avatar: 1,
+    });
   return foundRecipes;
 };
 
@@ -12,7 +18,13 @@ const getByUserId = async (userId) => {
     .sort({
       createdAt: -1,
     })
-    .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
+    .populate("creator", {
+      _id: 1,
+      username: 1,
+      firstName: 1,
+      lastName: 1,
+      avatar: 1,
+    });
   return foundRecipes;
 };
 
@@ -20,7 +32,13 @@ const getById = async (recipeId) => {
   var foundRecipe = await Recipe.findOne(
     { _id: recipeId },
     { __v: 0 }
-  ).populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 });
+  ).populate("creator", {
+    _id: 1,
+    username: 1,
+    firstName: 1,
+    lastName: 1,
+    avatar: 1,
+  });
   return foundRecipe;
 };
 
