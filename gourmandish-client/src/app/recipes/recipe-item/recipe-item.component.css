@@ -5,3 +5,7 @@
 .card {
   width: 24rem;
 }
+
+.description {
+  white-space: pre-wrap !important;
+}
