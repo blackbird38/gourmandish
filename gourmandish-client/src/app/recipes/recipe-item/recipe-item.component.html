@@ -7,7 +7,10 @@
     <div class="meta">
       by
       <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
-      <a>{{ recipe.creator.username }}</a> {{ recipe.createdAt | timeAgo }}
+      <a [routerLink]="['/profile-page', recipe.creator._id]">{{
+        recipe.creator.username
+      }}</a>
+      {{ recipe.createdAt | timeAgo }}
     </div>
     <div class="description">
       {{ recipe.description | slice: 0:300 }}
