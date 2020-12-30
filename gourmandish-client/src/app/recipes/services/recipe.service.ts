@@ -28,7 +28,7 @@ export class RecipeService {
           createdAt: result.recipe.createdAt,
           updatedAt: result.recipe.updatedAt,
           creator: result.recipe.creator,
-          likes: [],
+          likes: result.recipe.likes,
         };
         this.recipes = [addedRecipe, ...this.recipes];
         this.recipes$.next(this.recipes);
