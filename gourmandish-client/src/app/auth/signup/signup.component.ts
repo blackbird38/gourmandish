@@ -56,6 +56,10 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
+      this.notifier.show({
+        message: `Oops, please provide de required details to continue. :)`,
+        type: 'error',
+      });
       return;
     }
     this.authService.signup(this.authForm.value).subscribe({

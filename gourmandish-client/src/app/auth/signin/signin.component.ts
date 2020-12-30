@@ -35,6 +35,10 @@ export class SigninComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
+      this.notifier.show({
+        message: `Oops, please provide de required details to continue. :)`,
+        type: 'error',
+      });
       return;
     }
     //  console.log(this.authForm.value);

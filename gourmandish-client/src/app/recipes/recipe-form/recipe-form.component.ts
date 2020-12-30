@@ -79,6 +79,10 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
       this.recipeService.update(this.recipe._id, recipeData);
     } else {
       if (this.recipeForm.invalid) {
+        this.notifier.show({
+          message: `Oops, please provide de required details to continue. :)`,
+          type: 'error',
+        });
         return;
       }
       const recipeData: FormData = new FormData();
