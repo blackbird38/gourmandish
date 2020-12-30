@@ -1,0 +1,35 @@
+<div class="ui card" *ngIf="recipe">
+  <div class="image">
+    <img class="recipe-photo" [src]="recipe.imagePath" />
+  </div>
+  <div class="content">
+    <div class="header">{{ recipe.title }}</div>
+    <div class="meta">
+      by
+      <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
+      <a>{{ recipe.creator.username }}</a> {{ recipe.createdAt | timeAgo }}
+    </div>
+    <div class="description">
+      {{ recipe.description | slice: 0:300 }}
+      <button
+        class="mini ui button"
+        [routerLink]="['/recipe-details', recipe._id]"
+      >
+        More
+      </button>
+    </div>
+  </div>
+  <div class="extra content">
+    <span class="left floated"> Ingredients </span>
+  </div>
+  <div class="extra content">
+    <span class="right floated">
+      <i class="clock outline icon"></i>
+      Time
+    </span>
+    <span>
+      <i class="utensils icon"></i>
+      Dificulty
+    </span>
+  </div>
+</div>

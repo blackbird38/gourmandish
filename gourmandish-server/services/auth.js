@@ -70,9 +70,8 @@ const signUp = async (credentials) => {
             })
           );
         }
-
         return {
-          user: { ...savedUser }, //TODO: remove password from here
+          user: { ...savedUser },
           message: "Successful signup.",
         };
       });
@@ -84,9 +83,7 @@ const signIn = async (credentials) => {
     throw new Error(
       JSON.stringify({
         code: 401,
-        payload: {
-          message: "Invalid data. Make sure each field has a valid value.",
-        },
+        message: "Invalid data. Make sure each field has a valid value.",
       })
     );
   }
@@ -113,12 +110,18 @@ const signIn = async (credentials) => {
     );
   }
 
-  const token = generateToken(foundUser.email, foundUser._id);
+  const token = generateToken(
+    foundUser._id,
+    foundUser.email,
+    foundUser.username,
+    foundUser.firstName,
+    foundUser.lastName
+  );
 
   return {
     authData: {
       token: token,
-      userId: foundUser._id,
+      //userId: foundUser._id,
     },
     message: "Authentication successful.",
   };
@@ -133,13 +136,17 @@ const isSignInDataValid = (usernameOrEmail, password) => {
 };
 
 const isPasswordValid = async (loginPassword, dbPassword) => {
-  return await bcrypt.compare(loginPassword, dbPassword);
+  return await bcrypt.compare(loginPassword, dbPassword); // comparing 2 hashed passwords. the password will not be decripted at all for the comparison
 };
 
-const generateToken = (email, userId) => {
-  const token = jwt.sign({ email, userId }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1h",
-  });
+const generateToken = (userId, email, username, firstName, lastName) => {
+  const token = jwt.sign(
+    { email, userId, username, firstName, lastName },
+    process.env.JWT_SECRET_KEY,
+    {
+      expiresIn: "1h",
+    }
+  );
   return token;
 };
 

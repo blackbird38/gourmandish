@@ -1,28 +1,35 @@
-`npm install`
+### `npm install`
 
-`npm run dev` + check if it works `http://localhost:3000/ping`
+### `npm run dev` + check if it works `http://localhost:3000/ping`
 
 for the tests: `npm run test`
+
+### create a folder uploads/images at the same level with index.js
 
 ---
 
 mongo shell (cmd: `mongo`):
 
---- create the Mongo user that will be used for the connection to the MongoDB:---
+### --- create the Mongo user that will be used for the connection to the MongoDB:---
 
-````> use gourmandishdb
-> db.createUser({
+```
+ use gourmandishdb
+```
+
+```
+ db.createUser({
     user: "root",
     pwd: "root",
     roles: [
           { role: "readWrite", db: "gourmandishdb" }
     ]
-  })```
-````
+
+})
+```
 
 //The 'test_helper' file is important to mocha, it will run it first if it exists.
 
---- For Docker: ---
+### --- For Docker: ---
 
 steps:
 
@@ -34,18 +41,19 @@ then `connect to mongo container` and get into the mongo shell:
 
 pass: `root`
 
-`use gourmandishdb`
+```
+> use gourmandishdb
+```
 
-````> db.createUser({
-    user: "root",
-    pwd: "root",
-    roles: [
-          { role: "readWrite", db: "gourmandishdb" }
-    ]
-  })```
-````
+```
+db.createUser({ user: "root", pwd: "root", roles: [ { role: "readWrite", db: "gourmandishdb" } ] })
+```
 
-````> use gourmandishdb
+```
+> use gourmandishdb
+```
+
+```
 > switched to db gourmandishdb
 > db.users.insert({
 
@@ -54,8 +62,8 @@ pass: `root`
      "\_\_v": 0
      })
 
+> WriteResult({ "nInserted" : 1 })
 
-```> WriteResult({ "nInserted" : 1 })
 > show dbs
 > admin 0.000GB
 > config 0.000GB
@@ -66,11 +74,11 @@ pass: `root`
 > show collections
 > users
 > db.users.find()
-> { "```
+> { "`
 
+```
 
-
-````
+Tests:
 
 replace in package.json:
 

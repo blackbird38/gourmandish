@@ -8,6 +8,14 @@ jwt.io:
 
 ---
 
+https://tools.ietf.org/html/rfc7519
+
+iat - The "iat" (issued at) claim identifies the time at which the JWT was issued. This claim can be used to determine the age of the JWT. Its value MUST be a number containing a NumericDate value. Use of this claim is OPTIONAL.
+
+exp - The "exp" (expiration time) claim identifies the expiration time on or after which the JWT MUST NOT be accepted for processing. The processing of the "exp" claim requires that the current date/time MUST be before the expiration date/time listed in the "exp" claim.
+
+---
+
 `npm install bulma`
 
 ---

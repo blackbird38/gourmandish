@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       birthdate: new FormControl(''),
-      avatar: new FormControl(''),
+      gender: new FormControl(''),
     },
     { validators: [this.matchPassword.validate] }
   );
@@ -56,18 +56,20 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
-      console.log(this.authForm);
+      this.notifier.show({
+        message: `Oops, please provide de required details to continue. :)`,
+        type: 'error',
+      });
       return;
     }
     this.authService.signup(this.authForm.value).subscribe({
       next: (response: SignupResponse) => {
         //200
-        // console.log(response);
         this.notifier.show({
           message: `You have successfully created your account, please login.`,
           type: 'info',
         });
-        // this.notifier.notify('success', 'You are awesome! I mean it!');
+
         this.router.navigate(['signin']);
       },
       error: (error) => {

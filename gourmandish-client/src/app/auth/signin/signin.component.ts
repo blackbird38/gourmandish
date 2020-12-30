@@ -35,17 +35,20 @@ export class SigninComponent implements OnInit {
 
   onSubmit(): void {
     if (this.authForm.invalid) {
+      this.notifier.show({
+        message: `Oops, please provide de required details to continue. :)`,
+        type: 'error',
+      });
       return;
     }
     //  console.log(this.authForm.value);
     this.authService.signin(this.authForm.value).subscribe({
       next: (response: SigninResponse): void => {
-        console.log(response);
         this.notifier.show({
           message: `You have successfully signed in. Enjoy! :)`,
           type: 'info',
         });
-        this.router.navigate(['home']);
+        this.router.navigate(['recipe-list']);
       },
       error: (error) => {
         //   console.log(error.error);
