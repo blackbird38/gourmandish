@@ -117,4 +117,13 @@ export class RecipeService {
     this.recipes = [...updatedRecipes];
     this.recipes$.next([...this.recipes]);
   }
+
+  search(term: string): Observable<any> {
+    return this.recipeWebservice.search(term).pipe(
+      tap((result: any) => {
+        this.recipes = result.recipes;
+        this.recipes$.next(this.recipes);
+      })
+    );
+  }
 }

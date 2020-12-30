@@ -3,6 +3,18 @@
     <a routerLink="/" class="item">Gourmandish</a>
     <div class="right menu">
       <ng-container *ngIf="signedIn$ | async">
+        <div class="ui search">
+          <div class="ui icon input">
+            <input
+              class="prompt"
+              type="text"
+              placeholder="Search recipes..."
+              (keyup)="searchRecipes($event)"
+            />
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
         <a
           class="ui item"
           routerLink="/create-recipe"

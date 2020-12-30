@@ -125,6 +125,17 @@ const getLikedByUserId = async (req, res, next) => {
   }
 };
 
+const search = async (req, res, next) => {
+  console.log("[GET] api/search/:term", { searchTerm: req.params.term });
+  try {
+    const { term } = req.params;
+    const result = await recipeService.search(term);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
 const parseError = (e) => {
   const error = JSON.parse(e.message);
   const code = error.code || 500;
@@ -144,4 +155,5 @@ module.exports = {
   remove,
   toggleLike,
   getLikedByUserId,
+  search,
 };
