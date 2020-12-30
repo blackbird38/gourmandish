@@ -63,10 +63,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     let recipeData: FormData = new FormData();
-    // update:
     if (this.recipe.imagePath) {
-      // test validity
-      // update
       recipeData.append('title', this.recipeForm.get('title').value);
       recipeData.append(
         'description',
@@ -76,7 +73,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         ? this.recipeForm.get('image').value
         : this.recipe.imagePath;
       recipeData.append('image', image);
-      //   recipeData.forEach((rd) => console.log(rd.toString()));
       if (this.recipeForm.get('image').hasError('invalidMimeType')) {
         this.notifier.show({
           message: `Oops, please provide de required details to continue. :)`,
@@ -85,9 +81,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         return;
       }
       this.recipeService.update(this.recipe._id, recipeData);
-    }
-    // update:
-    else {
+    } else {
       if (this.recipeForm.invalid) {
         return;
       }
@@ -152,6 +146,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   }
 }
 
-/**
+/*
  * recipeData.forEach((rd) => console.log(rd.toString()));
  */

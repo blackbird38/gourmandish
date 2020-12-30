@@ -54,8 +54,6 @@ export class RecipeService {
   }
 
   async update(recipeId: string, recipeData: FormData): Promise<any> {
-    console.log('update service:');
-    recipeData.forEach((rd) => console.log(rd.toString()));
     const updatedRecipe: Recipe = await this.recipeWebservice.update(
       recipeId,
       recipeData

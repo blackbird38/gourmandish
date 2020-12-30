@@ -40,7 +40,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/uploads/images", express.static(path.join("uploads/images"))); // any request targeting this folder, should be allowed to continue and fetch the files from there
 
-// CORS issue:
 app.use((req, res, next) => {
   //console.log(req);
   res.setHeader("Access-Control-Allow-Origin", "*"); // allow req from all domains
