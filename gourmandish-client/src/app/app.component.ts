@@ -18,6 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   onSearch(term) {
-    this.recipeService.search(term).subscribe();
+    this.recipeService.search(term).subscribe(); //TODO: unsubscribe
   }
 }

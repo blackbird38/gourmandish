@@ -35,8 +35,7 @@ export class HeaderComponent implements OnInit {
   }
 
   searchRecipes(event: any) {
-    const searchedTerm = event.target.value;
-    this.router.navigate(['search', searchedTerm]);
     this.onSearchEvent.emit(event.target.value);
+    this.router.navigate(['recipe-list']);
   }
 }
