@@ -25,6 +25,10 @@ backend:
 
 added a jwtCheckAuth middleware to protect the route POST /api/recipes and to get the id of the user that created the recipe from the token
 
+display err for async validator:
+
+https://medium.com/@tomaszsochacki/how-to-do-asynchronous-validator-in-angular-7-6e80243a874a
+
 ---
 
 display all recipes and display by userId:

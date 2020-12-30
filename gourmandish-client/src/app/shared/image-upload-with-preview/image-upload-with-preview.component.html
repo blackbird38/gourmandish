@@ -8,3 +8,9 @@
 <div *ngIf="!imagePreview && imagePath !== '' && imagePath">
   <img class="ui fluid small rounded image" [src]="imagePath" />
 </div>
+
+<div *ngIf="showErrors()" class="ui pointing red basic label">
+  <p *ngIf="control.errors.invalidMimeType">
+    The file you selected is not valid. Please select a valid image.
+  </p>
+</div>

@@ -41,6 +41,10 @@ export class ImageUploadWithPreviewComponent implements OnInit {
     reader.readAsDataURL(file);
     this.selectImageEventEmmitter.emit(file);
   }
+
+  showErrors() {
+    return this.control.hasError('invalidMimeType');
+  }
 }
 
 // TODO: add cropper: https://www.npmjs.com/package/ngx-image-cropper

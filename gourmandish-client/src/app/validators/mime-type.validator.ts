@@ -44,10 +44,8 @@ export const mimeType = (
             break;
         }
         if (isValid) {
-          console.log('image valid');
           observer.next(null);
         } else {
-          console.log('image invalid');
           observer.next({ invalidMimeType: true });
         }
         observer.complete(); // letting subscribers know we're done

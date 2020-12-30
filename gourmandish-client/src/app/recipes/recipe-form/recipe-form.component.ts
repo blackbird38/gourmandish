@@ -62,7 +62,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    /* */
     let recipeData: FormData = new FormData();
     if (this.recipe.imagePath) {
       // test validity
@@ -146,5 +145,3 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
 /**
  * recipeData.forEach((rd) => console.log(rd.toString()));
  */
-
-// TODO: fix bug update invalid image
