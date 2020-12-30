@@ -49,3 +49,9 @@ from the backend and update it
 `ng g s recipes/services/recipeFormResolver`
 
 `ng g p pipes/TimeAgo`
+
+---
+
+add favorites
+
+ng g c recipes/favorites

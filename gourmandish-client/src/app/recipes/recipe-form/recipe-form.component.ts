@@ -93,9 +93,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
       );
       recipeData.append('image', this.recipeForm.get('image').value);
 
-      this.recipeService
-        .create(recipeData)
-        .subscribe((res) => console.log(res));
+      this.recipeService.create(recipeData).subscribe();
     }
 
     // this.recipeForm.reset();

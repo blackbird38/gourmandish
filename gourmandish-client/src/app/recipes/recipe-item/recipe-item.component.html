@@ -32,4 +32,19 @@
       Dificulty
     </span>
   </div>
+  <div class="extra content">
+    <span class="right floated">
+      <i
+        *ngIf="!showLikedStatus()"
+        class="heart outline icon"
+        (click)="onHeartClick()"
+      ></i>
+      <i
+        *ngIf="showLikedStatus()"
+        class="heart icon"
+        (click)="onHeartClick()"
+      ></i>
+      {{ recipe.likes.length }} miams
+    </span>
+  </div>
 </div>

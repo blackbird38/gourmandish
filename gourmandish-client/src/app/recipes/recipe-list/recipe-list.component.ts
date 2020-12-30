@@ -30,6 +30,11 @@ export class RecipeListComponent implements OnInit {
       }
     });
 
+    if (this.route.snapshot.url[0].path === 'favorites') {
+      this.recipeService.getLikedByUserId(userId).subscribe((res: any) => {});
+      return;
+    }
+
     if (this.route.snapshot.paramMap.get('userId')) {
       userId = this.route.snapshot.paramMap.get('userId');
     }
