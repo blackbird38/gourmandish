@@ -71,7 +71,7 @@ const signUp = async (credentials) => {
           );
         }
         return {
-          user: { ...savedUser }, //TODO: remove password from here
+          user: { ...savedUser },
           message: "Successful signup.",
         };
       });

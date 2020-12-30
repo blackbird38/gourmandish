@@ -75,7 +75,9 @@ const update = async (
     updaterId
   );
   if (isUpdated) {
-    deleteFile(oldFilePath);
+    if (isNewFileUploaded) {
+      deleteFile(oldFilePath);
+    }
     return await getById(recipeId);
   }
 };
@@ -112,8 +114,6 @@ const deleteFile = (filePath) => {
   });
 };
 
-// TODO: err if no file uploaded
-
 const userCanUpdate = async (userId, recipeId) => {
   const recipe = await getById(recipeId);
   const creatorId = recipe.creator._id;
@@ -122,4 +122,4 @@ const userCanUpdate = async (userId, recipeId) => {
 
 module.exports = { getAll, getByUserId, getById, create, update, remove };
 
-// TODO: if the files are deleted from the disk or imagePath not point to a file, display a generic image
+// TODO: if the files are deleted from the disk or imagePath not pointing to a file, display a generic image

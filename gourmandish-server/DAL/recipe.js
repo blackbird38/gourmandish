@@ -53,7 +53,13 @@ const create = async (title, description, imagePath, creatorId) => {
     .save()
     .then((r) =>
       r
-        .populate("creator", { _id: 1, username: 1, firstName: 1, lastName: 1 })
+        .populate("creator", {
+          _id: 1,
+          username: 1,
+          firstName: 1,
+          lastName: 1,
+          avatar: 1,
+        })
         .execPopulate()
     );
   return createdRecipe._doc;

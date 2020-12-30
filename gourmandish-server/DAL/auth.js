@@ -7,8 +7,9 @@ const isUsernameAvailable = async (username) => {
 
 const saveUser = async (credentials) => {
   const newUser = new User(credentials);
-  const createdUser = await newUser.save();
-  return createdUser._doc;
+  const result = await newUser.save();
+  const { __v, createdAt, updatedAt, password, ...createdUser } = result._doc;
+  return createdUser;
 };
 
 const findByUsernameOrEmail = async (usernameOrEmail) => {

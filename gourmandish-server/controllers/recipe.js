@@ -43,7 +43,6 @@ const create = async (req, res, next) => {
     const uploadedFileWithMulter = req.file;
     const imagePath = `${url}/uploads/images/${uploadedFileWithMulter.filename}`;
     const { title, description } = req.body;
-    // console.log(req.body);
     const creatorId = req.jwtLoggedInUser.userId;
     const result = await recipeService.create(
       title,
@@ -62,7 +61,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   console.log("[PUT] api/recipes/:recipeId", { recipeId: req.params.recipeId });
   try {
-    let imagePath = req.body.imagePath;
+    let imagePath = req.body.image;
     const { recipeId } = req.params;
     const { title, description } = req.body;
     const updaterId = req.jwtLoggedInUser.userId;

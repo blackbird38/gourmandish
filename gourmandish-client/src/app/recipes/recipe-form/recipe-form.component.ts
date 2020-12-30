@@ -76,6 +76,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         ? this.recipeForm.get('image').value
         : this.recipe.imagePath;
       recipeData.append('image', image);
+      recipeData.forEach((rd) => console.log(rd.toString()));
       this.recipeService.update(this.recipe._id, recipeData);
     } else {
       if (this.recipeForm.invalid) {
@@ -88,6 +89,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         this.recipeForm.get('description').value
       );
       recipeData.append('image', this.recipeForm.get('image').value);
+
       this.recipeService
         .create(recipeData)
         .subscribe((res) => console.log(res));
