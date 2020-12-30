@@ -127,6 +127,12 @@ const toggleLike = async (recipeId, like, requesterId) => {
   return await getById(recipeId);
 };
 
+const getLikedByUserId = async (userId) => {
+  const foundRecipes = await recipeDAL.getLikedByUserId(userId);
+
+  return { recipes: foundRecipes };
+};
+
 module.exports = {
   getAll,
   getByUserId,
@@ -135,6 +141,7 @@ module.exports = {
   update,
   remove,
   toggleLike,
+  getLikedByUserId,
 };
 
 // TODO: if the files are deleted from the disk or imagePath not pointing to a file, display a generic image

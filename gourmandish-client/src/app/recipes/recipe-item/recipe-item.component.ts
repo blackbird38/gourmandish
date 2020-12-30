@@ -1,5 +1,6 @@
 import { OnDestroy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RecipeService } from '../services/recipe.service';
@@ -17,7 +18,8 @@ export class RecipeItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +51,13 @@ export class RecipeItemComponent implements OnInit, OnDestroy {
     if (!this.currentUserId) {
       return;
     }
-    this.recipeService.toggleLike(this.recipe._id, !this.isLikedByCurrentUser);
+    const displayedOnFavoritesList =
+      this.route.snapshot.url[0].path === 'favorites' ? true : false;
+    this.recipeService.toggleLike(
+      this.recipe._id,
+      !this.isLikedByCurrentUser,
+      displayedOnFavoritesList
+    );
   }
 
   ngOnDestroy() {

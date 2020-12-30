@@ -11,7 +11,6 @@ export class RecipeWebService {
   constructor(private httpClient: HttpClient) {}
 
   create(recipeData: FormData): Observable<any> {
-    //recipeData.forEach((rd) => console.log(rd.toString()));
     return this.httpClient.post<any>(`${this.apiUrl}`, recipeData);
   }
 
@@ -21,6 +20,10 @@ export class RecipeWebService {
 
   getByUserId(userId: string): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/user/${userId}`);
+  }
+
+  getLikedByUserId(userId: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/likes/${userId}`);
   }
 
   async getById(recipeId: string): Promise<any> {

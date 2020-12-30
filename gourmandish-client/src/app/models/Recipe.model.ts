@@ -6,7 +6,7 @@ export interface Recipe {
   creator: RecipeCreator;
   createdAt: Date;
   updatedAt: Date;
-  likes?: string[];
+  likes: string[];
 }
 
 export interface RecipeCreator {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Recipe } from 'src/app/models/Recipe.model';
@@ -11,7 +12,10 @@ export class RecipeService {
   recipes$ = new BehaviorSubject([]);
   private recipes: Recipe[] = [];
 
-  constructor(private recipeWebservice: RecipeWebService) {}
+  constructor(
+    private recipeWebservice: RecipeWebService,
+    private route: ActivatedRoute
+  ) {}
 
   create(recipeData: FormData): Observable<any> {
     return this.recipeWebservice.create(recipeData).pipe(
@@ -24,6 +28,7 @@ export class RecipeService {
           createdAt: result.recipe.createdAt,
           updatedAt: result.recipe.updatedAt,
           creator: result.recipe.creator,
+          likes: [],
         };
         this.recipes = [addedRecipe, ...this.recipes];
         this.recipes$.next(this.recipes);
@@ -44,6 +49,15 @@ export class RecipeService {
     return this.recipeWebservice.getByUserId(userId).pipe(
       tap((result: any) => {
         this.recipes = result.recipeData.recipes;
+        this.recipes$.next(this.recipes);
+      })
+    );
+  }
+
+  getLikedByUserId(userId: string): Observable<any> {
+    return this.recipeWebservice.getLikedByUserId(userId).pipe(
+      tap((result: any) => {
+        this.recipes = result.recipes;
         this.recipes$.next(this.recipes);
       })
     );
@@ -80,11 +94,22 @@ export class RecipeService {
     this.recipes = [];
   }
 
-  async toggleLike(recipeId: string, like: boolean): Promise<any> {
+  async toggleLike(
+    recipeId: string,
+    like: boolean,
+    displayedOnFavoritesList: boolean
+  ): Promise<any> {
     const updatedRecipe = await this.recipeWebservice.toggleLike(
       recipeId,
       like
     );
+    // could you do better this? (remove from favorite list when unliked)
+    if (displayedOnFavoritesList) {
+      let updatedRecipes = this.recipes.filter((r) => r._id !== recipeId);
+      this.recipes = updatedRecipes;
+      this.recipes$.next([...this.recipes]);
+    }
+
     // TODO: refacto updates and toggleLike
     const updatedRecipes = [...this.recipes];
     const oldRecipeIndex = updatedRecipes.findIndex((r) => r._id === recipeId);

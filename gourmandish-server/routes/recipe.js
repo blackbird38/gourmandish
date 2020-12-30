@@ -20,5 +20,6 @@ router.delete("/:recipeId", jwtCheckAuth, recipeController.remove);
 router.get("/user/:userId", recipeController.getByUserId);
 
 router.put("/like/:recipeId", jwtCheckAuth, recipeController.toggleLike);
+router.get("/likes/:userId", jwtCheckAuth, recipeController.getLikedByUserId);
 
 module.exports = router;

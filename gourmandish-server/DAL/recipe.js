@@ -100,6 +100,21 @@ const toggleLike = async (recipeId, like, requesterId) => {
   return result.n > 0 ? true : false;
 };
 
+const getLikedByUserId = async (userId) => {
+  var foundRecipes = await Recipe.find({ likes: userId }, { __v: 0 })
+    .sort({
+      createdAt: -1,
+    })
+    .populate("creator", {
+      _id: 1,
+      username: 1,
+      firstName: 1,
+      lastName: 1,
+      avatar: 1,
+    });
+  return foundRecipes;
+};
+
 module.exports = {
   getAll,
   getByUserId,
@@ -108,4 +123,5 @@ module.exports = {
   update,
   remove,
   toggleLike,
+  getLikedByUserId,
 };
