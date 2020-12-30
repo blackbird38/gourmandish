@@ -22,4 +22,6 @@ router.get("/user/:userId", recipeController.getByUserId);
 router.put("/like/:recipeId", jwtCheckAuth, recipeController.toggleLike);
 router.get("/likes/:userId", jwtCheckAuth, recipeController.getLikedByUserId);
 
+router.get("/search/:term", jwtCheckAuth, recipeController.search);
+
 module.exports = router;

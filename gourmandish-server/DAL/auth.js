@@ -13,7 +13,7 @@ const saveUser = async (credentials) => {
 };
 
 const findByUsernameOrEmail = async (usernameOrEmail) => {
-  var foundUser = await User.findOne({
+  const foundUser = await User.findOne({
     $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
   });
   return foundUser;

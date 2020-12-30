@@ -47,4 +47,9 @@ export class RecipeWebService {
       .put<any>(`${this.apiUrl}/like/${recipeId}`, { like })
       .toPromise();
   }
+
+  search(term: string): Observable<any> {
+    console.log(`${this.apiUrl}/search/${term}`);
+    return this.httpClient.get<any>(`${this.apiUrl}/search/${term}`);
+  }
 }

@@ -28,7 +28,7 @@ export class RecipeService {
           createdAt: result.recipe.createdAt,
           updatedAt: result.recipe.updatedAt,
           creator: result.recipe.creator,
-          likes: [],
+          likes: result.recipe.likes,
         };
         this.recipes = [addedRecipe, ...this.recipes];
         this.recipes$.next(this.recipes);
@@ -116,5 +116,14 @@ export class RecipeService {
     updatedRecipes[oldRecipeIndex] = updatedRecipe;
     this.recipes = [...updatedRecipes];
     this.recipes$.next([...this.recipes]);
+  }
+
+  search(term: string): Observable<any> {
+    return this.recipeWebservice.search(term).pipe(
+      tap((result: any) => {
+        this.recipes = result.recipes;
+        this.recipes$.next(this.recipes);
+      })
+    );
   }
 }

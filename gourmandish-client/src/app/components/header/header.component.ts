@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -13,6 +13,7 @@ import { RecipeService } from 'src/app/recipes/services/recipe.service';
 export class HeaderComponent implements OnInit {
   signedIn$: BehaviorSubject<boolean>;
   currentUserData: CurentUserData;
+  @Output() onSearchEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -31,5 +32,10 @@ export class HeaderComponent implements OnInit {
     this.authService.signOut();
     this.recipeService.cleanUp();
     this.router.navigate(['signin']);
+  }
+
+  searchRecipes(event: any) {
+    this.onSearchEvent.emit(event.target.value);
+    this.router.navigate(['recipe-list']);
   }
 }

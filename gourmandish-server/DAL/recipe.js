@@ -1,7 +1,7 @@
 const Recipe = require("../models/recipe");
 
 const getAll = async () => {
-  var foundRecipes = await Recipe.find({}, { __v: 0 })
+  const foundRecipes = await Recipe.find({}, { __v: 0 })
     .sort({ createdAt: -1 })
     .populate("creator", {
       _id: 1,
@@ -14,7 +14,7 @@ const getAll = async () => {
 };
 
 const getByUserId = async (userId) => {
-  var foundRecipes = await Recipe.find({ creator: userId }, { __v: 0 })
+  const foundRecipes = await Recipe.find({ creator: userId }, { __v: 0 })
     .sort({
       createdAt: -1,
     })
@@ -29,7 +29,7 @@ const getByUserId = async (userId) => {
 };
 
 const getById = async (recipeId) => {
-  var foundRecipe = await Recipe.findOne(
+  const foundRecipe = await Recipe.findOne(
     { _id: recipeId },
     { __v: 0 }
   ).populate("creator", {
@@ -101,10 +101,26 @@ const toggleLike = async (recipeId, like, requesterId) => {
 };
 
 const getLikedByUserId = async (userId) => {
-  var foundRecipes = await Recipe.find({ likes: userId }, { __v: 0 })
+  const foundRecipes = await Recipe.find({ likes: userId }, { __v: 0 })
     .sort({
       createdAt: -1,
     })
+    .populate("creator", {
+      _id: 1,
+      username: 1,
+      firstName: 1,
+      lastName: 1,
+      avatar: 1,
+    });
+  return foundRecipes;
+};
+
+const search = async (term) => {
+  const foundRecipes = await Recipe.find(
+    { title: { $regex: `.*${term}.*`, $options: "i" } },
+    { __v: 0 }
+  )
+    .sort({ createdAt: -1 })
     .populate("creator", {
       _id: 1,
       username: 1,
@@ -124,4 +140,5 @@ module.exports = {
   remove,
   toggleLike,
   getLikedByUserId,
+  search,
 };
