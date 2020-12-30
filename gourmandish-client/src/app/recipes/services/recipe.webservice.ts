@@ -38,4 +38,10 @@ export class RecipeWebService {
       .delete<any>(`${this.apiUrl}/${recipeId}`)
       .toPromise();
   }
+
+  async toggleLike(recipeId: string, like: boolean): Promise<any> {
+    return this.httpClient
+      .put<any>(`${this.apiUrl}/like/${recipeId}`, { like })
+      .toPromise();
+  }
 }

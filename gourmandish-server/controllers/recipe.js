@@ -101,6 +101,19 @@ const remove = async (req, res, next) => {
   }
 };
 
+const toggleLike = async (req, res, next) => {
+  console.log("[PUT] api/recipes/like/:id", { recipeId: req.params.recipeId });
+  try {
+    const { recipeId } = req.params;
+    const { like } = req.body;
+    const requesterId = req.jwtLoggedInUser.userId;
+    const result = await recipeService.toggleLike(recipeId, like, requesterId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
 const parseError = (e) => {
   const error = JSON.parse(e.message);
   const code = error.code || 500;
@@ -111,4 +124,12 @@ const parseError = (e) => {
   };
 };
 
-module.exports = { getAll, getByUserId, getById, create, update, remove };
+module.exports = {
+  getAll,
+  getByUserId,
+  getById,
+  create,
+  update,
+  remove,
+  toggleLike,
+};

@@ -120,6 +120,21 @@ const userCanUpdate = async (userId, recipeId) => {
   return creatorId == userId;
 };
 
-module.exports = { getAll, getByUserId, getById, create, update, remove };
+const toggleLike = async (recipeId, like, requesterId) => {
+  const isUpdated = await recipeDAL.toggleLike(recipeId, like, requesterId);
+  if (!isUpdated) {
+  }
+  return await getById(recipeId);
+};
+
+module.exports = {
+  getAll,
+  getByUserId,
+  getById,
+  create,
+  update,
+  remove,
+  toggleLike,
+};
 
 // TODO: if the files are deleted from the disk or imagePath not pointing to a file, display a generic image

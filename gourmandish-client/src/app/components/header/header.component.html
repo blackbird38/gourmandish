@@ -18,6 +18,13 @@
           routerLinkActive="active"
           >My Cookbook</a
         >
+        <a
+          class="ui item"
+          routerLink="/recipe-list"
+          routerLinkActiveOptions="{ exact: true }"
+          routerLinkActive="active"
+          >My Favorites</a
+        >
         <a class="ui item" (click)="signOut()"
           >Sign Out, {{ currentUserData.username }}</a
         >

@@ -48,20 +48,19 @@ const create = async (title, description, imagePath, creatorId) => {
     description: description,
     imagePath: imagePath,
     creator: creatorId,
+    likes: [],
   });
-  const createdRecipe = await recipe
-    .save()
-    .then((r) =>
-      r
-        .populate("creator", {
-          _id: 1,
-          username: 1,
-          firstName: 1,
-          lastName: 1,
-          avatar: 1,
-        })
-        .execPopulate()
-    );
+  const createdRecipe = await recipe.save().then((r) =>
+    r
+      .populate("creator", {
+        _id: 1,
+        username: 1,
+        firstName: 1,
+        lastName: 1,
+        avatar: 1,
+      })
+      .execPopulate()
+  );
   return createdRecipe._doc;
 };
 
@@ -85,4 +84,28 @@ const remove = async (recipeId) => {
   return deletedRecipe;
 };
 
-module.exports = { getAll, getByUserId, getById, create, update, remove };
+const toggleLike = async (recipeId, like, requesterId) => {
+  let result = null;
+  if (like) {
+    result = await Recipe.updateOne(
+      { _id: recipeId },
+      { $addToSet: { likes: requesterId } }
+    );
+  } else {
+    result = await Recipe.updateOne(
+      { _id: recipeId },
+      { $pull: { likes: requesterId } }
+    );
+  }
+  return result.n > 0 ? true : false;
+};
+
+module.exports = {
+  getAll,
+  getByUserId,
+  getById,
+  create,
+  update,
+  remove,
+  toggleLike,
+};

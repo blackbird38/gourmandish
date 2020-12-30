@@ -79,4 +79,17 @@ export class RecipeService {
     this.recipes$.next([]);
     this.recipes = [];
   }
+
+  async toggleLike(recipeId: string, like: boolean): Promise<any> {
+    const updatedRecipe = await this.recipeWebservice.toggleLike(
+      recipeId,
+      like
+    );
+    // TODO: refacto updates and toggleLike
+    const updatedRecipes = [...this.recipes];
+    const oldRecipeIndex = updatedRecipes.findIndex((r) => r._id === recipeId);
+    updatedRecipes[oldRecipeIndex] = updatedRecipe;
+    this.recipes = [...updatedRecipes];
+    this.recipes$.next([...this.recipes]);
+  }
 }
