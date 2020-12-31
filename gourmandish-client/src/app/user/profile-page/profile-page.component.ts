@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/User.model';
 import { RecipeService } from 'src/app/recipes/services/recipe.service';
 import { UserService } from '../services/user.service';
@@ -26,7 +26,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.user = await this.userService.getById(userId);
     this.recipeSubscription = this.recipeService
       .getByUserId(userId)
-      .subscribe((res) => console.log(res));
+      .subscribe();
   }
 
   ngOnDestroy(): void {

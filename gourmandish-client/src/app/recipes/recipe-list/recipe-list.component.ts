@@ -22,10 +22,6 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(
-      'coucou',
-      this.recipeService.recipes$.subscribe((r) => console.log(r))
-    );
     let userId: string;
     this.authService.currentUserData$.subscribe((userData) => {
       this.currentUserData = userData;
