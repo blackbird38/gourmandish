@@ -18,8 +18,14 @@ const getFollowers = async (userId) => {
   return followers;
 };
 
+const getFollowing = async (userId) => {
+  const following = await userDAL.getFollowing(userId);
+  return following;
+};
+
 module.exports = {
   getById,
   toggleFollow,
   getFollowers,
+  getFollowing,
 };

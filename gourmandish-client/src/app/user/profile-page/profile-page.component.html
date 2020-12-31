@@ -7,7 +7,9 @@
         <span class="name">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
       <div class="social">
-        <p>following - {{ followers.length }} followers</p>
+        <p>
+          {{ following.length }} following - {{ followers.length }} followers
+        </p>
       </div>
       <div class="follow" *ngIf="currentUserId">
         <button

@@ -24,4 +24,10 @@ export class UserWebService {
       .get<any>(`${this.apiUrl}/followers/${userId}`)
       .toPromise();
   }
+
+  async getFollowing(userId: string): Promise<any> {
+    return this.httpClient
+      .get<any>(`${this.apiUrl}/following/${userId}`)
+      .toPromise();
+  }
 }

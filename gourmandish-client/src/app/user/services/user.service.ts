@@ -18,4 +18,8 @@ export class UserService {
   async getFollowers(id: string): Promise<any> {
     return await this.userWebservice.getFollowers(id);
   }
+
+  async getFollowing(id: string): Promise<any> {
+    return await this.userWebservice.getFollowing(id);
+  }
 }

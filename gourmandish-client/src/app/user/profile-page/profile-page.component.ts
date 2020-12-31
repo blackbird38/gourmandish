@@ -19,7 +19,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   private userAuthSubscription: Subscription;
   currentUserId: string;
   followers: string[] = [];
-  following: string[];
+  following: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +47,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     );
 
     this.followers = await this.userService.getFollowers(userId);
+    this.following = await this.userService.getFollowing(userId);
 
     this.recipeSubscription = this.recipeService
       .getByUserId(userId)
@@ -72,6 +73,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     );
     this.isFollowedByCurrentUser = this.checkIfFollowedByCurrentUser();
     this.followers = await this.userService.getFollowers(this.user._id);
+    this.following = await this.userService.getFollowing(this.user._id);
   }
 
   ngOnDestroy(): void {

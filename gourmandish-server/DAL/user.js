@@ -14,12 +14,10 @@ const getById = async (userId) => {
     { _id: userId },
     { __v: 0, password: 0, updatedAt: 0, roles: 0, email: 0 }
   );
-  console.log(foundUser);
   return foundUser;
 };
 
 const toggleFollow = async (userId, follow, requesterId) => {
-  console.log(userId, follow, requesterId);
   let result = null;
   if (follow) {
     result = await User.updateOne(
@@ -46,8 +44,15 @@ const getFollowers = async (userId) => {
     lastName: 1,
     avatar: 1,
   });
-  console.log(foundUser.followers);
   return foundUser.followers;
+};
+
+const getFollowing = async (userId) => {
+  const foundUsers = await User.find(
+    { followers: userId },
+    { __v: 0, password: 0, updatedAt: 0, roles: 0, email: 0 }
+  );
+  return foundUsers;
 };
 
 const update = (userProps, userId) => {
@@ -81,6 +86,7 @@ module.exports = {
   getById,
   toggleFollow,
   getFollowers,
+  getFollowing,
   create,
   update,
   remove,
