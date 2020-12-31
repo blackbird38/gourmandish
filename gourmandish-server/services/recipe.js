@@ -123,6 +123,7 @@ const userCanUpdate = async (userId, recipeId) => {
 const toggleLike = async (recipeId, like, requesterId) => {
   const isUpdated = await recipeDAL.toggleLike(recipeId, like, requesterId);
   if (!isUpdated) {
+    return null; //TODO: check here
   }
   return await getById(recipeId);
 };

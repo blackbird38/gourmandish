@@ -12,4 +12,10 @@ export class UserWebService {
   async getById(userId: string): Promise<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/${userId}`).toPromise();
   }
+
+  async toggleFollow(userId: string, follow: boolean): Promise<any> {
+    return this.httpClient
+      .put<any>(`${this.apiUrl}/follow/${userId}`, { follow: follow })
+      .toPromise();
+  }
 }

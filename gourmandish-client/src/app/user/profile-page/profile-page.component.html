@@ -9,6 +9,24 @@
       <div class="social">
         <span>Following Followers</span>
       </div>
+      <div class="follow" *ngIf="currentUserId">
+        <button
+          class="ui secondary button"
+          (click)="toggleFollow()"
+          *ngIf="!isUserFollowedByCurrentUser()"
+        >
+          <i class="user icon"></i>
+          Follow
+        </button>
+        <button
+          class="ui primary button"
+          (click)="toggleFollow()"
+          *ngIf="isUserFollowedByCurrentUser()"
+        >
+          <i class="user icon"></i>
+          Following
+        </button>
+      </div>
     </div>
   </div>
 

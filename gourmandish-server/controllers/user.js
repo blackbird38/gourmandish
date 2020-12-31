@@ -23,10 +23,23 @@ const getAll = async (req, res) => {
 };
 
 const getById = async (req, res, next) => {
-  console.log("[GET] api/user/:userId", { userId: req.params.userId });
+  console.log("[GET] api/user/:id", { userId: req.params.userId });
   try {
     const { userId } = req.params;
     const result = await userService.getById(userId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
+const toggleFollow = async (req, res, next) => {
+  console.log("[PUT] api/user/follow/:id", { userId: req.params.userId });
+  try {
+    const { userId } = req.params;
+    const { follow } = req.body;
+    const requesterId = req.jwtLoggedInUser.userId;
+    const result = await userService.toggleFollow(userId, follow, requesterId);
     res.status(200).send(result);
   } catch (e) {
     res.status(500).send({ message: e.message });
@@ -90,4 +103,12 @@ const getAllNearby = async (req, res, next) => {
     .then((users) => res.status(200).send(users));
 };
 
-module.exports = { getAll, getById, create, update, remove, getAllNearby };
+module.exports = {
+  getAll,
+  getById,
+  toggleFollow,
+  create,
+  update,
+  remove,
+  getAllNearby,
+};

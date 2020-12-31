@@ -18,6 +18,23 @@ const getById = async (userId) => {
   return foundUser;
 };
 
+const toggleFollow = async (userId, follow, requesterId) => {
+  console.log(userId, follow, requesterId);
+  let result = null;
+  if (follow) {
+    result = await User.updateOne(
+      { _id: userId },
+      { $addToSet: { followers: requesterId } }
+    );
+  } else {
+    result = await User.updateOne(
+      { _id: userId },
+      { $pull: { followers: requesterId } }
+    );
+  }
+  return result.n > 0 ? true : false;
+};
+
 const update = (userProps, userId) => {
   return User.findByIdAndUpdate({ _id: userId }, userProps).then((user) => {
     return User.findById({ _id: user._id });
@@ -47,6 +64,7 @@ const getAllNearby = (lng, lat) => {
 module.exports = {
   getAll,
   getById,
+  toggleFollow,
   create,
   update,
   remove,
