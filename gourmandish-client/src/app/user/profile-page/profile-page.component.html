@@ -11,7 +11,7 @@
           {{ following.length }} following - {{ followers.length }} followers
         </p>
       </div>
-      <div class="follow" *ngIf="currentUserId">
+      <div class="follow" *ngIf="currentUserId && currentUserId != user._id">
         <button
           class="ui secondary button"
           (click)="toggleFollow()"
