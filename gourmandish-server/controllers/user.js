@@ -46,6 +46,17 @@ const toggleFollow = async (req, res, next) => {
   }
 };
 
+const getFollowers = async (req, res, next) => {
+  console.log("[GET] api/user/followers/:id", { userId: req.params.userId });
+  try {
+    const { userId } = req.params;
+    const result = await userService.getFollowers(userId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
+};
+
 const create = async (req, res, next) => {
   console.log("[POST] api/users/:id");
 
@@ -107,6 +118,7 @@ module.exports = {
   getAll,
   getById,
   toggleFollow,
+  getFollowers,
   create,
   update,
   remove,

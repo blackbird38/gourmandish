@@ -35,6 +35,21 @@ const toggleFollow = async (userId, follow, requesterId) => {
   return result.n > 0 ? true : false;
 };
 
+const getFollowers = async (userId) => {
+  const foundUser = await User.findOne(
+    { _id: userId },
+    { __v: 0, password: 0, updatedAt: 0, roles: 0, email: 0 }
+  ).populate("followers", {
+    _id: 1,
+    username: 1,
+    firstName: 1,
+    lastName: 1,
+    avatar: 1,
+  });
+  console.log(foundUser.followers);
+  return foundUser.followers;
+};
+
 const update = (userProps, userId) => {
   return User.findByIdAndUpdate({ _id: userId }, userProps).then((user) => {
     return User.findById({ _id: user._id });
@@ -65,6 +80,7 @@ module.exports = {
   getAll,
   getById,
   toggleFollow,
+  getFollowers,
   create,
   update,
   remove,

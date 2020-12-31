@@ -13,7 +13,13 @@ const toggleFollow = async (userId, follow, requesterId) => {
   return await getById(userId);
 };
 
+const getFollowers = async (userId) => {
+  const followers = await userDAL.getFollowers(userId);
+  return followers;
+};
+
 module.exports = {
   getById,
   toggleFollow,
+  getFollowers,
 };

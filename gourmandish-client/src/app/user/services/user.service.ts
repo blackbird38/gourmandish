@@ -14,4 +14,8 @@ export class UserService {
   async toggleFollow(id: string, follow: boolean): Promise<any> {
     return await this.userWebservice.toggleFollow(id, follow);
   }
+
+  async getFollowers(id: string): Promise<any> {
+    return await this.userWebservice.getFollowers(id);
+  }
 }
