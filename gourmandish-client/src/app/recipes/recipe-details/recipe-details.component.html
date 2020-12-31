@@ -12,7 +12,10 @@
         </div>
         <div class="extra">
           <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
-          by <a> {{ recipe.creator.username }}</a>
+          by
+          <a [routerLink]="['/profile-page', recipe.creator._id]">
+            {{ recipe.creator.username }}</a
+          >
           {{ recipe.createdAt | timeAgo }}
         </div>
         <div class="description">

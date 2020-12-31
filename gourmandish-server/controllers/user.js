@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const userDAL = require("../DAL/user");
+const userService = require("../services/user");
 
 const getAll = async (req, res) => {
   console.log("[GET] api/users/");
@@ -19,6 +20,17 @@ const getAll = async (req, res) => {
         message: `'Fetching users failed! Server error.' ${error.message}`,
       });
     });
+};
+
+const getById = async (req, res, next) => {
+  console.log("[GET] api/user/:userId", { userId: req.params.userId });
+  try {
+    const { userId } = req.params;
+    const result = await userService.getById(userId);
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
+  }
 };
 
 const create = async (req, res, next) => {
@@ -78,4 +90,4 @@ const getAllNearby = async (req, res, next) => {
     .then((users) => res.status(200).send(users));
 };
 
-module.exports = { getAll, create, update, remove, getAllNearby };
+module.exports = { getAll, getById, create, update, remove, getAllNearby };

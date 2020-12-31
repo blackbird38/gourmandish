@@ -25,5 +25,6 @@ import { FavoritesComponent } from './favorites/favorites.component';
     ReactiveFormsModule,
     SharedModule,
   ],
+  exports: [RecipeListComponent],
 })
 export class RecipesModule {}

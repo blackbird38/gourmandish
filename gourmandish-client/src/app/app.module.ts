@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { RecipesModule } from './recipes/recipes.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, HeaderComponent],
@@ -30,6 +31,7 @@ import { RecipesModule } from './recipes/recipes.module';
     AuthModule, // eager loading - loaded immediately
     HttpClientModule,
     RecipesModule,
+    UserModule,
     NotifierModule.withConfig({
       position: {
         horizontal: {
