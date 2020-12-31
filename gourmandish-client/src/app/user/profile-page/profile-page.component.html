@@ -1,1 +1,16 @@
-<div class="ui container segment"></div>
+<div class="ui container segment">
+  <div class="profile-header" *ngIf="user">
+    <img [src]="user.avatar" class="ui medium image" />
+    <div>
+      <div>
+        <span class="username">{{ user.username }}</span>
+        <span class="name">{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+      <div class="social">
+        <span>Following Followers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipes">Recipes</div>
+</div>
