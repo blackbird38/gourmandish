@@ -1,11 +1,12 @@
-<div class="ui container segment">
+<div class="container is-fluid">
   <p>There are {{ (recipes$ | async)?.length }} recipes.</p>
-  <div
-    class="ui link cards recipe-list"
-    *ngIf="(recipes$ | async)?.length != 0"
-  >
+
+  <div class="columns is-multiline" *ngIf="(recipes$ | async)?.length != 0">
     <div *ngFor="let recipe of recipes$ | async">
-      <app-recipe-item [recipe]="recipe"></app-recipe-item>
+      <app-recipe-item
+        class="column is-large"
+        [recipe]="recipe"
+      ></app-recipe-item>
     </div>
   </div>
 </div>

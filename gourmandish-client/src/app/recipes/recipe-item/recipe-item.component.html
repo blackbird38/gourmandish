@@ -1,53 +1,57 @@
-<div class="ui card" *ngIf="recipe">
-  <div class="image">
-    <img class="recipe-photo" [src]="recipe.imagePath" />
+<div class="card large is-shady" *ngIf="recipe">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img [src]="recipe.imagePath" alt="{{ recipe.title }}" />
+    </figure>
   </div>
-  <div class="content">
-    <div class="header">{{ recipe.title }}</div>
-    <div class="meta">
-      by
-      <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
-      <a [routerLink]="['/profile-page', recipe.creator._id]">{{
-        recipe.creator.username
-      }}</a>
-      {{ recipe.createdAt | timeAgo }}
-    </div>
-    <div class="description">
-      {{ recipe.description | slice: 0:300 }}
-      <button
-        class="mini ui button"
-        [routerLink]="['/recipe-details', recipe._id]"
-      >
-        More
-      </button>
+  <div class="card-content is-size-4 has-text-weight-bold has-text-primary">
+    <div class="buttons">
+      <a class="" [routerLink]="['/recipe-details', recipe._id]">
+        {{ recipe.title }}
+      </a>
     </div>
   </div>
-  <div class="extra content">
-    <span class="left floated"> Ingredients </span>
-  </div>
-  <div class="extra content">
-    <span class="right floated">
-      <i class="clock outline icon"></i>
-      Time
-    </span>
-    <span>
-      <i class="utensils icon"></i>
-      Dificulty
-    </span>
-  </div>
-  <div class="extra content">
-    <span class="right floated">
+  <div class="card-content">
+    <div class="content">
+      {{ recipe.description | slice: 0:100 }}
+    </div>
+
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-24x24">
+          <img
+            class="is-rounded"
+            [src]="recipe.creator.avatar"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="media-content">
+        <p>
+          by
+          <a
+            class="title is-6 has-text-primary"
+            [routerLink]="['/profile-page', recipe.creator._id]"
+          >
+            @{{ recipe.creator.username }}</a
+          >
+          {{ recipe.createdAt | timeAgo }}
+        </p>
+      </div>
+    </div>
+
+    <div class="content has-text-right">
       <i
         *ngIf="!showLikedStatus()"
-        class="heart outline icon"
+        class="far fa-heart"
         (click)="onHeartClick()"
       ></i>
       <i
         *ngIf="showLikedStatus()"
-        class="heart icon"
+        class="fas fa-heart"
         (click)="onHeartClick()"
       ></i>
       {{ recipe.likes.length }} miams
-    </span>
+    </div>
   </div>
 </div>
