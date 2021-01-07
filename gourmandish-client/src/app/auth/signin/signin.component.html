@@ -1,40 +1,45 @@
-<div class="ui raised very padded text container segment">
-  <h3 class="ui dividing header">Sign In</h3>
-  <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
-    <app-input
-      class="field"
-      inputType="text"
-      label="Username or Email"
-      [control]="authForm.get('usernameOrEmail')"
-    ></app-input>
-    <app-input
-      class="field"
-      inputType="password"
-      label="Password"
-      [control]="authForm.get('password')"
-    ></app-input>
+<div class="container has-text-centered">
+  <div class="column is-4 is-offset-4">
+    <h3 class="title has-text-black is-size-4 has-text-primary">Sign In</h3>
+    <hr class="login-hr" />
+    <div class="box">
+      <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm">
+        <app-input
+          class="field"
+          inputType="text"
+          label="Username or Email"
+          [control]="authForm.get('usernameOrEmail')"
+        ></app-input>
+        <app-input
+          class="field"
+          inputType="password"
+          label="Password"
+          [control]="authForm.get('password')"
+        ></app-input>
 
-    <div
-      *ngIf="
-        authForm.get('password').touched &&
-        authForm.get('usernameOrEmail').touched &&
-        authForm.errors
-      "
-      class="ui red basic label"
-    >
-      <p *ngIf="authForm.errors.notSignedIn">
-        {{ authForm.errors.notSignedIn }}
-      </p>
-      <p *ngIf="authForm.errors.unknownError">
-        {{ authForm.errors.unknownError }}
-      </p>
+        <div
+          *ngIf="
+            authForm.get('password').touched &&
+            authForm.get('usernameOrEmail').touched &&
+            authForm.errors
+          "
+          class="ui red basic label"
+        >
+          <p *ngIf="authForm.errors.notSignedIn">
+            {{ authForm.errors.notSignedIn }}
+          </p>
+          <p *ngIf="authForm.errors.unknownError">
+            {{ authForm.errors.unknownError }}
+          </p>
+        </div>
+        <div>
+          <button class="button is-primary">Sign In</button>
+        </div>
+        <div class="has-text-right p-5">
+          You don't have an account yet?
+          <a [routerLink]="['/signup']"> Sign up </a> instead.
+        </div>
+      </form>
     </div>
-    <div>
-      <button class="ui submit button primary">Submit</button>
-    </div>
-    <div class="ui basic segment right aligned">
-      You don't have an account yet?
-      <a [routerLink]="['/signup']"> Sign up </a> instead.
-    </div>
-  </form>
+  </div>
 </div>
