@@ -6,7 +6,11 @@ const isUsernameAvailable = async (username) => {
 };
 
 const saveUser = async (credentials) => {
-  const newUser = new User(credentials);
+  const newUser = new User({
+    ...credentials,
+    followers: [],
+    avatar: "http://localhost:3000/uploads/images/avatar.jpg",
+  });
   const result = await newUser.save();
   const { __v, createdAt, updatedAt, password, ...createdUser } = result._doc;
   return createdUser;

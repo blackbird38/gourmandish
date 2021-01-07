@@ -7,7 +7,27 @@
         <span class="name">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
       <div class="social">
-        <span>Following Followers</span>
+        <p>
+          {{ following.length }} following - {{ followers.length }} followers
+        </p>
+      </div>
+      <div class="follow" *ngIf="currentUserId && currentUserId != user._id">
+        <button
+          class="ui secondary button"
+          (click)="toggleFollow()"
+          *ngIf="!isUserFollowedByCurrentUser()"
+        >
+          <i class="user icon"></i>
+          Follow
+        </button>
+        <button
+          class="ui primary button"
+          (click)="toggleFollow()"
+          *ngIf="isUserFollowedByCurrentUser()"
+        >
+          <i class="user icon"></i>
+          Following
+        </button>
       </div>
     </div>
   </div>

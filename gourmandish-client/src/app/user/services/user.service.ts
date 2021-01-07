@@ -10,4 +10,16 @@ export class UserService {
   async getById(id: string): Promise<any> {
     return await this.userWebservice.getById(id);
   }
+
+  async toggleFollow(id: string, follow: boolean): Promise<any> {
+    return await this.userWebservice.toggleFollow(id, follow);
+  }
+
+  async getFollowers(id: string): Promise<any> {
+    return await this.userWebservice.getFollowers(id);
+  }
+
+  async getFollowing(id: string): Promise<any> {
+    return await this.userWebservice.getFollowing(id);
+  }
 }

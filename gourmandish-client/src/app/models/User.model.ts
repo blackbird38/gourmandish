@@ -5,4 +5,5 @@ export interface User {
   lastName: string;
   avatar: string;
   createdAt: Date;
+  followers: string;
 }
