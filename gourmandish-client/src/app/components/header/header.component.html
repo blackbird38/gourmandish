@@ -1,7 +1,27 @@
-<div class="ui container">
-  <div class="ui secondary pointing menu">
-    <a routerLink="/" class="item">Gourmandish</a>
-    <div class="right menu">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a routerLink="/" class="navbar-item">
+      <img src="./assets/logo.png" width="112" height="28" />
+    </a>
+
+    <a
+      #navBurger
+      (click)="toggleNavbar()"
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div #navMenu class="navbar-menu">
+    <div class="navbar-start"></div>
+
+    <div class="navbar-end">
       <ng-container *ngIf="signedIn$ | async">
         <div class="ui search">
           <div class="ui icon input">
@@ -16,7 +36,7 @@
           <div class="results"></div>
         </div>
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/create-recipe"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
@@ -24,46 +44,63 @@
         >
 
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/recipe-list"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >My Cookbook</a
         >
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/favorites"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >My Favorites</a
         >
-        <a class="ui item" (click)="signOut()"
-          >Sign Out, {{ currentUserData.username }}</a
-        >
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link"> My Account </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item"> Settings </a>
+
+            <hr class="navbar-divider" />
+            <a class="navbar-item" (click)="signOut()"
+              >Sign Out, {{ currentUserData.username }}</a
+            >
+          </div>
+        </div>
       </ng-container>
       <ng-container *ngIf="!(signedIn$ | async)">
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/recipe-list"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >All recipes</a
         >
-        <a
-          class="ui item"
-          routerLink="/signin"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Sign In</a
-        >
-        <a
-          class="ui item"
-          routerLink="/signup"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Sign Up</a
-        >
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a
+              class="button is-primary"
+              routerLink="/signin"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              <strong>Sign In</strong>
+            </a>
+            <a
+              class="button is-light"
+              routerLink="/signup"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              Sign Up
+            </a>
+          </div>
+        </div>
       </ng-container>
     </div>
   </div>
-</div>
+</nav>

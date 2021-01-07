@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -14,6 +21,8 @@ export class HeaderComponent implements OnInit {
   signedIn$: BehaviorSubject<boolean>;
   currentUserData: CurentUserData;
   @Output() onSearchEvent: EventEmitter<any> = new EventEmitter();
+  @ViewChild('navBurger') navBurger: ElementRef;
+  @ViewChild('navMenu') navMenu: ElementRef;
 
   constructor(
     private authService: AuthService,
@@ -37,5 +46,10 @@ export class HeaderComponent implements OnInit {
   searchRecipes(event: any) {
     this.onSearchEvent.emit(event.target.value);
     this.router.navigate(['recipe-list']);
+  }
+
+  toggleNavbar() {
+    this.navBurger.nativeElement.classList.toggle('is-active');
+    this.navMenu.nativeElement.classList.toggle('is-active');
   }
 }
