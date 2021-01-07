@@ -1,15 +1,19 @@
-<label>{{ label }}</label>
+<p class="has-text-left has-text-primary p-4">{{ label }}:</p>
 <input type="file" (change)="onImageSelected($event)" />
 
 <div *ngIf="imagePreview !== '' && imagePreview && control.valid">
-  <img class="ui fluid small rounded image" [src]="imagePreview" />
+  <figure class="image is-128x128">
+    <img [src]="imagePreview" />
+  </figure>
 </div>
 
 <div *ngIf="!imagePreview && imagePath !== '' && imagePath">
-  <img class="ui fluid small rounded image" [src]="imagePath" />
+  <figure class="image is-128x128">
+    <img [src]="imagePath" />
+  </figure>
 </div>
 
-<div *ngIf="showErrors()" class="ui pointing red basic label">
+<div *ngIf="showErrors()" class="tag is-danger pt-3 m-2">
   <p *ngIf="control.errors.invalidMimeType">
     The file you selected is not valid. Please select a valid image.
   </p>

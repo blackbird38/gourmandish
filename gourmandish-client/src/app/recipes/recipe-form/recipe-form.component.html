@@ -1,46 +1,54 @@
-<div class="ui raised very padded text container segment">
-  <h3 class="ui dividing header">{{ header }}</h3>
-  <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="recipeForm">
-    <app-input
-      class="field"
-      inputType="text"
-      label="Title"
-      [control]="recipeForm.get('title')"
-    ></app-input>
-    <app-textarea
-      class="field"
-      label="Description"
-      [control]="recipeForm.get('description')"
-    ></app-textarea>
+<div class="container has-text-centered">
+  <div class="is-offset-4">
+    <h3 class="title has-text-black is-size-4 has-text-primary">
+      {{ header }}
+    </h3>
+    <div class="box">
+      <form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="recipeForm">
+        <app-input
+          class="field"
+          inputType="text"
+          label="Title"
+          [control]="recipeForm.get('title')"
+        ></app-input>
+        <app-textarea
+          class="field"
+          label="Description"
+          [control]="recipeForm.get('description')"
+        ></app-textarea>
 
-    <app-image-upload-with-preview
-      class="field"
-      label="Upload a photo of your dish"
-      [imagePath]="recipe.imagePath"
-      [control]="recipeForm.get('image')"
-      (selectImageEventEmmitter)="selectImage($event)"
-    ></app-image-upload-with-preview>
+        <app-image-upload-with-preview
+          class="field"
+          label="Upload a photo of your dish"
+          [imagePath]="recipe.imagePath"
+          [control]="recipeForm.get('image')"
+          (selectImageEventEmmitter)="selectImage($event)"
+        ></app-image-upload-with-preview>
 
-    <div
-      *ngIf="
-        recipeForm.get('title').touched &&
-        recipeForm.get('description').touched &&
-        recipeForm.errors
-      "
-      class="ui red basic label"
-    ></div>
+        <div
+          *ngIf="
+            recipeForm.get('title').touched &&
+            recipeForm.get('description').touched &&
+            recipeForm.errors
+          "
+          class="tag is-danger pt-3 m-2"
+        ></div>
 
-    <div>
-      <button class="ui submit button primary">{{ button }}</button>
-      <button
-        class="ui submit button warning"
-        *ngIf="recipe._id"
-        (click)="onDelete(recipe._id)"
-      >
-        Delete
-      </button>
+        <div>
+          <button
+            class="button is-danger m-3"
+            *ngIf="recipe._id"
+            (click)="onDelete(recipe._id)"
+          >
+            Delete
+          </button>
+          <button class="button is-primary m-3">
+            {{ button }}
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
 
 <p>
