@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-image-upload-with-preview',
   templateUrl: './image-upload-with-preview.component.html',
-  styleUrls: ['./image-upload-with-preview.component.css'],
+  styleUrls: ['./image-upload-with-preview.component.scss'],
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
