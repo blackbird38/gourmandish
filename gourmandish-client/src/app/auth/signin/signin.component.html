@@ -23,7 +23,7 @@
             authForm.get('usernameOrEmail').touched &&
             authForm.errors
           "
-          class="ui red basic label"
+          class="tag is-danger pt-3 m-2"
         >
           <p *ngIf="authForm.errors.notSignedIn">
             {{ authForm.errors.notSignedIn }}
