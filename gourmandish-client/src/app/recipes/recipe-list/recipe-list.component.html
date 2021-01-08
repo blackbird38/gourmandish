@@ -1,12 +1,20 @@
-<div class="container is-fluid">
-  <p>There are {{ (recipes$ | async)?.length }} recipes.</p>
-
-  <div class="columns is-multiline" *ngIf="(recipes$ | async)?.length != 0">
-    <div *ngFor="let recipe of recipes$ | async">
-      <app-recipe-item
-        class="column is-large"
-        [recipe]="recipe"
-      ></app-recipe-item>
+<div class="container has-background-light">
+  <div class="section">
+    <div class="columns">
+      <div class="column has-text-left">
+        <p>There are {{ (recipes$ | async)?.length }} recipes.</p>
+      </div>
+    </div>
+    <div
+      class="row columns is-multiline has-background-primary"
+      *ngIf="(recipes$ | async)?.length != 0"
+    >
+      <ng-container *ngFor="let recipe of recipes$ | async">
+        <app-recipe-item
+          class="column is-4"
+          [recipe]="recipe"
+        ></app-recipe-item>
+      </ng-container>
     </div>
   </div>
 </div>
