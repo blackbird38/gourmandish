@@ -6,7 +6,7 @@
       </div>
     </div>
     <div
-      class="row columns is-multiline has-background-primary"
+      class="row columns is-multiline has-background-primary box"
       *ngIf="(recipes$ | async)?.length != 0"
     >
       <ng-container *ngFor="let recipe of recipes$ | async">
