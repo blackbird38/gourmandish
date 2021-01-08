@@ -15,7 +15,7 @@
               <span class="title is-bold"
                 >{{ user.firstName }} {{ user.lastName }}
               </span>
-              <span>@{{ user.username }}</span>
+              <span class="has-text-primary is-bold">@{{ user.username }}</span>
             </p>
             <div>
               <span class="subtitle"
@@ -60,7 +60,7 @@
               <span class="title is-bold"
                 >{{ user.firstName }} {{ user.lastName }}
               </span>
-              <span>@{{ user.username }}</span>
+              <span class="has-text-primary is-bold">@{{ user.username }}</span>
             </p>
           </div>
         </div>
@@ -83,33 +83,31 @@
   <div class="container">
     <div class="columns">
       <div class="column level is-mobile">
-        <a
-          href="/social-ui/#/u/me/i"
-          class="level-item has-text-centered router-link-active"
+        <a href="" class="level-item has-text-centered router-link-active"
           ><div>
             <p>-</p>
             <p>Recipes</p>
           </div></a
         >
-        <a href="/social-ui/#/u/me/c" class="level-item has-text-centered"
+        <a href="" class="level-item has-text-centered"
           ><div>
-            <p>7</p>
+            <p>-</p>
             <p>Favorites</p>
           </div></a
         >
-        <a href="/social-ui/#/u/me/c" class="level-item has-text-centered"
+        <a href="" class="level-item has-text-centered"
           ><div>
             <p>-</p>
             <p>Miamed</p>
           </div></a
         >
-        <a href="/social-ui/#/u/me/e" class="level-item has-text-centered"
+        <a href="" class="level-item has-text-centered"
           ><div>
             <p>{{ following.length }}</p>
             <p>Following</p>
           </div></a
         >
-        <a href="/social-ui/#/u/me/r" class="level-item has-text-centered"
+        <a href="" class="level-item has-text-centered"
           ><div>
             <p>{{ followers.length }}</p>
             <p>Followers</p>
@@ -120,31 +118,8 @@
   </div>
   <div class="container">
     <div class="profile-items">
-      <h1>Recipes</h1>
+      <h1 class="has-text-primary">Recipes</h1>
       <app-recipe-list></app-recipe-list>
-      <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-          <div class="box">
-            <div class="columns">
-              <div class="column">
-                <div class="image is-1by1"><img /></div>
-              </div>
-              <div class="column">
-                <h1 class="title">Some</h1>
-                <h2 class="subtitle">
-                  <small>
-                    {{ user.firstName }} {{ user.lastName }}
-                    <br />
-                  </small>
-                </h2>
-                <p><small> </small></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="modal-close"></button>
-      </div>
     </div>
   </div>
 </div>

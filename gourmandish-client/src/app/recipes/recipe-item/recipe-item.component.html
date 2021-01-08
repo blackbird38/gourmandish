@@ -41,17 +41,18 @@
     </div>
 
     <div class="content has-text-right">
-      <i
-        *ngIf="!showLikedStatus()"
-        class="far fa-heart"
-        (click)="onHeartClick()"
-      ></i>
-      <i
-        *ngIf="showLikedStatus()"
-        class="fas fa-heart"
-        (click)="onHeartClick()"
-      ></i>
-      {{ recipe.likes.length }} miams
+      <span class="icon-text has-text-secondary" *ngIf="!showLikedStatus()">
+        <span class="icon">
+          <i class="far fa-heart" (click)="onHeartClick()"></i>
+        </span>
+        {{ recipe.likes.length }} miams
+      </span>
+      <span class="icon-text has-text-primary" *ngIf="showLikedStatus()">
+        <span class="icon">
+          <i class="fas fa-heart" (click)="onHeartClick()"></i>
+        </span>
+        {{ recipe.likes.length }} miams
+      </span>
     </div>
   </div>
 </div>
