@@ -1,35 +1,60 @@
-<div class="ui container segment" *ngIf="recipe">
-  <div class="ui relaxed divided items">
-    <div class="item">
-      <div class="ui medium image">
-        <img [src]="recipe.imagePath" />
-      </div>
-      <div class="content">
-        <a class="header">{{ recipe.title }}</a>
-        <div class="meta">
-          <a>Time</a>
-          <a>Dificulty</a>
+<section class="container">
+  <div class="columns is-multiline" *ngIf="recipe">
+    <div class="column">
+      <div class="columns">
+        <div class="column left">
+          <figure class="image is-square">
+            <img [src]="recipe.imagePath" />
+          </figure>
         </div>
-        <div class="extra">
-          <img [src]="recipe.creator.avatar" class="ui circular avatar image" />
-          by
-          <a [routerLink]="['/profile-page', recipe.creator._id]">
-            {{ recipe.creator.username }}</a
-          >
-          {{ recipe.createdAt | timeAgo }}
-        </div>
-        <div class="description">
-          {{ recipe.description }}
-        </div>
+        <div class="column right has-text-left">
+          <div class="card p-5">
+            <p class="is-size-2">{{ recipe.title }}</p>
+            <div>
+              <span>Time </span>
+              <span>Dificulty</span>
+            </div>
 
-        <button
-          *ngIf="recipe.creator._id === currentUserId"
-          class="mini ui button"
-          [routerLink]="['/edit-recipe', recipeId]"
-        >
-          Edit
-        </button>
+            <div class="extra">
+              {{ recipe.description }}
+            </div>
+
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-24x24">
+                  <img
+                    class="is-rounded"
+                    [src]="recipe.creator.avatar"
+                    alt="Placeholder image"
+                  />
+                </figure>
+              </div>
+              <div class="media-content">
+                <p>
+                  by
+                  <a
+                    class="title is-6 has-text-primary"
+                    [routerLink]="['/profile-page', recipe.creator._id]"
+                  >
+                    @{{ recipe.creator.username }}</a
+                  >
+                  {{ recipe.createdAt | timeAgo }}
+                </p>
+              </div>
+            </div>
+
+            <div class="extra has-text-right">
+              <button
+                class="button is-primary"
+                *ngIf="recipe.creator._id === currentUserId"
+                [routerLink]="['/edit-recipe', recipeId]"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
