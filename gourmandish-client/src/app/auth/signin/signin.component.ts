@@ -51,7 +51,7 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['recipe-list']);
       },
       error: (error) => {
-        //   console.log(error.error);
+        // console.log(error.error);
         //   console.log(this.authForm.errors);
         if (error.error.message) {
           this.authForm.setErrors({ notSignedIn: error.error.message }); // 422, 401, 500
@@ -61,6 +61,7 @@ export class SigninComponent implements OnInit {
               'Unknown error. Check your internet connection maybe.',
           });
         }
+        // console.log(this.authForm.errors);
       },
     });
   }

@@ -70,7 +70,22 @@
         >
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"> My Account </a>
+          <a class="navbar-link">
+            <div class="media">
+              <div class="media-content">
+                <a> My Account</a>
+              </div>
+              <div class="media-right">
+                <figure class="image is-24x24">
+                  <img
+                    class="is-rounded"
+                    [src]="currentUserData.avatar"
+                    alt="user image"
+                  />
+                </figure>
+              </div>
+            </div>
+          </a>
 
           <div class="navbar-dropdown is-right">
             <a class="navbar-item"> Settings </a>

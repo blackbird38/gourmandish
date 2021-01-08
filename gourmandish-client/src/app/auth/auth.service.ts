@@ -130,13 +130,21 @@ export class AuthService {
 
   private getUserDataFromToken(token: string): CurentUserData {
     const decodedToken: any = jwtDecode(token);
-    const { userId, username, firstName, lastName, email } = decodedToken;
+    const {
+      userId,
+      username,
+      firstName,
+      lastName,
+      email,
+      avatar,
+    } = decodedToken;
     return {
       _id: userId,
       username,
       firstName,
       lastName,
       email,
+      avatar,
     };
   }
 
