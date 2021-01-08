@@ -4,4 +4,5 @@ export interface CurentUserData {
   firstName: string;
   lastName: string;
   email: string;
+  avatar: string;
 }

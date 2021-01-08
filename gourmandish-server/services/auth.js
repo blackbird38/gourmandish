@@ -115,7 +115,8 @@ const signIn = async (credentials) => {
     foundUser.email,
     foundUser.username,
     foundUser.firstName,
-    foundUser.lastName
+    foundUser.lastName,
+    foundUser.avatar
   );
 
   return {
@@ -139,14 +140,22 @@ const isPasswordValid = async (loginPassword, dbPassword) => {
   return await bcrypt.compare(loginPassword, dbPassword); // comparing 2 hashed passwords. the password will not be decripted at all for the comparison
 };
 
-const generateToken = (userId, email, username, firstName, lastName) => {
+const generateToken = (
+  userId,
+  email,
+  username,
+  firstName,
+  lastName,
+  avatar
+) => {
   const token = jwt.sign(
-    { email, userId, username, firstName, lastName },
+    { email, userId, username, firstName, lastName, avatar },
     process.env.JWT_SECRET_KEY,
     {
       expiresIn: "1h",
     }
   );
+
   return token;
 };
 

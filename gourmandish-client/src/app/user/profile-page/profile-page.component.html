@@ -1,39 +1,125 @@
-<div class="ui container segment">
-  <div class="profile-header" *ngIf="user">
-    <img [src]="user.avatar" class="ui medium image" />
-    <div>
+<div class="section" *ngIf="user">
+  <div class="container">
+    <div class="is-hidden-mobile">
       <div>
-        <span class="username">{{ user.username }}</span>
-        <span class="name">{{ user.firstName }} {{ user.lastName }}</span>
+        <div class="columns is-mobile">
+          <div class="column is-1"></div>
+          <div class="column">
+            <div class="image is-1by1 sui-avatar">
+              <img [src]="user.avatar" />
+            </div>
+          </div>
+          <div class="column is-1"></div>
+          <div class="column is-two-thirds content">
+            <p>
+              <span class="title is-bold"
+                >{{ user.firstName }} {{ user.lastName }}
+              </span>
+              <span class="has-text-primary is-bold">@{{ user.username }}</span>
+            </p>
+            <div>
+              <span class="subtitle"
+                ><small>
+                  {{ following.length }} following -
+                  {{ followers.length }} followers</small
+                ></span
+              >
+              <div *ngIf="currentUserId && currentUserId != user._id">
+                <button
+                  class="button is-primary"
+                  (click)="toggleFollow()"
+                  *ngIf="!isUserFollowedByCurrentUser()"
+                >
+                  <i class="user icon"></i>
+                  Follow
+                </button>
+                <button
+                  class="button is-secondary"
+                  (click)="toggleFollow()"
+                  *ngIf="isUserFollowedByCurrentUser()"
+                >
+                  <i class="user icon"></i>
+                  Following
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="social">
-        <p>
-          {{ following.length }} following - {{ followers.length }} followers
-        </p>
-      </div>
-      <div class="follow" *ngIf="currentUserId && currentUserId != user._id">
-        <button
-          class="ui secondary button"
-          (click)="toggleFollow()"
-          *ngIf="!isUserFollowedByCurrentUser()"
-        >
-          <i class="user icon"></i>
-          Follow
-        </button>
-        <button
-          class="ui primary button"
-          (click)="toggleFollow()"
-          *ngIf="isUserFollowedByCurrentUser()"
-        >
-          <i class="user icon"></i>
-          Following
-        </button>
+    </div>
+    <div class="is-hidden-tablet">
+      <div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <div class="image is-1by1 sui-avatar">
+              <img [src]="user.avatar" />
+            </div>
+          </div>
+          <div class="column is-two-thirds">
+            <p>
+              <span class="title is-bold"
+                >{{ user.firstName }} {{ user.lastName }}
+              </span>
+              <span class="has-text-primary is-bold">@{{ user.username }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <p>
+              <span class="subtitle"
+                ><small>
+                  {{ following.length }} following -
+                  {{ followers.length }} followers</small
+                ></span
+              >
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="recipes">
-    <h1>Recipes</h1>
-    <app-recipe-list></app-recipe-list>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <div class="columns">
+      <div class="column level is-mobile">
+        <a href="" class="level-item has-text-centered router-link-active"
+          ><div>
+            <p>-</p>
+            <p>Recipes</p>
+          </div></a
+        >
+        <a href="" class="level-item has-text-centered"
+          ><div>
+            <p>-</p>
+            <p>Favorites</p>
+          </div></a
+        >
+        <a href="" class="level-item has-text-centered"
+          ><div>
+            <p>-</p>
+            <p>Miamed</p>
+          </div></a
+        >
+        <a href="" class="level-item has-text-centered"
+          ><div>
+            <p>{{ following.length }}</p>
+            <p>Following</p>
+          </div></a
+        >
+        <a href="" class="level-item has-text-centered"
+          ><div>
+            <p>{{ followers.length }}</p>
+            <p>Followers</p>
+          </div></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="profile-items">
+      <h1 class="has-text-primary">Recipes</h1>
+      <app-recipe-list></app-recipe-list>
+    </div>
   </div>
 </div>

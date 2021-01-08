@@ -1,69 +1,134 @@
-<div class="ui container">
-  <div class="ui secondary pointing menu">
-    <a routerLink="/" class="item">Gourmandish</a>
-    <div class="right menu">
+<nav
+  class="navbar is-fixed-top mb-6"
+  role="navigation"
+  aria-label="main navigation"
+>
+  <div class="navbar-brand">
+    <a routerLink="/" class="navbar-item">
+      <img src="./assets/logo.png" width="112" height="28" />
+    </a>
+
+    <a
+      #navBurger
+      (click)="toggleNavbar()"
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div #navMenu class="navbar-menu is-size-6">
+    <div class="navbar-start"></div>
+
+    <div class="navbar-end">
       <ng-container *ngIf="signedIn$ | async">
-        <div class="ui search">
-          <div class="ui icon input">
+        <div class="field pt-3 pr-2">
+          <div class="control has-icons-left">
             <input
-              class="prompt"
+              class="input is-small is-rounded has-text-primary"
               type="text"
               placeholder="Search recipes..."
               (keyup)="searchRecipes($event)"
             />
-            <i class="search icon"></i>
+            <span class="icon is-small is-left">
+              <i class="fas fa-search"></i>
+            </span>
           </div>
-          <div class="results"></div>
         </div>
-        <a
-          class="ui item"
-          routerLink="/create-recipe"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Add recipe</a
-        >
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a
+              class="button is-primary"
+              routerLink="/create-recipe"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              <strong>Add recipe</strong>
+            </a>
+          </div>
+        </div>
 
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/recipe-list"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >My Cookbook</a
         >
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/favorites"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >My Favorites</a
         >
-        <a class="ui item" (click)="signOut()"
-          >Sign Out, {{ currentUserData.username }}</a
-        >
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <div class="media">
+              <div class="media-content">
+                <a> My Account</a>
+              </div>
+              <div class="media-right">
+                <figure class="image is-24x24">
+                  <img
+                    class="is-rounded"
+                    [src]="currentUserData.avatar"
+                    alt="user image"
+                  />
+                </figure>
+              </div>
+            </div>
+          </a>
+
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item"> Settings </a>
+
+            <hr class="navbar-divider" />
+            <div class="navbar-item">
+              <a class="button is-primary" (click)="signOut()"
+                >Sign Out, {{ currentUserData.username }}</a
+              >
+            </div>
+          </div>
+        </div>
       </ng-container>
       <ng-container *ngIf="!(signedIn$ | async)">
         <a
-          class="ui item"
+          class="navbar-item"
           routerLink="/recipe-list"
           routerLinkActiveOptions="{ exact: true }"
           routerLinkActive="active"
           >All recipes</a
         >
-        <a
-          class="ui item"
-          routerLink="/signin"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Sign In</a
-        >
-        <a
-          class="ui item"
-          routerLink="/signup"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Sign Up</a
-        >
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a
+              class="button is-primary"
+              routerLink="/signin"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              <strong>Sign In</strong>
+            </a>
+            <a
+              class="button is-light"
+              routerLink="/signup"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              Sign Up
+            </a>
+          </div>
+        </div>
       </ng-container>
     </div>
   </div>
-</div>
+</nav>
