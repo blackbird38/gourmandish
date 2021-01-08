@@ -30,7 +30,7 @@
         <div class="field pt-3 pr-2">
           <div class="control has-icons-left">
             <input
-              class="input is-small is-rounded"
+              class="input is-small is-rounded has-text-primary"
               type="text"
               placeholder="Search recipes..."
               (keyup)="searchRecipes($event)"
@@ -40,13 +40,19 @@
             </span>
           </div>
         </div>
-        <a
-          class="navbar-item"
-          routerLink="/create-recipe"
-          routerLinkActiveOptions="{ exact: true }"
-          routerLinkActive="active"
-          >Add recipe</a
-        >
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a
+              class="button is-primary"
+              routerLink="/create-recipe"
+              routerLinkActiveOptions="{ exact: true }"
+              routerLinkActive="active"
+            >
+              <strong>Add recipe</strong>
+            </a>
+          </div>
+        </div>
 
         <a
           class="navbar-item"
