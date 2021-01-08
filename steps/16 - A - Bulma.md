@@ -21,3 +21,5 @@ angular.json
 "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
 "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
 ],
+
+removed semantic-ui
