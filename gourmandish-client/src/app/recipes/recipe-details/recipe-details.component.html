@@ -2,23 +2,14 @@
   <div class="columns is-multiline" *ngIf="recipe">
     <div class="column">
       <div class="columns">
-        <div class="column left">
+        <div class="column left box is-4">
           <figure class="image is-square">
             <img [src]="recipe.imagePath" />
           </figure>
         </div>
-        <div class="column right has-text-left">
+        <div class="column right has-text-left is-8">
           <div class="card p-5">
-            <p class="is-size-2">{{ recipe.title }}</p>
-            <div>
-              <span>Time </span>
-              <span>Dificulty</span>
-            </div>
-
-            <div class="extra">
-              {{ recipe.description }}
-            </div>
-
+            <p class="is-size-2 has-text-primary">{{ recipe.title }}</p>
             <div class="media">
               <div class="media-left">
                 <figure class="image is-24x24">
@@ -41,6 +32,10 @@
                   {{ recipe.createdAt | timeAgo }}
                 </p>
               </div>
+            </div>
+
+            <div class="extra">
+              {{ recipe.description }}
             </div>
 
             <div class="extra has-text-right">
