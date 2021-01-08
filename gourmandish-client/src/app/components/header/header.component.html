@@ -1,4 +1,8 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+<nav
+  class="navbar is-fixed-top mb-6"
+  role="navigation"
+  aria-label="main navigation"
+>
   <div class="navbar-brand">
     <a routerLink="/" class="navbar-item">
       <img src="./assets/logo.png" width="112" height="28" />
@@ -23,17 +27,18 @@
 
     <div class="navbar-end">
       <ng-container *ngIf="signedIn$ | async">
-        <div class="ui search">
-          <div class="ui icon input">
+        <div class="field pt-3 pr-2">
+          <div class="control has-icons-left">
             <input
-              class="prompt"
+              class="input is-small is-rounded"
               type="text"
               placeholder="Search recipes..."
               (keyup)="searchRecipes($event)"
             />
-            <i class="search icon"></i>
+            <span class="icon is-small is-left">
+              <i class="fas fa-search"></i>
+            </span>
           </div>
-          <div class="results"></div>
         </div>
         <a
           class="navbar-item"
