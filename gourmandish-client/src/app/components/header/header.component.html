@@ -88,7 +88,12 @@
           </a>
 
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item"> Settings </a>
+            <a
+              class="navbar-item"
+              [routerLink]="['/user-settings-page', currentUserData._id]"
+            >
+              Settings
+            </a>
 
             <hr class="navbar-divider" />
             <div class="navbar-item">
