@@ -4,9 +4,10 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
+
+import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
@@ -15,7 +16,10 @@ export class AuthHttpInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const userAuthToken = this.authService.getToken();
+    let userAuthToken = this.authService.getToken();
+    if (userAuthToken) {
+      userAuthToken = userAuthToken.replace(/^"(.+(?="$))"$/, '$1');
+    }
     const userAuthRequest = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${userAuthToken}`),
     });
