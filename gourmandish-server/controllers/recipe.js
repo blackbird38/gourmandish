@@ -63,7 +63,7 @@ const update = async (req, res, next) => {
   try {
     let imagePath = req.body.image;
     const { recipeId } = req.params;
-    const { title, description } = req.body;
+    const { title, description, likes } = req.body;
     const updaterId = req.jwtLoggedInUser.userId;
     let isNewFileUploaded = false;
 
@@ -80,7 +80,8 @@ const update = async (req, res, next) => {
       description,
       imagePath,
       updaterId,
-      isNewFileUploaded
+      isNewFileUploaded,
+      likes.split(",")
     );
 
     res.status(200).send(result);

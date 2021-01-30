@@ -64,17 +64,29 @@ const create = async (title, description, imagePath, creatorId) => {
   return createdRecipe._doc;
 };
 
-const update = async (recipeId, title, description, imagePath, updaterId) => {
+const update = async (
+  recipeId,
+  title,
+  description,
+  imagePath,
+  updaterId,
+  likes
+) => {
   const modifiedRecipe = new Recipe({
     _id: recipeId,
     title: title,
     description: description,
     imagePath: imagePath,
+    likes: likes,
   });
 
   const result = await Recipe.updateOne(
     { _id: recipeId, creator: updaterId },
-    modifiedRecipe
+    {
+      $set: {
+        ...modifiedRecipe,
+      },
+    }
   );
   return result.n > 0 ? true : false;
 };

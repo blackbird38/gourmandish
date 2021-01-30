@@ -54,7 +54,8 @@ const update = async (
   description,
   imagePath,
   updaterId,
-  isNewFileUploaded
+  isNewFileUploaded,
+  likes
 ) => {
   let oldFilePath = "";
   const canUpdate = await userCanUpdate(updaterId, recipeId);
@@ -72,7 +73,8 @@ const update = async (
     title,
     description,
     imagePath,
-    updaterId
+    updaterId,
+    likes
   );
   if (isUpdated) {
     if (isNewFileUploaded) {

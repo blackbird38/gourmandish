@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
+
+import { Injectable } from '@angular/core';
 import { RecipeFormResolverModel } from '../models/recipe-form-resolver.model';
 import { RecipeService } from './recipe.service';
 
@@ -15,8 +12,7 @@ export class RecipeFormResolver implements Resolve<any> {
   constructor(private recipeService: RecipeService) {}
 
   async resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Promise<Observable<RecipeFormResolverModel>> {
     let resolverData: RecipeFormResolverModel = {
       header: 'Add new recipe',

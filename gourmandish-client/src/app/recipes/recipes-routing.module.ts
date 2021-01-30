@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGuard } from '../guards/auth.guard';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { NgModule } from '@angular/core';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
-import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeFormResolver } from './services/recipe-form-resolver';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
 
 const routes: Routes = [
   {
-    path: 'create-recipe',
+    path: 'recipe-form',
     component: RecipeFormComponent,
     canActivate: [AuthGuard],
     resolve: {

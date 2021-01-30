@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -5,13 +6,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotifierService } from 'angular-notifier';
-import { Subscription } from 'rxjs';
+
 import { AuthService } from 'src/app/auth/auth.service';
+import { NotifierService } from 'angular-notifier';
 import { Recipe } from 'src/app/models/Recipe.model';
-import { mimeType } from 'src/app/validators/mime-type.validator';
 import { RecipeService } from '../services/recipe.service';
+import { Subscription } from 'rxjs';
+import { mimeType } from 'src/app/validators/mime-type.validator';
 
 @Component({
   selector: 'app-recipe-form',
@@ -80,6 +81,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         });
         return;
       }
+      recipeData.append('likes', this.recipe.likes.toString());
       this.recipeService.update(this.recipe._id, recipeData);
     } else {
       if (this.recipeForm.invalid) {
@@ -92,7 +94,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         this.recipeForm.get('description').value
       );
       recipeData.append('image', this.recipeForm.get('image').value);
-
+      recipeData.append('likes', this.recipe.likes.toString());
       this.recipeService.create(recipeData).subscribe();
     }
 
