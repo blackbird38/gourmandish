@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken");
 module.exports = (req, res, next) => {
   try {
     console.log(
-      "[JWT-CHAECK-AUTH] hearder authorization",
+      "[JWT-CHECK-AUTH] hearder authorization",
       req.headers.authorization
     );
     const token = req.headers.authorization.split(" ")[1]; // "Bearer token" token is at idx 1
-    console.log("[JWT-CHAECK-AUTH] token", token);
-    console.log("[JWT-CHAECK-AUTH] secret", process.env.JWT_SECRET_KEY);
+    console.log("[JWT-CHECK-AUTH] token", token);
+    console.log("[JWT-CHECK-AUTH] secret", process.env.JWT_SECRET_KEY);
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY); // will use the user id to add it when a new recipe is added
     console.log("decodedToken", decodedToken);
@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     // of valid token:
     next(); // execution continues
   } catch (error) {
-    console.error("[JWT-CHAECK-AUTH] Error", error);
+    console.error("[JWT-CHECK-AUTH] Error", error);
     res.status(401).json({
       message: "You are not authenticated. Token error.",
     });
