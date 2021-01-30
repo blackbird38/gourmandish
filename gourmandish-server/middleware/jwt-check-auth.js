@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
     console.log("[JWT-CHECK-AUTH] secret", process.env.JWT_SECRET_KEY);
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY); // will use the user id to add it when a new recipe is added
+
     console.log("decodedToken", decodedToken);
     printExpiringTokenDate(decodedToken.exp);
     // passing this to be used by the create a new recipe
