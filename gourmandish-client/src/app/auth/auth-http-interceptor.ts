@@ -16,12 +16,12 @@ export class AuthHttpInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const userAuthToken = this.authService.getToken();
+    let userAuthToken = this.authService.getToken();
+    if (userAuthToken) {
+      userAuthToken = userAuthToken.replace(/^"(.+(?="$))"$/, '$1');
+    }
     const userAuthRequest = req.clone({
-      headers: req.headers.set(
-        'Authorization',
-        `Bearer ${userAuthToken.replace(/^"(.+(?="$))"$/, '$1')}`
-      ),
+      headers: req.headers.set('Authorization', `Bearer ${userAuthToken}`),
     });
     console.log(userAuthToken);
     return next.handle(userAuthRequest);
