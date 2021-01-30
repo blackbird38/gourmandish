@@ -44,7 +44,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
       title: new FormControl('' || this.recipe.title, [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20),
       ]),
       description: new FormControl('' || this.recipe.description, [
         Validators.required,
