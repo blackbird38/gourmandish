@@ -60,9 +60,8 @@
           label="Birthdate"
           [control]="authForm.get('birthdate')"
           min="1900-01-01"
-          max="2006-01-01"
+          max="{{ maxDate }}"
         ></app-input>
-
         <div
           *ngIf="
             authForm.get('password').touched &&
@@ -73,6 +72,9 @@
         >
           <p *ngIf="authForm.errors.passwordsNotMatching">
             Password don't match.
+          </p>
+          <p *ngIf="authForm.errors.birthdateNotValid">
+            You must be born between 1900 and {{ maxDate | slice: 0:4 }}.
           </p>
           <p *ngIf="authForm.errors.accountNotCreated">
             {{ authForm.errors.accountNotCreated }}
