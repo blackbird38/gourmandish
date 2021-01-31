@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NotifierService } from 'angular-notifier';
+
 import { AuthService } from '../auth.service';
-import { SignupResponse } from '../auth.webservice';
 import { MatchPassword } from '../validators/match-password';
+import { NotifierService } from 'angular-notifier';
+import { Router } from '@angular/router';
+import { SignupResponse } from '../auth.webservice';
 import { UniqueUsername } from '../validators/unique-username';
+import { ValidBirthDate } from '../validators/valid-birthdate';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -35,24 +38,41 @@ export class SignupComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(20),
       ]),
-      email: new FormControl('', [Validators.required]),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      birthdate: new FormControl(''),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      birthdate: new FormControl('', [Validators.required]),
       gender: new FormControl(''),
     },
-    { validators: [this.matchPassword.validate] }
+    { validators: [this.matchPassword.validate, this.validBirthDate.validate] }
   );
+
+  maxDate: string;
 
   constructor(
     private matchPassword: MatchPassword,
     private uniqueUsername: UniqueUsername,
+    private validBirthDate: ValidBirthDate,
     private authService: AuthService,
     private router: Router,
     private readonly notifier: NotifierService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.maxDate = this.setMaxDate();
+  }
+
+  private setMaxDate(): string {
+    const today = new Date(
+      new Date().getFullYear() - 18,
+      new Date().getMonth(),
+      new Date().getDate()
+    );
+    return formatDate(today, 'yyyy-MM-dd', 'en-US');
+  }
 
   onSubmit(): void {
     if (this.authForm.invalid) {

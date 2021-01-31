@@ -5,6 +5,8 @@
     [formControl]="control"
     [type]="inputType"
     placeholder="{{ label }}"
+    [min]="min"
+    [max]="max"
   />
 
   <div *ngIf="showErrors()" class="tag is-danger p-3 m-2">
