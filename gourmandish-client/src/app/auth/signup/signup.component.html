@@ -66,6 +66,8 @@
           *ngIf="
             authForm.get('password').touched &&
             authForm.get('passwordConfirmation').touched &&
+            authForm.get('birthdate').touched &&
+            authForm.get('email').touched &&
             authForm.errors
           "
           class="tag is-danger p-3 m-2"

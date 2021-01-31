@@ -38,10 +38,13 @@ export class SignupComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(20),
       ]),
-      email: new FormControl('', [Validators.required]),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      birthdate: new FormControl(''),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      birthdate: new FormControl('', [Validators.required]),
       gender: new FormControl(''),
     },
     { validators: [this.matchPassword.validate, this.validBirthDate.validate] }
