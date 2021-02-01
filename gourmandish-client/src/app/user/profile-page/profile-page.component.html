@@ -80,45 +80,12 @@
     </div>
   </div>
   <div class="container"><hr /></div>
-  <div class="container">
-    <div class="columns">
-      <div class="column level is-mobile">
-        <a href="" class="level-item has-text-centered router-link-active"
-          ><div>
-            <p>-</p>
-            <p>Recipes</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>-</p>
-            <p>Favorites</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>-</p>
-            <p>Miamed</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>{{ following.length }}</p>
-            <p>Following</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>{{ followers.length }}</p>
-            <p>Followers</p>
-          </div></a
-        >
-      </div>
-    </div>
-  </div>
+
   <div class="container">
     <div class="profile-items">
-      <h1 class="has-text-primary">Recipes</h1>
+      <h1 class="has-text-primary">
+        All the recipes published by {{ user.username }}:
+      </h1>
       <app-recipe-list></app-recipe-list>
     </div>
   </div>

@@ -26,7 +26,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   header: string;
   button: string;
   private userAuth: Subscription;
-  // isLoading: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,7 +110,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         this.header = resolverData.header;
         this.button = resolverData.button;
         this.recipe = { ...resolverData.recipe };
-        //   this.isLoading = false;
 
         // TODO: you may want to refacto this:
         this.userAuth = this.authService.currentUserData$.subscribe(

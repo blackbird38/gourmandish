@@ -1,9 +1,10 @@
-import { OnDestroy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { OnDestroy } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-item',
@@ -64,5 +65,3 @@ export class RecipeItemComponent implements OnInit, OnDestroy {
     this.userAuth.unsubscribe();
   }
 }
-
-// TODO: add loading

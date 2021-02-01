@@ -1,8 +1,3 @@
-import { Injectable } from '@angular/core';
-import { NotifierService } from 'angular-notifier';
-import jwtDecode from 'jwt-decode';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import {
   AuthWebservice,
   SigninCredentials,
@@ -11,7 +6,13 @@ import {
   SignupResponse,
   UsernameAvailableResponse,
 } from './auth.webservice';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { CurentUserData } from './models/current-user-data.model';
+import { Injectable } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
+import jwtDecode from 'jwt-decode';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,6 @@ export class AuthService {
   signedIn$ = new BehaviorSubject(false); // will push the signedIn info to the interested components, the latest value, even to the ones subscribed after it was emitted
   currentUserData$ = new BehaviorSubject(null);
 
-  // private currentUserData: CurentUserData = null;
   private token: string;
   private tokenTimer: any;
 
