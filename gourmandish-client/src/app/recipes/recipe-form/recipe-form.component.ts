@@ -80,7 +80,9 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         });
         return;
       }
-      recipeData.append('likes', this.recipe.likes.toString());
+      if (this.recipe.likes) {
+        recipeData.append('likes', this.recipe.likes.toString());
+      }
       this.recipeService.update(this.recipe._id, recipeData);
     } else {
       if (this.recipeForm.invalid) {
@@ -93,7 +95,9 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         this.recipeForm.get('description').value
       );
       recipeData.append('image', this.recipeForm.get('image').value);
-      recipeData.append('likes', this.recipe.likes.toString());
+      if (this.recipe.likes) {
+        recipeData.append('likes', this.recipe.likes.toString());
+      }
       this.recipeService.create(recipeData).subscribe();
     }
 
