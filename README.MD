@@ -4,8 +4,6 @@
 
 ![Alt text](https://1.bp.blogspot.com/-pd2GhUNuh9Y/YB1oEQRA_oI/AAAAAAAAAnw/jULzaKkRmj8Tct_cKajE-OdgeQl6QJf_gCLcBGAsYHQ/s1804/Capture01.PNG)
 
-![Alt text](https://1.bp.blogspot.com/-wi63ChiOAgY/YB1oEftLk9I/AAAAAAAAAns/O8YUPxbi-6Ih5cz6__I9TwLyj71NqKE3gCLcBGAsYHQ/s1005/Capture03.PNG)
-
 ![Alt text](https://1.bp.blogspot.com/-X9hAHKm35SM/YB1oFcQBd7I/AAAAAAAAAn4/8Wvv8tMwarw55zkNvBBJK4m6ErMPx-FNgCLcBGAsYHQ/s1799/Capture04.PNG)
 
 Search:
@@ -21,17 +19,7 @@ Search:
 
 ![Alt text](https://1.bp.blogspot.com/-pbvnA3Uxeog/YB1oN-1BsYI/AAAAAAAAAoQ/lL4IAhI_V3kEqd0ohbPUEW0uIU_KCDNCwCLcBGAsYHQ/s1813/Capture10.PNG)
 
-![Alt text](https://1.bp.blogspot.com/-wi63ChiOAgY/YB1oEftLk9I/AAAAAAAAAns/O8YUPxbi-6Ih5cz6__I9TwLyj71NqKE3gCLcBGAsYHQ/s1005/Capture03.PNG)
-
-![Alt text](https://1.bp.blogspot.com/-LI8r0j0GDgc/YB12fVU9gWI/AAAAAAAAAo8/-XUH4NHwTnMcRsVIDTayVhqM8GeTdcPwwCLcBGAsYHQ/s990/Capture11.PNG)
-
-![Alt text](https://1.bp.blogspot.com/-Nis_r5UFsfU/YB12fIh83vI/AAAAAAAAAo4/UiwXd27Q2rM7ZO6IsCezymaqre2_ilo2gCLcBGAsYHQ/s1035/Capture12.PNG)
-
-![Alt text](https://1.bp.blogspot.com/-0eVq8VP3or0/YB12fDCiveI/AAAAAAAAAo0/327b1N2keRYj10TeVDHT6Qr0gVqq7LmGwCLcBGAsYHQ/s1040/Capture13.PNG)
-
-![Alt text](https://1.bp.blogspot.com/-tnpTK6OJPcQ/YB12gT-9GaI/AAAAAAAAApA/3dnlA4b7VaUseI5HLtfsaHZeXc5kZD-YQCLcBGAsYHQ/s1037/Capture14.PNG)
-
-![Alt text](https://1.bp.blogspot.com/-EzRu1lMjjJE/YB12goF62KI/AAAAAAAAApE/b12Wyl6C1IYP6DI3h_PqCe49aPiiBaoPwCLcBGAsYHQ/s1033/Capture15.PNG)
+![Alt text](https://1.bp.blogspot.com/-wi63ChiOAgY/YB1oEftLk9I/AAAAAAAAAns/O8YUPxbi-6Ih5cz6__I9TwLyj71NqKE3gCLcBGAsYHQ/s400/Capture03.PNG) ![Alt text](https://1.bp.blogspot.com/-LI8r0j0GDgc/YB12fVU9gWI/AAAAAAAAAo8/-XUH4NHwTnMcRsVIDTayVhqM8GeTdcPwwCLcBGAsYHQ/s400/Capture11.PNG) ![Alt text](https://1.bp.blogspot.com/-Nis_r5UFsfU/YB12fIh83vI/AAAAAAAAAo4/UiwXd27Q2rM7ZO6IsCezymaqre2_ilo2gCLcBGAsYHQ/s400/Capture12.PNG) ![Alt text](https://1.bp.blogspot.com/-0eVq8VP3or0/YB12fDCiveI/AAAAAAAAAo0/327b1N2keRYj10TeVDHT6Qr0gVqq7LmGwCLcBGAsYHQ/s400/Capture13.PNG) ![Alt text](https://1.bp.blogspot.com/-tnpTK6OJPcQ/YB12gT-9GaI/AAAAAAAAApA/3dnlA4b7VaUseI5HLtfsaHZeXc5kZD-YQCLcBGAsYHQ/s400/Capture14.PNG) ![Alt text](https://1.bp.blogspot.com/-EzRu1lMjjJE/YB12goF62KI/AAAAAAAAApE/b12Wyl6C1IYP6DI3h_PqCe49aPiiBaoPwCLcBGAsYHQ/s400/Capture15.PNG)
 
 https://gourmandish.vercel.app/
 
