@@ -20,8 +20,12 @@
             <div>
               <span class="subtitle"
                 ><small>
-                  {{ following.length }} following -
-                  {{ followers.length }} followers</small
+                  <a (click)="openModalFollowing()"
+                    >{{ following.length }} following </a
+                  >-
+                  <a (click)="openModalFollowers()"
+                    >{{ followers.length }} followers</a
+                  ></small
                 ></span
               >
               <div *ngIf="currentUserId && currentUserId != user._id">
@@ -80,46 +84,36 @@
     </div>
   </div>
   <div class="container"><hr /></div>
-  <div class="container">
-    <div class="columns">
-      <div class="column level is-mobile">
-        <a href="" class="level-item has-text-centered router-link-active"
-          ><div>
-            <p>-</p>
-            <p>Recipes</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>-</p>
-            <p>Favorites</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>-</p>
-            <p>Miamed</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>{{ following.length }}</p>
-            <p>Following</p>
-          </div></a
-        >
-        <a href="" class="level-item has-text-centered"
-          ><div>
-            <p>{{ followers.length }}</p>
-            <p>Followers</p>
-          </div></a
-        >
-      </div>
-    </div>
-  </div>
+
   <div class="container">
     <div class="profile-items">
-      <h1 class="has-text-primary">Recipes</h1>
+      <h1 class="has-text-primary">
+        All the recipes published by {{ user.username }}:
+      </h1>
       <app-recipe-list></app-recipe-list>
+    </div>
+  </div>
+
+  <div class="modal" [ngClass]="{ 'is-active': modalDisplayable }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">{{ modalTitleToDisplay }}</p>
+        <button
+          class="delete"
+          aria-label="close"
+          (click)="closeModal()"
+        ></button>
+      </header>
+      <section class="modal-card-body">
+        <app-display-users
+          [users]="usersToDisplay"
+          (onClose)="closeModalFromChild($event)"
+        ></app-display-users>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" (click)="closeModal()">Cancel</button>
+      </footer>
     </div>
   </div>
 </div>

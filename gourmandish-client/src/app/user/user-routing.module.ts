@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGuard } from '../guards/auth.guard';
-import { RecipesModule } from '../recipes/recipes.module';
+import { NgModule } from '@angular/core';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { RecipesModule } from '../recipes/recipes.module';
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
 
 const routes: Routes = [

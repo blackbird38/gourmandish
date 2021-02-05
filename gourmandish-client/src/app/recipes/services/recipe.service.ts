@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
+import { ActivatedRoute } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Recipe } from 'src/app/models/Recipe.model';
 import { RecipeWebService } from './recipe.webservice';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -103,7 +104,7 @@ export class RecipeService {
       recipeId,
       like
     );
-    // could you do better this? (remove from favorite list when unliked)
+
     if (displayedOnFavoritesList) {
       let updatedRecipes = this.recipes.filter((r) => r._id !== recipeId);
       this.recipes = updatedRecipes;

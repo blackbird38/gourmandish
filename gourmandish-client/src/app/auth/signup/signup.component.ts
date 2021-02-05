@@ -93,8 +93,6 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['signin']);
       },
       error: (error) => {
-        //   console.log(error.error);
-        //  console.log(this.authForm.errors);
         if (error.error.message) {
           this.authForm.setErrors({ accountNotCreated: error.error.message }); // 422, 401, 500
         } else {

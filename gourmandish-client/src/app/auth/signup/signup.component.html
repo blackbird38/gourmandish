@@ -96,16 +96,3 @@
     </div>
   </div>
 </div>
-
-<p>username: {{ authForm.get("username").errors | json }}</p>
-<p>password: {{ authForm.get("password").errors | json }}</p>
-<p>
-  passwordConfirmation: {{ authForm.get("passwordConfirmation").errors | json }}
-</p>
-<p>email: {{ authForm.get("email").errors | json }}</p>
-<p>firstName: {{ authForm.get("firstName").errors | json }}</p>
-<p>lastName: {{ authForm.get("lastName").errors | json }}</p>
-<p>birthdate: {{ authForm.get("birthdate").errors | json }}</p>
-<p>
-  -------------- authForm errors: {{ authForm.errors | json }} -------------
-</p>
