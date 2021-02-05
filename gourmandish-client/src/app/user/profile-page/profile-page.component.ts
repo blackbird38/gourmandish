@@ -1,10 +1,11 @@
-import { OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+
 import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/models/User.model';
+import { OnDestroy } from '@angular/core';
 import { RecipeService } from 'src/app/recipes/services/recipe.service';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/User.model';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -18,15 +19,31 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   private recipeSubscription: Subscription;
   private userAuthSubscription: Subscription;
   currentUserId: string;
-  followers: string[] = [];
-  following: string[] = [];
+  followers: User[] = [];
+  following: User[] = [];
+  modalDisplayable: boolean = false;
+  usersToDisplay: User[] = [];
+  modalTitleToDisplay: string;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private recipeService: RecipeService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     const userId = this.route.snapshot.paramMap.get('id');
@@ -76,6 +93,25 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.following = await this.userService.getFollowing(this.user._id);
   }
 
+  openModalFollowers() {
+    this.modalDisplayable = !this.modalDisplayable;
+    this.usersToDisplay = this.followers;
+    this.modalTitleToDisplay = 'Display Followers';
+  }
+
+  openModalFollowing() {
+    this.modalDisplayable = !this.modalDisplayable;
+    this.modalTitleToDisplay = 'Display Following';
+  }
+  closeModal() {
+    this.modalDisplayable = false;
+    this.usersToDisplay = this.following;
+  }
+  closeModalFromChild(id: string) {
+    console.log(id);
+    this.closeModal();
+    //this.router.navigate(['profile-page', id]);
+  }
   ngOnDestroy(): void {
     //this.recipeSubscription.unsubscribe();
     this.userAuthSubscription.unsubscribe();
